@@ -74,5 +74,6 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 
 	@Override
 	public void addLast(Node<E> node) { addBetween(node, trailer.getPrev(), trailer); }
+	//
 	
 }
