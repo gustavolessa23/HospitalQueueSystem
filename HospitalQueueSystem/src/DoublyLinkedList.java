@@ -16,9 +16,14 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 		addBetween(toInsert, before, after);	
 	}
 
-	public void addFirst(E e) { addFirst(new Node<>(e, null, null)); }
+	public void addFirst(E e) {
+		addFirst(new Node<>(e, null, header)); 
+		size++;
+	}
 	
-	public void addLast(E e) { addLast(new Node<>(e, null, null)); }
+	public void addLast(E e) { 
+		addLast(new Node<>(e, null, null)); 
+	}
 	
 	@Override
 	public int size() { return size; }
@@ -70,10 +75,13 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 	}
 
 	@Override
-	public void addFirst(Node<E> node) { addBetween(node, header, header.getNext()); }
+	public void addFirst(Node<E> node) { 
+		addBetween(node, header, header.getNext()); 
+	}
 
 	@Override
-	public void addLast(Node<E> node) { addBetween(node, trailer.getPrev(), trailer); }
-	//
-	
+	public void addLast(Node<E> node) { 
+		addBetween(node, trailer.getPrev(), trailer); 
+	}
+	//	
 }
