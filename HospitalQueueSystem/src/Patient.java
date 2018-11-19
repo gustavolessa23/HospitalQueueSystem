@@ -95,12 +95,13 @@ public class Patient {
 	@Override
 	public String toString(){
 		
-	        return "Patient\n------\n" +
+	        return (
 	               "ID: " + this.getPid() + "\n" +
-	               "Name: " + this.getFirstName() + this.getLastName() + "\n"+
+	               "Name: " + this.getFirstName() + " " + this.getLastName() + "\n"+
 	               "Mobile Number: " + this.getMobile() + "\n" +
 	               "E-mail: " + this.getEmail() + "\n" +
-	               "City: " + this.getCity() +"\n";
+	               "City: " + this.getCity() +"\n"
+	               );
 	                    
 	   	
 	}
