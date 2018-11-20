@@ -103,15 +103,17 @@ public class Patient implements Comparable<Patient> {
 	@Override
 	public String toString(){
 		
-	        return "\n\nPatient\n------\n" +
+
+	        return ("\n\nPatient\n------\n" +
+	       
 	               "ID: " + this.getPid() + "\n" +
 	               "PPS: " + this.getPps() + "\n" +
 	               "Name: " + this.getFirstName() + this.getLastName() + "\n"+
+	               "Name: " + this.getFirstName() + " " + this.getLastName() + "\n"+
 	               "Mobile Number: " + this.getMobile() + "\n" +
 	               "E-mail: " + this.getEmail() + "\n" +
-	               "City: " + this.getCity() +"\n";
-	                    
-	   	
+	               "City: " + this.getCity() +"\n"
+	               );	                       	
 	}
 
 

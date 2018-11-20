@@ -1,13 +1,11 @@
 // CCT College Dublin
 // Dr. Muhammad Iqbal
 
-import java.util.ArrayList;
-
 /**
  *
  * @author munaw
  */
-public class Queue <E>{
+public class Queue<E>{
     
   private DoublyLinkedList<E> queueList;
  
@@ -46,5 +44,4 @@ public class Queue <E>{
 	public void displayQueue() {
 		for (int i = 0; i < queueList.size(); i++)
 			System.out.println("Queue List[" + i + "] = " + queueList.get(i));   
- 	}  
 }

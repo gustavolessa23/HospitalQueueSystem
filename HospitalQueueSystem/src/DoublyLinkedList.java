@@ -83,17 +83,24 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 	public void addLast(Node<E> node) { 
 		addBetween(node, trailer.getPrev(), trailer); 
 	}
+		
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("");
+		Node<E> p = header;
+		if (p != null) {
+			p = p.getNext();
+			while (p.getNext() != null) {
+				sb.append(p.getElement().toString());
+				sb.append(" ==> ");
+				p = p.getNext();
+			}
+			sb.append(p.getElement().toString());
+		}
+		sb.append("]");
+		return sb.toString();
+	}
 	
-	public E get(int index) {
-		if (index >= size)
-            
-        return elementData(index);
-		return null;
-    }
 	
-	E elementData(int index) {
-        E[] elementData = null;
-		return (E) elementData[index];
-    }
-	//	
+
 }
