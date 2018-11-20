@@ -1,18 +1,18 @@
 
 public class HospitalManagementSystem {
+	
+	public static Patient patient;
 
 	public static void main(String[] args) {
-		DoublyLinkedList<Patient> queue = new DoublyLinkedList<>();
+		Queue<Patient> queue = new Queue<>();
 		
-		queue.addFirst(new Patient("333","Fernando", "Tenorio", "08997-76848", "fsantos.@hotmail.com", "dublin"));
-		queue.addFirst(new Patient("333","Fernando", "Tenorio", "08997-76848", "fsantos.@hotmail.com", "dublin"));
-		queue.addFirst(new Patient("333","Fernando", "Tenorio", "08997-76848", "fsantos.@hotmail.com", "dublin"));
+		queue.enqueue(new Patient("333","Fernando", "Tenorio", "08997-76848", "fsantos.@hotmail.com", "dublin"));
+		queue.enqueue(new Patient("333","Fernando", "Tenorio", "08997-76848", "fsantos.@hotmail.com", "dublin"));
+		queue.enqueue(new Patient("333","Fernando", "Tenorio", "08997-76848", "fsantos.@hotmail.com", "dublin"));
 
-		for(int i = 0; i< queue.size(); i++){
-			System.out.println(new Patient("333","Fernando", "Tenorio", "08997-76848", "fsantos.@hotmail.com", "dublin").toString());
-		}
+		
 	
-		queue.size();
+		queue.displayQueue();;
 	}
 
 }

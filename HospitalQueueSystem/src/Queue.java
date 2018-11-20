@@ -44,8 +44,7 @@ public class Queue <E>{
  	}
  
 	public void displayQueue() {
-		//for (int i = 0; i < queueList.size(); i++)
-		//	System.out.println("QueueList[" + i + "] = " + queueList.get(i));   
-
+		for (int i = 0; i < queueList.size(); i++)
+			System.out.println("Queue List[" + i + "] = " + queueList.get(i));   
  	}  
 }

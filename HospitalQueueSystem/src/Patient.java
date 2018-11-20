@@ -1,6 +1,6 @@
 
-public class Patient {
-	private static int lastPid = 0;
+public class Patient implements Comparable<Patient> {
+	private static int lastPid;
 	private final int pid;
 
 	private final String pps;
@@ -21,7 +21,13 @@ public class Patient {
 		this.city = city;
 	}
 	
-	
+	public Patient(String name, String lastname){
+		super();
+		this.pid = ++lastPid;
+		this.pps = null;
+		this.firstName = name;
+		this.lastName = lastname;
+	}
 	
 	public Patient() {
 		super();
@@ -33,6 +39,8 @@ public class Patient {
 		this.email = null;
 		this.city = null;
 	}
+	
+	
 
 
 
@@ -95,14 +103,23 @@ public class Patient {
 	@Override
 	public String toString(){
 		
-	        return "Patient\n------\n" +
+	        return "\n\nPatient\n------\n" +
 	               "ID: " + this.getPid() + "\n" +
+	               "PPS: " + this.getPps() + "\n" +
 	               "Name: " + this.getFirstName() + this.getLastName() + "\n"+
 	               "Mobile Number: " + this.getMobile() + "\n" +
 	               "E-mail: " + this.getEmail() + "\n" +
 	               "City: " + this.getCity() +"\n";
 	                    
 	   	
+	}
+
+
+
+	@Override
+	public int compareTo(Patient o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }
