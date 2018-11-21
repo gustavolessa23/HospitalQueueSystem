@@ -36,12 +36,35 @@ public class Queue<E>{
 // 		    throw new EmptyQueueException();
 		return null;
  	}
+	
+	public E lastElement() {
+ 		if (!isEmpty())
+ 			
+ 		    return queueList.last();
+ 		else
+// 		    throw new EmptyQueueException();
+		return null;
+ 	}
+	
+	public E getNext(Node<E> node) {
+ 		if (!isEmpty())
+ 		    return queueList.);
+ 		else
+// 		    throw new EmptyQueueException();
+		return null;
+ 	}
  
 	public int size() {
  		return queueList.size();
  	}
  
 	public void displayQueue() {
-		for (int i = 0; i < queueList.size(); i++)
-			System.out.println("Queue List[" + i + "] = " + queueList.get(i));   
+		System.out.println("HOSPITAL QUEUE");
+		System.out.println("-------------------------"); 
+
+		for (int i = 0; i < size(); i++) {
+			System.out.println((i+1)+" - Patient: "+ );
+		}
+	
+	}
 }
