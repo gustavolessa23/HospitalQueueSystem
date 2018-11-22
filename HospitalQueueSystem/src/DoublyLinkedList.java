@@ -10,9 +10,7 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 		trailer = new Node<>(null, header, null);
 		header.setNext(trailer);
 	}
-	
 
-	
 	public void addInPosition(E e, int position) {
 		Node<E> currentPosition = getNode(position);
 		Node<E> toInsert = new Node<>(e);
@@ -24,37 +22,22 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 		return getNode(position).getElement();
 	}
 	
-	public Node<E> getNode(int position) {
-		
-//	       Node current = head; 
-//	        int count = 0; /* index of Node we are 
-//	                          currently looking at */
-//	        while (current != null) 
-//	        { 
-//	            if (count == index) 
-//	                return current.data; 
-//	            count++; 
-//	            current = current.next; 
-//	        } 
-		
+	public Node<E> getNode(int position) {		
 		
 		if (position > size) return null;
 		Node<E> currentNode = null;
-		
-		//int counter = 0;
+
 		
 		if(position < (size/2)) {
 			currentNode = header;
-			for(int x = 0; x<position; x++) {
-				//counter++;
+			for(int x = 0; x<position; x++) 
 				currentNode = currentNode.getNext();
-			}	
+				
 		} else {
 			currentNode = trailer;
-			for(int x = size; x>position; x--) {
-				//counter++;
+			for(int x = size; x>position; x--) 
 				currentNode = currentNode.getPrev();
-			}
+			
 		}
 		return currentNode;
 	}
@@ -71,7 +54,6 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 	public Node<E> getNextNode(Node<E> e) {
 		return e.getNext();
 	}
-	
 	
 	
 	public void removeLastNodes(int numberOfNodes) {
@@ -162,6 +144,4 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 		return sb.toString();
 	}
 	
-	
-
 }

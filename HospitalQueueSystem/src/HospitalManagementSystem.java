@@ -1,11 +1,9 @@
 import java.io.IOException;
-import java.util.Scanner;
 
 public class HospitalManagementSystem{
 	
 	private ReadFile listOfPatients;
 	private QueueSystem patients;
-	private Validation validation;
 	private View view;
 	private Input input;
 
@@ -13,7 +11,6 @@ public class HospitalManagementSystem{
 	public HospitalManagementSystem(){
 		this.patients = new QueueSystem();
 		this.listOfPatients = new ReadFile();
-		this.validation = new Validation();
 		this.view = new View();
 		this.input = new Input();
 	}
@@ -76,11 +73,12 @@ public class HospitalManagementSystem{
 		String phone = typeMobileNumber();
 		String email = typeEmail();
 		String city = typeCity();
-		Patient patient = new Patient(ppsNumber, name, surname, phone, email, city);
+		Patient newPatient = new Patient(ppsNumber, name, surname, phone, email, city);
 		
-		View.displayPatient(patient);
+		patients.addPatient(newPatient); // uses the QueueSystem method to add to the list
+		View.displayPatient(patients.getLast()); // prints the last patient to confirm that it is the same 
+		
 		View.display("Do you want to add another patient? (Y/N)\n------------------------------\n");
-		
 		if(input.isYes())
 			addPatient();
 	

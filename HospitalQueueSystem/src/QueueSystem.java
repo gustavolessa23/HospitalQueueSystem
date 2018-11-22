@@ -1,9 +1,7 @@
 
 public class QueueSystem {
-//	private Node<Patient> header;
-//	private Node<Patient> trailer;
-//	private int size = 0;
-	DoublyLinkedList<Patient> list;
+
+	private DoublyLinkedList<Patient> list;
 
 	public QueueSystem() {
 		list = new DoublyLinkedList<>();
@@ -24,12 +22,13 @@ public class QueueSystem {
 		return foundPosition;
 	}
 	
-//	public Node findPatient(Node p, Node<Patient> patient) {
-//		Node current = p; // current is the cursor
-//		while (current != null && current.getElement() != patient) // while is not what I'm
-//			// looking for
-//			current = current.getNext();
-//		return current;
-//	}
+	public void addPatient(Patient toAdd) {
+		list.addLast(toAdd);
+	}
+	
+	public Patient getLast() {
+		return list.last();
+	}
+
 
 }

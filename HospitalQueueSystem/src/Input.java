@@ -15,7 +15,10 @@ public class Input {
 	}
 	
 	public String getNextString() {
-		return scan.nextLine();
+		String line = "";
+		while(line.isEmpty())
+			line = scan.nextLine();
+		return line;
 	}
 	
 	public boolean isYes() {
