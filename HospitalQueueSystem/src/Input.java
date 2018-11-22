@@ -10,8 +10,12 @@ public class Input {
 		 validate = new Validation();
 	}
 	
-	public int getInt(int limit) {
+	public int getNextInt(int limit) {
 		return validate.checkForInt(scan, 1, limit);
+	}
+	
+	public String getNextString() {
+		return scan.nextLine();
 	}
 	
 	

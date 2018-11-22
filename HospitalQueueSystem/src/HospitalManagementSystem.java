@@ -7,7 +7,7 @@ public class HospitalManagementSystem{
 	private QueueSystem patients;
 	private View view;
 	private Input input;
-	private Scanner in = new Scanner(System.in);
+
 	
 	public HospitalManagementSystem(){
 		this.patients = new QueueSystem();
@@ -18,9 +18,9 @@ public class HospitalManagementSystem{
 	
 	public void start() throws IOException {
 		int options = view.displayMainMenu();
-		int chosenOption = input.getInt(options);
-		
+		int chosenOption = input.getNextInt(options);
 		mainMenuOption(chosenOption);
+		start();
 	}
 
 	private void mainMenuOption(int chosenOption) throws IOException {
@@ -109,27 +109,27 @@ public class HospitalManagementSystem{
 
 	private String typePpsNumber(){
 		View.display("Please type PPS Number: "); 
-		return in.next();
+		return input.getNextString();
 	}
 	private String typeName(){
 		View.display("Please type name: ");  
-        return in.next();
+        return input.getNextString();
     }
 	private String typeSurName(){
 		View.display("Please type surname: "); 
-		return in.next();
+		return input.getNextString();
 	}
 	private String typeMobileNumber(){
 		View.display("Please type phone: ");
-		return in.next();
+		return input.getNextString();
 	}
 	private String typeEmail(){
 		View.display("Please type email: "); 
-		return in.next();
+		return input.getNextString();
 	}
 	private String typeCity(){
 		View.display("Please type City: "); 
-		return in.next();
+		return input.getNextString();
 	}
 	
 	
