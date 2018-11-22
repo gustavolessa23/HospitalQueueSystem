@@ -11,9 +11,48 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 		header.setNext(trailer);
 	}
 	
-	public void addBetween(E e, Node<E> before, Node<E> after) {
-		Node<E> toInsert = new Node<>(e, before, after);
-		addBetween(toInsert, before, after);	
+
+	
+	public void addInPosition(E e, int position) {
+		Node<E> currentPosition = getNode(position);
+		Node<E> toInsert = new Node<>(e);
+
+		addBefore(toInsert, currentPosition);	
+	}
+	
+	public Node<E> getNode(int position) {
+		
+//	       Node current = head; 
+//	        int count = 0; /* index of Node we are 
+//	                          currently looking at */
+//	        while (current != null) 
+//	        { 
+//	            if (count == index) 
+//	                return current.data; 
+//	            count++; 
+//	            current = current.next; 
+//	        } 
+		
+		
+		if (position > size) return null;
+		Node<E> currentNode = null;
+		
+		//int counter = 0;
+		
+		if(position < (size/2)) {
+			currentNode = header;
+			for(int x = 0; x<position; x++) {
+				//counter++;
+				currentNode = currentNode.getNext();
+			}	
+		} else {
+			currentNode = trailer;
+			for(int x = size; x>position; x--) {
+				//counter++;
+				currentNode = currentNode.getPrev();
+			}
+		}
+		return currentNode;
 	}
 
 	public void addFirst(E e) {
@@ -27,6 +66,12 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 	
 	public Node<E> getNextNode(Node<E> e) {
 		return e.getNext();
+	}
+	
+	public void removeLastNodes(int numberOfNodes) {
+		Node<E> lastNode = getNode(size-numberOfNodes);
+		lastNode.setNext(trailer);
+		trailer.setPrev(lastNode);
 	}
 	
 	@Override
@@ -48,8 +93,10 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 	}
 	
 	@Override
-	public void addBetween(Node<E> toBeAdded, Node<E> before, Node<E> after) {
-		before.setNext(toBeAdded);
+	public void addBefore(Node<E> toBeAdded, Node<E> after) {
+		toBeAdded.setNext(after);
+		toBeAdded.setPrev(after.getPrev());
+		after.getPrev().setNext(toBeAdded);
 		after.setPrev(toBeAdded);
 		size++;	
 	}
@@ -80,12 +127,12 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 
 	@Override
 	public void addFirst(Node<E> node) { 
-		addBetween(node, header, header.getNext()); 
+		addBefore(node, header.getNext()); 
 	}
 
 	@Override
 	public void addLast(Node<E> node) { 
-		addBetween(node, trailer.getPrev(), trailer); 
+		addBefore(node, trailer); 
 	}
 		
 	@Override
