@@ -130,6 +130,7 @@ public class HospitalManagementSystem{
 
 	private void checkPosition() {
 		// TODO Auto-generated method stub
+		
 		int pid = 0;
 		patients.searchPatient(pid);
 	}
