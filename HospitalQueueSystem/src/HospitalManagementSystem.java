@@ -1,20 +1,20 @@
 import java.io.IOException;
 
 public class HospitalManagementSystem{
-	
+
 	private ReadFile listOfPatients;
 	private QueueSystem patients;
 	private View view;
 	private Input input;
 
-	
+
 	public HospitalManagementSystem(){
 		this.patients = new QueueSystem();
 		this.listOfPatients = new ReadFile();
 		this.view = new View();
 		this.input = new Input();
 	}
-	
+
 	public void start() throws IOException {
 		int options = view.displayMainMenu();
 		int chosenOption = input.getNextInt(options);
@@ -28,35 +28,35 @@ public class HospitalManagementSystem{
 		case 1:
 			addPatient();
 			break;
-		
+
 		case 2:
 			checkPosition();
 			break;
-		
+
 		case 3:
 			updatePatient();
 			break;
-		
+
 		case 4:
 			listAll();
 			break;		
-		
+
 		case 5:
 			removePatient();
 			break;
-		
+
 		case 6:
 			removeLastPatients();
 			break;	
-		
+
 		case 7:
 			exitSystem();
 			break;
-		
+
 		default:
 			View.displayError("Option not found!");;
 			break;
-		
+
 		}
 		start();
 	}
@@ -65,7 +65,7 @@ public class HospitalManagementSystem{
 		View.display("Thank you for using Hospital Management System!");
 		System.exit(0);
 	}
-	
+
 	private void addPatient() {
 		View.display("\nADD NEW PATIENT\n-----------------------\n");
 		String ppsNumber = typePpsNumber();
@@ -78,13 +78,13 @@ public class HospitalManagementSystem{
 
 
 		View.display("Do you want to add more Patiend?\n----------------------\n"+ "1 - Yes\n" + "2 - No");
-		
+
 		int answer = this.input.validate.checkForInt(this.input.scan, 1, 2);
 		if(answer == 1){
-		addPatient();	
-		patients.addPatient(newPatient); // uses the QueueSystem method to add to the list
-		View.displayPatient(patients.getLast()); // prints the last patient to confirm that it is the same 
-		View.display("Do you want to add another patient? (Y/N)\n------------------------------\n");
+			addPatient();	
+			patients.addPatient(newPatient); // uses the QueueSystem method to add to the list
+			View.displayPatient(patients.getLast()); // prints the last patient to confirm that it is the same 
+			View.display("Do you want to add another patient? (Y/N)\n------------------------------\n");
 		}
 		else if(answer == 2){
 			view.displayPatient(newPatient);
@@ -101,10 +101,6 @@ public class HospitalManagementSystem{
 		// TODO Auto-generated method stu	
 	}
 
-
-	private void listAll() throws IOException {
-		listOfPatients.createPatients();
-
 	private void listAll(){
 		StringBuilder sb = new StringBuilder("");
 		sb.append("POSITION\tPID\t\tNAME\n");
@@ -120,14 +116,16 @@ public class HospitalManagementSystem{
 			sb.append(p.getLastName());
 			sb.append("\n");
 		}
-		
+
 		View.display(sb.toString());
-		
+
 	}
 
 	private void updatePatient() {
 		// TODO Auto-generated method stub
-		
+		int index = 0;
+		patients.updatePatient(index);
+
 	}
 
 	private void checkPosition() {
@@ -142,8 +140,8 @@ public class HospitalManagementSystem{
 	}
 	private String typeName(){
 		View.display("Please type name: ");  
-        return input.getNextString();
-    }
+		return input.getNextString();
+	}
 	private String typeSurname(){
 		View.display("Please type surname: "); 
 		return input.getNextString();
@@ -160,8 +158,8 @@ public class HospitalManagementSystem{
 		View.display("Please type City: "); 
 		return input.getNextString();
 	}
-	
-	
-	
+
+
+
 
 }
