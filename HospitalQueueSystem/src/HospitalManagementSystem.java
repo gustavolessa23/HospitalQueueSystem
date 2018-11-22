@@ -103,7 +103,6 @@ public class HospitalManagementSystem{
 	private void listAll() throws IOException {
 		// TODO Auto-generated method stub
 		listOfPatients.createPatients();
-		view.displayMainMenu();
 		
 	}
 
