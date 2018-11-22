@@ -69,26 +69,21 @@ public class HospitalManagementSystem{
 	}
 	
 	private void addPatient() {
-		View.display("\nCREATE NEW PATIENT\n-----------------------\\n");
+		View.display("\nADD NEW PATIENT\n-----------------------\n");
 		String ppsNumber = typePpsNumber();
 		String name = typeName();
-		String surname = typeSurName();
+		String surname = typeSurname();
 		String phone = typeMobileNumber();
 		String email = typeEmail();
 		String city = typeCity();
 		Patient patient = new Patient(ppsNumber, name, surname, phone, email, city);
 		
 		View.displayPatient(patient);
-		View.display("Do you want to add more Patiend?\n----------------------\n"+ "1 - Yes\n" + "2 - No");
-		int limit = 0;
-		int answer = this.validation.checkForInt(this.input.scan, 1, 2);
-		if(answer == 1){
-			addPatient();
-			view.displayPatient(patient);
-		}else if(answer == 2){
-			view.displayPatient(patient);
-		}
+		View.display("Do you want to add another patient? (Y/N)\n------------------------------\n");
 		
+		if(input.isYes())
+			addPatient();
+	
 	}
 
 	private void removePatient() {
@@ -126,7 +121,7 @@ public class HospitalManagementSystem{
 		View.display("Please type name: ");  
         return input.getNextString();
     }
-	private String typeSurName(){
+	private String typeSurname(){
 		View.display("Please type surname: "); 
 		return input.getNextString();
 	}
