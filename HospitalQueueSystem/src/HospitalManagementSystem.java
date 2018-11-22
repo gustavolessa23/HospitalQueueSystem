@@ -80,10 +80,9 @@ public class HospitalManagementSystem{
 		
 		int answer = this.input.validate.checkForInt(this.input.scan, 1, 2);
 		if(answer == 1){
-
+		addPatient();	
 		patients.addPatient(newPatient); // uses the QueueSystem method to add to the list
 		View.displayPatient(patients.getLast()); // prints the last patient to confirm that it is the same 
-		
 		View.display("Do you want to add another patient? (Y/N)\n------------------------------\n");
 		}
 		else if(answer == 2){
@@ -95,7 +94,9 @@ public class HospitalManagementSystem{
 
 	private void removePatient() {
 		// TODO Auto-generated method stub
+		int delete = 0;
 		View.display("Type Patient Number:\n---------------------\n");
+		patients.deletePatient(delete);
 	}
 
 	private void removeLastPatients() {
@@ -114,7 +115,8 @@ public class HospitalManagementSystem{
 
 	private void checkPosition() {
 		// TODO Auto-generated method stub
-		
+		int pid = 0;
+		patients.searchPatient(pid);
 	}
 
 	private String typePpsNumber(){
