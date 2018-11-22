@@ -1,24 +1,29 @@
+import java.io.IOException;
+import java.util.Scanner;
 
-public class HospitalManagementSystem {
+public class HospitalManagementSystem{
 	
+	private ReadFile listOfPatients;
 	private QueueSystem patients;
 	private View view;
 	private Input input;
+	private Scanner in = new Scanner(System.in);
 	
 	public HospitalManagementSystem(){
 		this.patients = new QueueSystem();
+		this.listOfPatients = new ReadFile();
 		this.view = new View();
 		this.input = new Input();
 	}
 	
-	public void start() {
+	public void start() throws IOException {
 		int options = view.displayMainMenu();
 		int chosenOption = input.getInt(options);
 		
 		mainMenuOption(chosenOption);
 	}
 
-	private void mainMenuOption(int chosenOption) {
+	private void mainMenuOption(int chosenOption) throws IOException {
 		switch(chosenOption) {
 
 		case 1:
@@ -60,9 +65,24 @@ public class HospitalManagementSystem {
 		View.display("Thank you for using Hospital Management System!");
 		System.exit(0);
 	}
+	
+	private void addPatient() {
+		View.display("\nCREATE NEW PATIENT\n-----------------------\\n");
+		String ppsNumber = typePpsNumber();
+		String name = typeName();
+		String surname = typeSurName();
+		String phone = typeMobileNumber();
+		String email = typeEmail();
+		String city = typeCity();
+		Patient patient = new Patient(ppsNumber, name, surname, phone, email, city);
+		View.displayPatient(patient);
+		View.display("Do you want to add more Patiend?\n----------------------\n");
+		
+	}
 
 	private void removePatient() {
 		// TODO Auto-generated method stub
+		View.display("Type Patient Number:\n---------------------\n");
 		
 	}
 
@@ -71,8 +91,9 @@ public class HospitalManagementSystem {
 		
 	}
 
-	private void listAll() {
+	private void listAll() throws IOException {
 		// TODO Auto-generated method stub
+		listOfPatients.createPatients();
 		
 	}
 
@@ -86,11 +107,31 @@ public class HospitalManagementSystem {
 		
 	}
 
-	private void addPatient() {
-		View.display("\nCREATE NEW PATIENT\n-----------------------\\n");
-		
-		
+	private String typePpsNumber(){
+		View.display("Please type PPS Number: "); 
+		return in.next();
 	}
+	private String typeName(){
+		View.display("Please type name: ");  
+        return in.next();
+    }
+	private String typeSurName(){
+		View.display("Please type surname: "); 
+		return in.next();
+	}
+	private String typeMobileNumber(){
+		View.display("Please type phone: ");
+		return in.next();
+	}
+	private String typeEmail(){
+		View.display("Please type email: "); 
+		return in.next();
+	}
+	private String typeCity(){
+		View.display("Please type City: "); 
+		return in.next();
+	}
+	
 	
 	
 

@@ -8,75 +8,48 @@ import java.nio.file.Paths;
 import java.sql.RowId;
 import java.util.Random;
 
-public class ReadFile<E> {
-	Random random;
-	FileReader file;
-	Path namePath;
-	Path surnamePath;
-	Path emailPath;
-	Path cityPath;
-	Path phonePath;
-
-
-	public static void main(String [] agrs) throws IOException{
-		ReadFile<?> read = new ReadFile<>();
-		// System.out.println(read.test());
-		System.out.println("Name: " + read.generateAllPatients(1));
-	}
-	public ReadFile(){
-		random = new Random(100);
-		namePath = Paths.get("src/Patients","names.txt");
-		surnamePath = Paths.get("src/Patients","surnames.txt");
-		emailPath = Paths.get("src/Patients","email.txt");
-		cityPath = Paths.get("src/Patients","cities.txt");
-		phonePath = Paths.get("src/Patients","phone.txt");
-	}
-
-	public DoublyLinkedList<Patient> generateAllPatients(int numPatients){
-		
-		DoublyLinkedList<Patient> queueList = new DoublyLinkedList<>();
-		try {
-			for(int i = 0; i<numPatients; i++){
-				queueList.addLast(this.test());
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return queueList;
-
-	}
-	public Patient test() throws IOException{
-		Patient patient =  new Patient();
+public class ReadFile {
+	
+	static Patient patient = new Patient();
+//	public DoublyLinkedList<Patient> generateAllPatients(int numPatients){
+//
+//		DoublyLinkedList<Patient> queueList = new DoublyLinkedList<>();
+//		try {
+//			for(int i = 0; i<numPatients; i++){
+//				queueList.addLast(this.createPatients(patient));
+//			}
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return queueList;
+//
+//	}
+	public DoublyLinkedList<Patient> createPatients() throws IOException{
+		Patient patient = new Patient();
 		DoublyLinkedList<Patient> array = new DoublyLinkedList<>();
-		ArrayListClass<E> list = new ArrayListClass<>();
-		
+
 		File file = new File("src/Patients","names.txt"); 
 
 		BufferedReader br = new BufferedReader(new FileReader(file)); 
 
-		String st;
-		//		  if((st = br.readLine()) != null){
-		//			  
-		//		  }
+		String st = null;	
 		while ((st =  br.readLine()) != null) {
 			String[] row = new String[6];
 			row =  st.split("\\s+");
 
-			((Patient) patient).setPps(row[0]);
-			((Patient) patient).setFirstName(row[1]);
-			((Patient) patient).setLastName(row[2]);
-			((Patient) patient).setMobile(row[3]);
-			((Patient) patient).setEmail(row[4]);
-			((Patient) patient).setCity(row[5]);
-			array.addLast(patient);
-
-			for(int i = 0; i< array.size(); i++){
-				System.out.println(array);
+			patient.setPps(row[0]);
+			patient.setFirstName(row[1]);
+			patient.setLastName(row[2]);
+			patient.setMobile(row[3]);
+			patient.setEmail(row[4]);
+			patient.setCity(row[5]);
+			
+			if(patient !=null){
+				View.displayPatient(patient);
 			}
 		}
-		return patient;
-
+		return array;
 	}
 
 

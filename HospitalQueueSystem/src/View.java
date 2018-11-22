@@ -25,6 +25,12 @@ public class View {
 	public static void display(String str) {
 		System.out.println(str);
 	}
+	public static <E> void displayPatient(DoublyLinkedList<E> array) {
+		System.out.println(array);
+	}
+	public static void displayPatient(Patient patient) {
+		System.out.println(patient.toString());
+	}
 	
 	public static void displaySameLine(String str) {
 		System.out.print(str);
