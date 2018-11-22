@@ -15,7 +15,7 @@ public class Input {
 	}
 	
 	public String getNextString() {
-		return scan.nextLine();
+		return scan.next();
 	}
 	
 	
