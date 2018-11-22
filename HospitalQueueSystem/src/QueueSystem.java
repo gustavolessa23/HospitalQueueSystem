@@ -34,7 +34,7 @@ public class QueueSystem {
 	public Patient getLast() {
 		return list.last();
 	}
-<<<<<<< HEAD
+
 	private void updatePatient(int index){
 		
 //		 if(keepers.getKeeper(index).getQualifications().size()<
@@ -77,8 +77,6 @@ public class QueueSystem {
 //	                    + "qualifications");
 //	        }
 	}
-=======
-	
 	public int getListSize() {
 		return list.size();
 	}
@@ -90,7 +88,6 @@ public class QueueSystem {
 		return list.get(position);	
 	}
 
->>>>>>> branch 'master' of https://github.com/gustavolessa23/HospitalQueueSystem.git
 
 
 }

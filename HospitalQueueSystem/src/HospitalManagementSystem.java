@@ -89,10 +89,7 @@ public class HospitalManagementSystem{
 		else if(answer == 2){
 			view.displayPatient(newPatient);
 		}
-
-
 	}
-
 	private void removePatient() {
 		// TODO Auto-generated method stub
 		int delete = 0;
@@ -104,10 +101,10 @@ public class HospitalManagementSystem{
 		// TODO Auto-generated method stu	
 	}
 
-<<<<<<< HEAD
+
 	private void listAll() throws IOException {
 		listOfPatients.createPatients();
-=======
+
 	private void listAll(){
 		StringBuilder sb = new StringBuilder("");
 		sb.append("POSITION\tPID\t\tNAME\n");
@@ -125,7 +122,6 @@ public class HospitalManagementSystem{
 		}
 		
 		View.display(sb.toString());
->>>>>>> branch 'master' of https://github.com/gustavolessa23/HospitalQueueSystem.git
 		
 	}
 
