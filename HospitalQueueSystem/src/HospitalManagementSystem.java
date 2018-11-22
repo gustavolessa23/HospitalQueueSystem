@@ -123,8 +123,8 @@ public class HospitalManagementSystem{
 
 	private void updatePatient() {
 		// TODO Auto-generated method stub
-		int index = 0;
-		patients.updatePatient(index);
+	
+		patients.updatePatient(input.scan.nextInt());
 
 	}
 
