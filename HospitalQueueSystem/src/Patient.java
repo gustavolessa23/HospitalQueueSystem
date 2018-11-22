@@ -1,6 +1,6 @@
 
 public class Patient implements Comparable<Patient> {
-	private static int lastPid;
+	private static int lastPid = 0;
 	private int pid;
 
 	private String pps;
@@ -20,7 +20,7 @@ public class Patient implements Comparable<Patient> {
 		this.mobile = mobile;
 		this.email = email;
 		this.city = city;
-		this.priority = priority;
+		this.priority = 'c';
 	}
 
 	public Patient(String name, String lastname){
@@ -93,7 +93,7 @@ public class Patient implements Comparable<Patient> {
 	}
 
 	public int getPid() {
-		return pid++;
+		return pid;
 	}
 	public void setPps(String pps){
 		this.pps = pps;

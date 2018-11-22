@@ -49,6 +49,7 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 	
 	public void addLast(E e) { 
 		addLast(new Node<>(e, null, null)); 
+		size++;
 	}
 	
 	public Node<E> getNextNode(Node<E> e) {
@@ -60,6 +61,7 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 		Node<E> lastNode = getNode(size-numberOfNodes);
 		lastNode.setNext(trailer);
 		trailer.setPrev(lastNode);
+		size = size - numberOfNodes;
 	}
 	
 	@Override

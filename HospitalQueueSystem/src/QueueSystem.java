@@ -29,6 +29,18 @@ public class QueueSystem {
 	public Patient getLast() {
 		return list.last();
 	}
+	
+	public int getListSize() {
+		return list.size();
+	}
+	
+	public Patient getPatient(int position) {
+		if(position>list.size())
+			return null;
+		
+		return list.get(position);	
+	}
+
 
 
 }
