@@ -5,6 +5,7 @@ public class HospitalManagementSystem{
 	
 	private ReadFile listOfPatients;
 	private QueueSystem patients;
+	private Validation validation;
 	private View view;
 	private Input input;
 
@@ -12,6 +13,7 @@ public class HospitalManagementSystem{
 	public HospitalManagementSystem(){
 		this.patients = new QueueSystem();
 		this.listOfPatients = new ReadFile();
+		this.validation = new Validation();
 		this.view = new View();
 		this.input = new Input();
 	}
@@ -77,7 +79,15 @@ public class HospitalManagementSystem{
 		Patient patient = new Patient(ppsNumber, name, surname, phone, email, city);
 		
 		View.displayPatient(patient);
-		View.display("Do you want to add more Patiend?\n----------------------\n");
+		View.display("Do you want to add more Patiend?\n----------------------\n"+ "1 - Yes\n" + "2 - No");
+		int limit = 0;
+		int answer = this.validation.checkForInt(this.input.scan, 1, 2);
+		if(answer == 1){
+			addPatient();
+			view.displayPatient(patient);
+		}else if(answer == 2){
+			view.displayPatient(patient);
+		}
 		
 	}
 
