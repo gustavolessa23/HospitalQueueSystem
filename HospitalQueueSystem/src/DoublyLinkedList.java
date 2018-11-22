@@ -20,6 +20,10 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 		addBefore(toInsert, currentPosition);	
 	}
 	
+	public E get(int position) {
+		return getNode(position).getElement();
+	}
+	
 	public Node<E> getNode(int position) {
 		
 //	       Node current = head; 
@@ -67,6 +71,8 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 	public Node<E> getNextNode(Node<E> e) {
 		return e.getNext();
 	}
+	
+	
 	
 	public void removeLastNodes(int numberOfNodes) {
 		Node<E> lastNode = getNode(size-numberOfNodes);
@@ -125,6 +131,10 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 		return remove(trailer.getPrev());
 	}
 
+	public E remove(int position) {
+		return remove(getNode(position));
+	}
+	
 	@Override
 	public void addFirst(Node<E> node) { 
 		addBefore(node, header.getNext()); 

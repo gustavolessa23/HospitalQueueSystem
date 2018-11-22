@@ -75,6 +75,7 @@ public class HospitalManagementSystem{
 		String email = typeEmail();
 		String city = typeCity();
 		Patient patient = new Patient(ppsNumber, name, surname, phone, email, city);
+		
 		View.displayPatient(patient);
 		View.display("Do you want to add more Patiend?\n----------------------\n");
 		
