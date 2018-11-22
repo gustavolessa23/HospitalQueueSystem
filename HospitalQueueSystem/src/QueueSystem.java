@@ -10,11 +10,16 @@ public class QueueSystem {
 	public Patient deletePatient(int pid){
 		int patientPosition = searchPatient(pid);
 		
-		return list.remove(patientPosition);
+		if(patientPosition <= 0)
+			return null;
+		
+		else
+			return list.remove(patientPosition);
+
 	}
 	
 	public int searchPatient(int pid){
-		int foundPosition = 0;
+		int foundPosition = -1;
 		for(int x = 1; x < list.size(); x++) 
 			if(list.get(x).getPid() == pid)
 				foundPosition = x;
@@ -26,8 +31,13 @@ public class QueueSystem {
 		list.addLast(toAdd);
 	}
 	
+	
 	public Patient getLast() {
 		return list.last();
+	}
+	
+	public int getLastPid() {
+		return Patient.getLastPid();
 	}
 	
 	public int getListSize() {
@@ -39,6 +49,19 @@ public class QueueSystem {
 			return null;
 		
 		return list.get(position);	
+	}
+
+	public boolean isEmpty() {
+		return (list.size() == 0);
+	}
+
+	public void addPatients(DoublyLinkedList<Patient> samplePatients) {
+		int counter = 0;
+		for(int x = 0; x < samplePatients.size()-1; x++) {
+			System.out.println("Added: "+ ++counter);
+			list.addLast(samplePatients.get(x+1));
+		}
+		
 	}
 
 

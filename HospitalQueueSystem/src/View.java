@@ -26,10 +26,10 @@ public class View {
 		System.out.println(str);
 	}
 	public static <E> void displayPatient(DoublyLinkedList<E> array) {
-		System.out.println(array);
+		display(array.toString());
 	}
 	public static void displayPatient(Patient patient) {
-		System.out.println(patient.toString());
+		display(patient.toString());
 	}
 	
 	public static void displaySameLine(String str) {
@@ -38,6 +38,15 @@ public class View {
 	
 	public static void displayError(String str) {
 		System.err.println(str);
+	}
+
+	public static void askForPid() {
+		display("Type Patient Number:");
+	}
+
+	public static void emptyListMessage() {
+		display("The list is empty.");
+		
 	}
 	
 }

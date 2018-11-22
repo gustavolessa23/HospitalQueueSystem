@@ -10,24 +10,8 @@ import java.util.Random;
 
 public class ReadFile {
 	
-	//static Patient patient = new Patient();
-//	public DoublyLinkedList<Patient> generateAllPatients(int numPatients){
-//
-//		DoublyLinkedList<Patient> queueList = new DoublyLinkedList<>();
-//		try {
-//			for(int i = 0; i<numPatients; i++){
-//				queueList.addLast(this.createPatients(patient));
-//			}
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return queueList;
-//
-//	}
-	public DoublyLinkedList<Patient> createPatients() throws IOException{
-		Patient patient = new Patient();
-		DoublyLinkedList<Patient> array = new DoublyLinkedList<>();
+	public DoublyLinkedList<Patient> getSamplePatients() throws IOException{
+		DoublyLinkedList<Patient> samplePatients = new DoublyLinkedList<>();
 
 		File file = new File("src/Patients","names.txt"); 
 
@@ -35,21 +19,27 @@ public class ReadFile {
 
 		String st = null;	
 		while ((st =  br.readLine()) != null) {
-			String[] row = new String[6];
-			row =  st.split("\\s+");
+			String[] row = st.split("\\s+");
 
-			patient.setPps(row[0]);
-			patient.setFirstName(row[1]);
-			patient.setLastName(row[2]);
-			patient.setMobile(row[3]);
-			patient.setEmail(row[4]);
-			patient.setCity(row[5]);
+			String pps = (row[0]);
+			String firstName = (row[1]);
+			String lastName = (row[2]);
+			String mobile = (row[3]);
+			String email = (row[4]);
+			String city = (row[5]);
 			
-			if(patient !=null){
-				View.displayPatient(patient);
-			}
+			samplePatients.addLast(new Patient(pps, firstName, lastName, mobile, email, city));
+			
+//			System.out.println(patient);
+
+			st = null;
+//			if(patient !=null){
+//				View.displayPatient(patient);
+//			}
 		}
-		return array;
+		System.out.println("Tamanho: "+samplePatients.size());
+		br.close();
+		return samplePatients;
 	}
 
 
