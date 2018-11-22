@@ -1,11 +1,9 @@
 import java.io.IOException;
-import java.util.Scanner;
 
 public class HospitalManagementSystem{
 	
 	private ReadFile listOfPatients;
 	private QueueSystem patients;
-	private Validation validation;
 	private View view;
 	private Input input;
 
@@ -13,7 +11,6 @@ public class HospitalManagementSystem{
 	public HospitalManagementSystem(){
 		this.patients = new QueueSystem();
 		this.listOfPatients = new ReadFile();
-		this.validation = new Validation();
 		this.view = new View();
 		this.input = new Input();
 	}
@@ -69,39 +66,43 @@ public class HospitalManagementSystem{
 	}
 	
 	private void addPatient() {
-		View.display("\nCREATE NEW PATIENT\n-----------------------\\n");
+		View.display("\nADD NEW PATIENT\n-----------------------\n");
 		String ppsNumber = typePpsNumber();
 		String name = typeName();
-		String surname = typeSurName();
+		String surname = typeSurname();
 		String phone = typeMobileNumber();
 		String email = typeEmail();
 		String city = typeCity();
-		
-		Patient patient = new Patient(ppsNumber, name, surname, phone, email, city);
+		Patient newPatient = new Patient(ppsNumber, name, surname, phone, email, city);
+
+
 		View.display("Do you want to add more Patiend?\n----------------------\n"+ "1 - Yes\n" + "2 - No");
 		
-		int answer = this.validation.checkForInt(this.input.scan, 1, 2);
+		int answer = this.input.validate.checkForInt(this.input.scan, 1, 2);
 		if(answer == 1){
-			addPatient();
-		}else if(answer == 2){
-			view.displayPatient(patient);
-		}
+
+		patients.addPatient(newPatient); // uses the QueueSystem method to add to the list
+		View.displayPatient(patients.getLast()); // prints the last patient to confirm that it is the same 
 		
+		View.display("Do you want to add another patient? (Y/N)\n------------------------------\n");
+		}
+		else if(answer == 2){
+			view.displayPatient(newPatient);
+		}
+
+
 	}
 
 	private void removePatient() {
 		// TODO Auto-generated method stub
 		View.display("Type Patient Number:\n---------------------\n");
-		
 	}
 
 	private void removeLastPatients() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stu	
 	}
 
 	private void listAll() throws IOException {
-		// TODO Auto-generated method stub
 		listOfPatients.createPatients();
 		
 	}
@@ -124,7 +125,7 @@ public class HospitalManagementSystem{
 		View.display("Please type name: ");  
         return input.getNextString();
     }
-	private String typeSurName(){
+	private String typeSurname(){
 		View.display("Please type surname: "); 
 		return input.getNextString();
 	}

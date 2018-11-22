@@ -1,7 +1,8 @@
 
 public class QueueSystem {
 
-	DoublyLinkedList<Patient> list;
+	private DoublyLinkedList<Patient> list;
+
 
 	public QueueSystem() {
 		list = new DoublyLinkedList<>();
@@ -22,5 +23,13 @@ public class QueueSystem {
 		return foundPosition;
 	}
 	
+	public void addPatient(Patient toAdd) {
+		list.addLast(toAdd);
+	}
+	
+	public Patient getLast() {
+		return list.last();
+	}
+
 
 }

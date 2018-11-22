@@ -10,13 +10,18 @@ public class Input {
 		 validate = new Validation();
 	}
 	
+	public String getNextString() {
+ 
+ 		String line = "";
+ 		while(line.isEmpty())
+ 			line = scan.next();
+ 		return line;
+ 	}
+	
 	public int getNextInt(int limit) {
 		return validate.checkForInt(scan, 1, limit);
 	}
-	
-	public String getNextString() {
-		return scan.next();
-	}
+
 	
 	
 	
