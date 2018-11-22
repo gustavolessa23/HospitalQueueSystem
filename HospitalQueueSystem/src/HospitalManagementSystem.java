@@ -19,7 +19,7 @@ public class HospitalManagementSystem{
 		int options = view.displayMainMenu();
 		int chosenOption = input.getNextInt(options);
 		mainMenuOption(chosenOption);
-		start();
+
 	}
 
 	private void mainMenuOption(int chosenOption) throws IOException {
@@ -58,6 +58,7 @@ public class HospitalManagementSystem{
 			break;
 		
 		}
+		start();
 	}
 
 	private void exitSystem() {
@@ -103,8 +104,28 @@ public class HospitalManagementSystem{
 		// TODO Auto-generated method stu	
 	}
 
+<<<<<<< HEAD
 	private void listAll() throws IOException {
 		listOfPatients.createPatients();
+=======
+	private void listAll(){
+		StringBuilder sb = new StringBuilder("");
+		sb.append("POSITION\tPID\t\tNAME\n");
+		for(int x = 0; x<patients.getListSize()-1; x++) {
+			Patient p = patients.getPatient(x+1);
+			int position = x+1;
+			sb.append(position);
+			sb.append("\t\t");
+			sb.append(p.getPid());
+			sb.append("\t\t");
+			sb.append(p.getFirstName());
+			sb.append(" ");
+			sb.append(p.getLastName());
+			sb.append("\n");
+		}
+		
+		View.display(sb.toString());
+>>>>>>> branch 'master' of https://github.com/gustavolessa23/HospitalQueueSystem.git
 		
 	}
 
