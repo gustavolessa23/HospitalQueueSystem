@@ -79,7 +79,8 @@ public class HospitalManagementSystem{
 		Patient patient = new Patient(ppsNumber, name, surname, phone, email, city);
 		View.displayPatient(patient);
 		View.display("Do you want to add more Patiend?\n----------------------\n"+ "1 - Yes\n" + "2 - No");
-		int answer = this.validation.checkForInt(this.in, 1, 2);
+		int limit = 0;
+		int answer = this.validation.checkForInt(this.input.scan, 1, 2);
 		if(answer == 1){
 			addPatient();
 			view.displayPatient(patient);

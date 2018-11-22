@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Input {
 
-	Scanner scan;
+	Scanner scan = new Scanner(System.in);
 	Validation validate;
 	
 	public Input() {
