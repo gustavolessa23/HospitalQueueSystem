@@ -9,8 +9,9 @@ public class Patient implements Comparable<Patient> {
 	private String mobile;
 	private String email;
 	private String city;
-	
-	public Patient(String pps, String firstName, String lastName, String mobile, String email, String city) {
+	private char priority;
+
+	public Patient(String pps, String firstName, String lastName, String mobile, String email, String city, char priority) {
 		super();
 		this.pid = ++lastPid;
 		this.pps = pps;
@@ -19,16 +20,18 @@ public class Patient implements Comparable<Patient> {
 		this.mobile = mobile;
 		this.email = email;
 		this.city = city;
+		this.priority = priority;
 	}
-	
+
 	public Patient(String name, String lastname){
 		super();
 		this.pid = ++lastPid;
 		this.pps = null;
 		this.firstName = name;
 		this.lastName = lastname;
+		this.priority = 'c';
 	}
-	
+
 	public Patient() {
 		super();
 		this.pid = ++lastPid;
@@ -38,18 +41,15 @@ public class Patient implements Comparable<Patient> {
 		this.mobile = null;
 		this.email = null;
 		this.city = null;
+		this.priority = 'c';
+
 	}
-	
-	
-
-
-
-	public static int getLastPid() {
-		return lastPid;
+	public char getPriority() { 
+		return this.priority;
 	}
 
-	public static void setLastPid(int lastPid) {
-		Patient.lastPid = lastPid;
+	public void setPriority(char c) {
+		this.priority = c;
 	}
 
 	public String getFirstName() {
@@ -105,10 +105,10 @@ public class Patient implements Comparable<Patient> {
 
 	@Override
 	public String toString(){
-		
 
-	        return ("\n\nPatient\n------\n" +
-	       
+
+		return ("\n\nPatient\n------\n" +
+
 	               "ID: " + this.getPid() + "\n" +
 	               "PPS: " + this.getPps() + "\n" +
 	               "Name: " + this.getFirstName() + "\n"+
@@ -116,15 +116,20 @@ public class Patient implements Comparable<Patient> {
 	               "Mobile Number: " + this.getMobile() + "\n" +
 	               "E-mail: " + this.getEmail() + "\n" +
 	               "City: " + this.getCity() +"\n"
-	               );	                       	
+				);	                       	
 	}
 
 
 
 	@Override
 	public int compareTo(Patient o) {
-		// TODO Auto-generated method stub
-		return 0;
+		if(this.priority < o.getPriority()) {
+			return -1;
+		} else if (this.priority > o.getPriority()) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
-	
+
 }

@@ -11,6 +11,13 @@ public class Node<E> implements NodeInterface<E> {
 			this.prev = prev;
 			this.next = next;
 		}
+		
+		public Node(E element) {
+			super();
+			this.element = element;
+			this.prev = null;
+			this.next = null;
+		}
 
 		@Override
 		public E getElement() {

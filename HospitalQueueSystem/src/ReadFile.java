@@ -1,29 +1,40 @@
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.RowId;
 import java.util.Random;
 
 public class ReadFile<E> {
-	private DoublyLinkedList<E> queueList;
-	ArrayListClass<E> list;
-	Queue<?> queue;
-	Patient patient;
+	Random random;
 	FileReader file;
-
+	Path namePath;
+	Path surnamePath;
+	Path emailPath;
+	Path cityPath;
+	Path phonePath;
 
 
 	public static void main(String [] agrs) throws IOException{
-		ReadFile read = new ReadFile();
+		ReadFile<?> read = new ReadFile<>();
 		// System.out.println(read.test());
 		System.out.println("Name: " + read.generateAllPatients(1));
 	}
 	public ReadFile(){
-
+		random = new Random(100);
+		namePath = Paths.get("src/Patients","names.txt");
+		surnamePath = Paths.get("src/Patients","surnames.txt");
+		emailPath = Paths.get("src/Patients","email.txt");
+		cityPath = Paths.get("src/Patients","cities.txt");
+		phonePath = Paths.get("src/Patients","phone.txt");
 	}
 
 	public DoublyLinkedList<Patient> generateAllPatients(int numPatients){
-		DoublyLinkedList<Patient> queueList = new DoublyLinkedList<Patient>();
+		
+		DoublyLinkedList<Patient> queueList = new DoublyLinkedList<>();
 		try {
 			for(int i = 0; i<numPatients; i++){
 				queueList.addLast(this.test());
@@ -36,20 +47,22 @@ public class ReadFile<E> {
 
 	}
 	public Patient test() throws IOException{
+		Patient patient =  new Patient();
 		DoublyLinkedList<Patient> array = new DoublyLinkedList<>();
 		ArrayListClass<E> list = new ArrayListClass<>();
+		
 		File file = new File("src/Patients","names.txt"); 
 
 		BufferedReader br = new BufferedReader(new FileReader(file)); 
 
 		String st;
-		//		  if((st = br.readLine() != null){
+		//		  if((st = br.readLine()) != null){
 		//			  
 		//		  }
 		while ((st =  br.readLine()) != null) {
 			String[] row = new String[6];
 			row =  st.split("\\s+");
-			Patient patient =  new Patient();
+
 			((Patient) patient).setPps(row[0]);
 			((Patient) patient).setFirstName(row[1]);
 			((Patient) patient).setLastName(row[2]);
@@ -61,9 +74,9 @@ public class ReadFile<E> {
 			for(int i = 0; i< array.size(); i++){
 				System.out.println(array);
 			}
-
 		}
-		return patient;	
+		return patient;
+
 	}
 
 

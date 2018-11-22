@@ -10,7 +10,7 @@ public interface DoublyLinkedListInterface<E> {
 	public E removeFirst();
 	public E removeLast();
 	public E remove(Node<E> node);
-	public void addBetween(Node<E> toBeAdded, Node<E> before, Node<E> after);
+	public void addBefore(Node<E> toBeAdded, Node<E> after);
 	// public 
 	// test
 }
