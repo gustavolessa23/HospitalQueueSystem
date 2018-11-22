@@ -38,7 +38,7 @@ public class QueueSystem {
 	public void updatePatient(int index){
 		
 		if(list.get(index) == null){
-			View.display("\nDo you want to Update Patient "+ getPatient(input.scan.nextInt()) + " Information? (Y/N)");
+			View.display("\nDo you want to Update Patient "+ getPatient(index) + " Information? (Y/N)");
 			int answer = this.input.validate.checkForInt(this.input.scan, 1, 2);
 			if(answer == 1){
 				
