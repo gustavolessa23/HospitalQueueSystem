@@ -76,9 +76,10 @@ public class HospitalManagementSystem{
 		String phone = typeMobileNumber();
 		String email = typeEmail();
 		String city = typeCity();
+		
 		Patient patient = new Patient(ppsNumber, name, surname, phone, email, city);
 		View.display("Do you want to add more Patiend?\n----------------------\n"+ "1 - Yes\n" + "2 - No");
-		int limit = 0;
+		
 		int answer = this.validation.checkForInt(this.input.scan, 1, 2);
 		if(answer == 1){
 			addPatient();
@@ -102,6 +103,7 @@ public class HospitalManagementSystem{
 	private void listAll() throws IOException {
 		// TODO Auto-generated method stub
 		listOfPatients.createPatients();
+		view.displayMainMenu();
 		
 	}
 
