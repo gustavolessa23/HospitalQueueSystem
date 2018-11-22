@@ -29,6 +29,7 @@ public class ReadFile {
 			String city = (row[5]);
 			
 			samplePatients.addLast(new Patient(pps, firstName, lastName, mobile, email, city));
+			System.out.println(samplePatients.size());
 			
 //			System.out.println(patient);
 
