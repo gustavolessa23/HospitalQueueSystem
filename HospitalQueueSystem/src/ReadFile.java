@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class ReadFile {
 	
-	static Patient patient = new Patient();
+	//static Patient patient = new Patient();
 //	public DoublyLinkedList<Patient> generateAllPatients(int numPatients){
 //
 //		DoublyLinkedList<Patient> queueList = new DoublyLinkedList<>();
