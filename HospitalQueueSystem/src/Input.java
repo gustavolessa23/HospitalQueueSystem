@@ -18,6 +18,9 @@ public class Input {
 		return scan.nextLine();
 	}
 	
+	public boolean isYes() {
+		return validate.checkForYes(scan);
+	}
 	
 	
 }
