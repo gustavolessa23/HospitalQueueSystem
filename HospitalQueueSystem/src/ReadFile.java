@@ -2,127 +2,69 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Random;
 
 public class ReadFile<E> {
+	private DoublyLinkedList<E> queueList;
 	ArrayListClass<E> list;
-	Queue queue;
+	Queue<?> queue;
 	Patient patient;
-	Random random;
 	FileReader file;
-	Path namePath;
-	Path surnamePath;
-	Path emailPath;
-	Path cityPath;
-	Path phonePath;
-	
-	
-	public static void main(String [] agrs){
+
+
+
+	public static void main(String [] agrs) throws IOException{
 		ReadFile read = new ReadFile();
-		System.out.println("Name: " + read.generateAllPatients(10));
+		// System.out.println(read.test());
+		System.out.println("Name: " + read.generateAllPatients(1));
 	}
 	public ReadFile(){
-		random = new Random(100);
-		namePath = Paths.get("src/Patients","names.txt");
-		surnamePath = Paths.get("src/Patients","surnames.txt");
-		emailPath = Paths.get("src/Patients","email.txt");
-		cityPath = Paths.get("src/Patients","cities.txt");
-		phonePath = Paths.get("src/Patients","phone.txt");
+
 	}
 
-	public String getName() throws IOException{
-		ArrayListClass<E> list = new ArrayListClass<>();
-		File file = new File("src/Patients","names.txt"); 
-		BufferedReader br = new BufferedReader(new FileReader(file)); 
-		  
-		  String st; 
-		  while ((st = br.readLine()) != null) {
-		    System.out.println(st); 
-		  }
-	
-		return st = (String) list.get(random.nextInt(list.size())); 
-	}
-	
-	public String generateSurname() throws IOException{
-		ArrayListClass<E> list = new ArrayListClass<>();
-		File file = new File("src/Patients","names.txt"); 
-		  
-		  BufferedReader br = new BufferedReader(new FileReader(file)); 
-		  
-		  String st; 
-		  while ((st = br.readLine()) != null) {
-		    System.out.println(st); 
-		  }
-	
-		return st = (String) list.get(random.nextInt(list.size())); 
-			
-	}
-	public String generatePhoneNumber() throws IOException{
-		ArrayListClass<E> list = new ArrayListClass<>();
-		File file = new File("src/Patients","names.txt"); 
-		  
-		  BufferedReader br = new BufferedReader(new FileReader(file)); 
-		  
-		  String st; 
-		  while ((st = br.readLine()) != null) {
-		    System.out.println(st); 
-		  }
-	
-		return st = (String) list.get(random.nextInt(list.size())); 
-	}
-	public String generateEmail() throws IOException{
-		ArrayListClass<E> list = new ArrayListClass<>();
-		File file = new File("src/Patients","email.txt"); 
-		  
-		  BufferedReader br = new BufferedReader(new FileReader(file)); 
-		  
-		  String st; 
-		  while ((st =  br.readLine()) != null) {
-		    System.out.println(st); 
-		  }
-	
-		return st = (String) list.get(random.nextInt(list.size())); 
-	}
-	
-	public String generateCity() throws IOException{
-		ArrayListClass<E> list = new ArrayListClass<>();
-		File file = new File("src/Patients","cities.txt"); 
-		  
-		  BufferedReader br = new BufferedReader(new FileReader(file)); 
-		  
-		  String st; 
-		  while ((st =  br.readLine()) != null) {
-		    System.out.println(st); 
-		  }
-	
-		return st = (String) list.get(random.nextInt(list.size())); 
-	}
-	public Patient createPatient() throws IOException{
-		String name = (String) getName();
-		String surname = (String) generateSurname();
-		String phoneNumber =(String) generatePhoneNumber();
-		String email =(String) generateEmail();
-		String city = (String) generateCity();
-	
-		return new Patient("",name, surname, phoneNumber, email, city) ;
-	}
-	
-	public Queue<Patient> generateAllPatients(int numPatients){
-		Queue<Patient> queue = new Queue<Patient>();
-			try {
-				for(int i = 0; i<numPatients; i++){
-					queue.enqueue(this.createPatient());
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	public DoublyLinkedList<Patient> generateAllPatients(int numPatients){
+		DoublyLinkedList<Patient> queueList = new DoublyLinkedList<Patient>();
+		try {
+			for(int i = 0; i<numPatients; i++){
+				queueList.addLast(this.test());
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		return queue;
-		
+		return queueList;
+
+	}
+	public Patient test() throws IOException{
+		DoublyLinkedList<Patient> array = new DoublyLinkedList<>();
+		ArrayListClass<E> list = new ArrayListClass<>();
+		File file = new File("src/Patients","names.txt"); 
+
+		BufferedReader br = new BufferedReader(new FileReader(file)); 
+
+		String st;
+		//		  if((st = br.readLine() != null){
+		//			  
+		//		  }
+		while ((st =  br.readLine()) != null) {
+			String[] row = new String[6];
+			row =  st.split("\\s+");
+			Patient patient =  new Patient();
+			((Patient) patient).setPps(row[0]);
+			((Patient) patient).setFirstName(row[1]);
+			((Patient) patient).setLastName(row[2]);
+			((Patient) patient).setMobile(row[3]);
+			((Patient) patient).setEmail(row[4]);
+			((Patient) patient).setCity(row[5]);
+			array.addLast(patient);
+
+			for(int i = 0; i< array.size(); i++){
+				System.out.println(array);
+			}
+
+		}
+		return patient;	
 	}
 
-	
+
 }

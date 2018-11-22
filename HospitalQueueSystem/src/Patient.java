@@ -3,7 +3,7 @@ public class Patient implements Comparable<Patient> {
 	private static int lastPid;
 	private final int pid;
 
-	private final String pps;
+	private String pps;
 	private String firstName;
 	private String lastName;
 	private String mobile;
@@ -95,6 +95,9 @@ public class Patient implements Comparable<Patient> {
 	public int getPid() {
 		return pid;
 	}
+	public void setPps(String pps){
+		this.pps = pps;
+	}
 
 	public String getPps() {
 		return pps;
@@ -108,8 +111,8 @@ public class Patient implements Comparable<Patient> {
 	       
 	               "ID: " + this.getPid() + "\n" +
 	               "PPS: " + this.getPps() + "\n" +
-	               "Name: " + this.getFirstName() + this.getLastName() + "\n"+
-	               "Name: " + this.getFirstName() + " " + this.getLastName() + "\n"+
+	               "Name: " + this.getFirstName() + "\n"+
+	               "Last Name: "+ this.getLastName() + "\n"+
 	               "Mobile Number: " + this.getMobile() + "\n" +
 	               "E-mail: " + this.getEmail() + "\n" +
 	               "City: " + this.getCity() +"\n"

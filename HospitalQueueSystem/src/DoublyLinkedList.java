@@ -97,7 +97,7 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 			}
 			sb.append(p.getElement().toString());
 		}
-		sb.append("]");
+		sb.append(" ");
 		return sb.toString();
 	}
 	

@@ -1,4 +1,6 @@
 
+
+
 public class ArrayListClass<E> {
 	public static final int CAPACITY=16; // default array capacity
 	private E[ ] data; // generic array used for storage
@@ -42,6 +44,7 @@ public class ArrayListClass<E> {
 		 data[k+1] = data[k];
 		 data[i] = e; // ready to place the new element
 		 size++;
+		
 	 }
 
 	 /** Removes/returns the element at index i, shifting subsequent elements earlier. */
