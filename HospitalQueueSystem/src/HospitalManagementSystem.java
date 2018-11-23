@@ -4,6 +4,7 @@ public class HospitalManagementSystem{
 
 	private ReadFile listOfPatients;
 	private QueueSystem patients;
+
 	private View view;
 	private Input input;
 
@@ -11,6 +12,7 @@ public class HospitalManagementSystem{
 	public HospitalManagementSystem(){
 		this.patients = new QueueSystem();
 		this.listOfPatients = new ReadFile();
+		
 		this.view = new View();
 		this.input = new Input();
 	}
@@ -76,7 +78,6 @@ public class HospitalManagementSystem{
 		String city = typeCity();
 		Patient newPatient = new Patient(ppsNumber, name, surname, phone, email, city);
 
-
 		View.display("Do you want to add more Patiend?\n----------------------\n"+ "1 - Yes\n" + "2 - No");
 
 		int answer = this.input.validate.checkForInt(this.input.scan, 1, 2);
@@ -87,7 +88,7 @@ public class HospitalManagementSystem{
 			View.display("Do you want to add another patient? (Y/N)\n------------------------------\n");
 		}
 		else if(answer == 2){
-			view.displayPatient(newPatient);
+			View.displayPatient(newPatient);// display all patients added into the List, once the user select option 2.
 		}
 	}
 	private void removePatient() {
@@ -101,7 +102,8 @@ public class HospitalManagementSystem{
 		// TODO Auto-generated method stu	
 	}
 
-	private void listAll(){
+	private void listAll() throws IOException{
+		listOfPatients.createPatients();
 		StringBuilder sb = new StringBuilder("");
 		sb.append("POSITION\tPID\t\tNAME\n");
 		for(int x = 0; x<patients.getListSize()-1; x++) {
@@ -115,9 +117,16 @@ public class HospitalManagementSystem{
 			sb.append(" ");
 			sb.append(p.getLastName());
 			sb.append("\n");
+			sb.append(p.getMobile());
+			sb.append("\n");
+			sb.append(p.getEmail());
+			sb.append("\n");
+			sb.append(p.getCity());
+			sb.append("\n");
 		}
 
 		View.display(sb.toString());
+		
 
 	}
 

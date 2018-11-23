@@ -35,19 +35,19 @@ public class QueueSystem {
 		return list.last();
 	}
 
-	public void updatePatient(int index){
-		
-		if(list.get(index) != null){
-			View.display("\nDo you want to Update Patient "+ list.getNode(index) + " Information? (Y/N)");
-			int answer = this.input.validate.checkForInt(this.input.scan, 1, 2);
-			if(answer == 1){
-				
-				list.addInPosition(patient, index);
-			}else if(answer == 2){
-				
+	/**
+	 * This method gets a patient ID and add it to a new Position in the list.
+	 * @param index
+	 */
+	public int updatePatient(int index){
+		int newPosition = 0;
+		for(int i = 1; i < list.size(); i++){
+			if(list.set(index, newPosition).getPid() == index){
+				newPosition = i;
 			}
-			
 		}
+		return newPosition;
+		
 	}
 	public int getListSize() {
 		return list.size();

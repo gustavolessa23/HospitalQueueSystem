@@ -9,32 +9,39 @@ import java.sql.RowId;
 import java.util.Random;
 
 public class ReadFile {
-	
+	QueueSystem queue;
+	DoublyLinkedList<Patient> array;
+	Patient patient;
+	public ReadFile(){
+		queue = new QueueSystem();
+		array = new DoublyLinkedList<>();
+		patient = new Patient();
+	}
 	//static Patient patient = new Patient();
-//	public DoublyLinkedList<Patient> generateAllPatients(int numPatients){
-//
-//		DoublyLinkedList<Patient> queueList = new DoublyLinkedList<>();
-//		try {
-//			for(int i = 0; i<numPatients; i++){
-//				queueList.addLast(this.createPatients(patient));
-//			}
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return queueList;
-//
-//	}
-	public DoublyLinkedList<Patient> createPatients() throws IOException{
-		Patient patient = new Patient();
-		DoublyLinkedList<Patient> array = new DoublyLinkedList<>();
-
+	//	public DoublyLinkedList<Patient> generateAllPatients(int numPatients){
+	//
+	//		DoublyLinkedList<Patient> queueList = new DoublyLinkedList<>();
+	//		try {
+	//			for(int i = 0; i<numPatients; i++){
+	//				queueList.addLast(this.createPatients(patient));
+	//			}
+	//		} catch (IOException e) {
+	//			// TODO Auto-generated catch block
+	//			e.printStackTrace();
+	//		}
+	//		return queueList;
+	//
+	//	}
+	/**
+	 * Method responsable to get patients information from text file, and print into the patient list.
+	 * @return
+	 * @throws IOException
+	 */
+	public Patient createPatients() throws IOException{
 		File file = new File("src/Patients","names.txt"); 
-
 		BufferedReader br = new BufferedReader(new FileReader(file)); 
-
 		String st = null;	
-		while ((st =  br.readLine()) != null) {
+		if((st =  br.readLine()) != null) {
 			String[] row = new String[6];
 			row =  st.split("\\s+");
 
@@ -44,12 +51,15 @@ public class ReadFile {
 			patient.setMobile(row[3]);
 			patient.setEmail(row[4]);
 			patient.setCity(row[5]);
-			
-			if(patient !=null){
-				View.displayPatient(patient);
+
+			for(int i = 1; i < array.size(); i++){
+				array.addFirst(patient);
+				View.displayPatient(array);
 			}
+
+
 		}
-		return array;
+		return patient;
 	}
 
 
