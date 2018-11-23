@@ -132,6 +132,7 @@ public class HospitalManagementSystem{
 		// TODO Auto-generated method stub
 
 		patients.searchPatient(input.scan.nextInt());
+		
 	}
 
 	private String typePpsNumber(){
