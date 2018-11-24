@@ -9,6 +9,7 @@ import java.sql.RowId;
 import java.util.Random;
 
 public class ReadFile {
+
 	QueueSystem queue;
 	DoublyLinkedList<Patient> array;
 	Patient patient;
@@ -37,30 +38,52 @@ public class ReadFile {
 	 * @return
 	 * @throws IOException
 	 */
-	public Patient createPatients() throws IOException{
+
+
+	
+	public DoublyLinkedList<Patient> getSamplePatients() throws IOException{
+		DoublyLinkedList<Patient> samplePatients = new DoublyLinkedList<Patient>();
+
+
 		File file = new File("src/Patients","names.txt"); 
 		BufferedReader br = new BufferedReader(new FileReader(file)); 
 		String st = null;	
+
 		if((st =  br.readLine()) != null) {
 			String[] row = new String[6];
-			row =  st.split("\\s+");
 
-			patient.setPps(row[0]);
-			patient.setFirstName(row[1]);
-			patient.setLastName(row[2]);
-			patient.setMobile(row[3]);
-			patient.setEmail(row[4]);
-			patient.setCity(row[5]);
+//		while ((st =  br.readLine()) != null) {
+//			String[] row = st.split("\\s+");
+//
+//			patient.setPps(row[0]);
+//			patient.setFirstName(row[1]);
+//			patient.setLastName(row[2]);
+//			patient.setMobile(row[3]);
+//			patient.setEmail(row[4]);
+//			patient.setCity(row[5]);
+//
+//			for(int i = 1; i < array.size(); i++){
+//				array.addFirst(patient);
+//				View.displayPatient(array);
+//			}
 
-			for(int i = 1; i < array.size(); i++){
-				array.addFirst(patient);
-				View.displayPatient(array);
-			}
-
-
+			String pps = (row[0]);
+			String firstName = (row[1]);
+			String lastName = (row[2]);
+			String mobile = (row[3]);
+			String email = (row[4]);
+			String city = (row[5]);
+			
+			samplePatients.addLast(new Patient(pps, firstName, lastName, mobile, email, city));
+			System.out.println(samplePatients.size());
+			st = null;
+			
 		}
-		return patient;
+		System.out.println("Tamanho: "+samplePatients.size());
+		br.close();
+		return samplePatients;
 	}
-
+	
 
 }
+

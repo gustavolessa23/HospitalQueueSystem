@@ -2,9 +2,10 @@ import java.io.IOException;
 
 public class HospitalManagementSystem{
 
-	private ReadFile listOfPatients;
-	private QueueSystem patients;
 
+	private ReadFile listOfPatients;
+
+	private QueueSystem patients;
 	private View view;
 	private Input input;
 
@@ -18,10 +19,22 @@ public class HospitalManagementSystem{
 	}
 
 	public void start() throws IOException {
+		if(patients.isEmpty())
+			loadSampleData();
+		
 		int options = view.displayMainMenu();
 		int chosenOption = input.getNextInt(options);
+		
 		mainMenuOption(chosenOption);
 
+	}
+
+	private void loadSampleData() {
+		int yes = 0;
+		int no = 0;
+		View.display("Would you like to load sample patient data? (Y/N)");
+		if(input.validate.checkForYes(input.scan));
+			patients.addPatients(input.getSamplePatients());
 	}
 
 	private void mainMenuOption(int chosenOption) throws IOException {
@@ -92,40 +105,47 @@ public class HospitalManagementSystem{
 		}
 	}
 	private void removePatient() {
+
 		// TODO Auto-generated method stub
 		int delete = 0;
 		View.display("Type Patient Number:\n---------------------\n");
 		patients.deletePatient(delete);
+
+		View.askForPid();
+		if(patients.deletePatient(input.getPid()) != null) {
+			View.display("Patient removed successfully!");
+		} else {
+			View.displayError("Could not remove patient");
+		}	
 	}
 
 	private void removeLastPatients() {
 		// TODO Auto-generated method stu	
 	}
 
-	private void listAll() throws IOException{
-		listOfPatients.createPatients();
-		StringBuilder sb = new StringBuilder("");
-		sb.append("POSITION\tPID\t\tNAME\n");
-		for(int x = 0; x<patients.getListSize()-1; x++) {
-			Patient p = patients.getPatient(x+1);
-			int position = x+1;
-			sb.append(position);
-			sb.append("\t\t");
-			sb.append(p.getPid());
-			sb.append("\t\t");
-			sb.append(p.getFirstName());
-			sb.append(" ");
-			sb.append(p.getLastName());
-			sb.append("\n");
-			sb.append(p.getMobile());
-			sb.append("\n");
-			sb.append(p.getEmail());
-			sb.append("\n");
-			sb.append(p.getCity());
-			sb.append("\n");
+	private void listAll(){
+		
+		if(!patients.isEmpty()) {
+			StringBuilder sb = new StringBuilder("");
+			sb.append("POSITION\tPID\t\tNAME\n");
+			for(int x = 0; x<patients.getListSize()-1; x++) {
+				Patient p = patients.getPatient(x+1);
+				int position = x+1;
+				sb.append(position);
+				sb.append("\t\t");
+				sb.append(p.getPid());
+				sb.append("\t\t");
+				sb.append(p.getFirstName());
+				sb.append(" ");
+				sb.append(p.getLastName());
+				sb.append("\n");
+			}
+			
+			View.display(sb.toString());
+		} else {
+			View.emptyListMessage();	
 		}
 
-		View.display(sb.toString());
 		
 
 	}
@@ -141,6 +161,13 @@ public class HospitalManagementSystem{
 		// TODO Auto-generated method stub
 
 		patients.searchPatient(input.scan.nextInt());
+
+		View.askForPid();
+		int pid = input.getPid();
+		int position = patients.searchPatient(pid);
+		if(position > 0) {
+			View.display("Patient PID "+pid+" is in position "+position+".");
+		}
 		
 	}
 
@@ -165,7 +192,7 @@ public class HospitalManagementSystem{
 		return input.getNextString();
 	}
 	private String typeCity(){
-		View.display("Please type City: "); 
+		View.display("Please type city: "); 
 		return input.getNextString();
 	}
 

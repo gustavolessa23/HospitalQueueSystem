@@ -102,6 +102,10 @@ public class Patient implements Comparable<Patient> {
 	public String getPps() {
 		return pps;
 	}
+	
+	public static int getLastPid() {
+		return lastPid;
+	}
 
 	@Override
 	public String toString(){

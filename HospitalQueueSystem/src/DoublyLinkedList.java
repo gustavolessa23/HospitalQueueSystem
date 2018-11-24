@@ -49,7 +49,6 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 
 	public void addLast(E e) { 
 		addLast(new Node<>(e, null, null)); 
-		size++;
 	}
 
 	public Node<E> getNextNode(Node<E> e) {

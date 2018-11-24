@@ -1,5 +1,6 @@
 
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -34,22 +35,24 @@ public class Validation {
      * @return true if the input is 'Y' or 'y' and false otherwise
      */
     public boolean checkForYes(Scanner input){
-        String answer = "";
-        try{
-            while(answer.isEmpty()){
-                answer = input.nextLine();
-            }
-            if(answer.startsWith("y") || answer.startsWith("Y")){
-                return true;
-            } else {
-                return false;
-            }
-            } catch(InputMismatchException e){
-            System.out.println("\n*** Input is not a integer. Please try again. ***\n");
-            return checkForYes(input);
-        }
+    	String answer = "";
+    	try{
+    		while(answer.isEmpty()){
+    			answer = input.nextLine();
+    		}
+    		if(answer.startsWith("y") || answer.startsWith("Y")){
+    			return true;
+    		} else if(answer.startsWith("n") || answer.startsWith("N")) {
+    			return false;
+    		} else {
+        		return checkForYes(input);
+    		}
+    	} catch(Exception e){
+    		View.displayError("Error retrieving String from input.");
+    		return checkForYes(input);
+    	}
     }
-    
+
     /**
      * This method checks for a integer input between a specific boundary.
      * @param input (Scanner)
