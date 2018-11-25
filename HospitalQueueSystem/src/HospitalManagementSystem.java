@@ -104,8 +104,9 @@ public class HospitalManagementSystem{
 	}
 
 	private void removeLastPatients() {
-		// TODO Auto-generated method stub
-		
+		View.display("How many patients should be removed from the end of the list?");
+		int removed  = patients.deletePatients(input.getNextInt(patients.getListSize()));
+		View.display("\nSuccessfully removed "+ removed + " patients.");
 	}
 
 	private void listAll(){

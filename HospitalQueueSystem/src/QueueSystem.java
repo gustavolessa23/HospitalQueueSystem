@@ -18,6 +18,10 @@ public class QueueSystem {
 
 	}
 	
+	public int deletePatients(int number) {
+		return list.removeLastNodes(number);
+	}
+	
 	public int searchPatient(int pid){
 		int foundPosition = -1;
 		for(int x = 1; x < list.size(); x++) 
@@ -56,11 +60,40 @@ public class QueueSystem {
 	}
 
 	public void addPatients(DoublyLinkedList<Patient> samplePatients) {
-		int counter = 0;
-		for(int x = 0; x < samplePatients.size()-1; x++) {
-			System.out.println("Added: "+ ++counter);
-			list.addLast(samplePatients.get(x+1));
+		Patient temp = null;
+		while((temp = samplePatients.removeLast()) != null) {
+			int pidToBeAdded = temp.getPid();
+			int lastPid = 0;
+			System.out.println("Added: "+ temp.getPid());
+			while(pidToBeAdded != lastPid) {
+				list.addFirst(temp);
+				lastPid = list.first().getPid();
+				System.out.println(list.last().getPid());
+				System.out.println(list.last());
+			}
+				
 		}
+		
+		
+		
+//		while((temp = samplePatients.removeFirst()) != null) {
+//			int pidToBeAdded = temp.getPid();
+//			int lastPid = 0;
+//			System.out.println("Added: "+ temp.getPid());
+//			while(pidToBeAdded != lastPid) {
+//				list.addLast(temp);
+//				lastPid = list.last().getPid();
+//				System.out.println(list.last().getPid());
+//				System.out.println(list.last());
+//			}
+//				
+//		}
+//		System.out.println(list.toString());
+//		int counter = 0;
+//		for(int x = 0; x < samplePatients.size()-1; x++) {
+//			System.out.println("Added: "+ samplePatients.get(x+1).getPid());
+//			list.addLast(samplePatients.get(x+1));
+//		}
 		
 	}
 

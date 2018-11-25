@@ -24,43 +24,40 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 	
 	public Node<E> getNode(int position) {		
 		
-		if (position > size) return null;
-		Node<E> currentNode = null;
-
+		if (position > this.size) return null;
 		
-		if(position < (size/2)) {
+		Node<E> currentNode = null;
+		
+		if(position < (this.size/2)) {
 			currentNode = header;
 			for(int x = 0; x<position; x++) 
 				currentNode = currentNode.getNext();
 				
 		} else {
 			currentNode = trailer;
-			for(int x = size; x>position; x--) 
+			for(int x = this.size; x>position; x--) 
 				currentNode = currentNode.getPrev();
 			
 		}
 		return currentNode;
 	}
 
-	public void addFirst(E e) {
-		addFirst(new Node<>(e, null, header)); 
-		size++;
-	}
-	
-	public void addLast(E e) { 
-		addLast(new Node<>(e, null, null)); 
-	}
-	
 	public Node<E> getNextNode(Node<E> e) {
 		return e.getNext();
 	}
 	
 	
-	public void removeLastNodes(int numberOfNodes) {
-		Node<E> lastNode = getNode(size-numberOfNodes);
-		lastNode.setNext(trailer);
-		trailer.setPrev(lastNode);
-		size = size - numberOfNodes;
+	public int removeLastNodes(int numberOfNodes) {
+		if(numberOfNodes > size) {
+			return -1;
+		} else {
+			Node<E> lastNode = getNode(size-numberOfNodes);
+			lastNode.setNext(trailer);
+			trailer.setPrev(lastNode);
+			size = size - numberOfNodes;
+			return numberOfNodes;
+			
+		}
 	}
 	
 	@Override
@@ -118,14 +115,26 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 		return remove(getNode(position));
 	}
 	
+	public void addFirst(E e) {
+		addFirst(new Node<>(e, null, header)); 
+	}
+
 	@Override
 	public void addFirst(Node<E> node) { 
 		addBefore(node, header.getNext()); 
 	}
 
+	public void addLast(E e) { 
+		addLast(new Node<>(e, null, null)); 
+	}
+
 	@Override
 	public void addLast(Node<E> node) { 
 		addBefore(node, trailer); 
+	}
+	
+	public void concatList(DoublyLinkedList<E> list) {
+	//	list.
 	}
 		
 	@Override
