@@ -107,13 +107,12 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 			trailer.setPrev(lastNode);
 			size = size - numberOfNodes;
 			return numberOfNodes;
-
 		}
 
 	}
 	public E set(int index, int newPosition) {
 		if (index < 0 || index >= size || newPosition < 0 || newPosition >= size) {
-			throw new IndexOutOfBoundsException(Integer.toString(newPosition));
+			throw new IndexOutOfBoundsException(Integer.toString(index, newPosition));
 		}
 		Node<E> node = getNode(index);
 		E result = node.getElement();
@@ -121,7 +120,6 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 		E result2 = element.getElement();
 		result = result2;	
 		return result;
-
 	}
 
 	@Override
