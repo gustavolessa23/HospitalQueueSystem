@@ -13,7 +13,7 @@ public class HospitalManagementSystem{
 	public HospitalManagementSystem(){
 		this.patients = new QueueSystem();
 		this.listOfPatients = new ReadFile();
-		
+
 		this.view = new View();
 		this.input = new Input();
 	}
@@ -21,20 +21,19 @@ public class HospitalManagementSystem{
 	public void start() throws IOException {
 		if(patients.isEmpty())
 			loadSampleData();
-		
+
 		int options = view.displayMainMenu();
 		int chosenOption = input.getNextInt(options);
-		
+
 		mainMenuOption(chosenOption);
 
 	}
 
 	private void loadSampleData() {
-		int yes = 0;
-		int no = 0;
+
 		View.display("Would you like to load sample patient data? (Y/N)");
 		if(input.validate.checkForYes(input.scan));
-			patients.addPatients(input.getSamplePatients());
+		patients.addPatients(input.getSamplePatients());
 	}
 
 	private void mainMenuOption(int chosenOption) throws IOException {
@@ -124,7 +123,7 @@ public class HospitalManagementSystem{
 	}
 
 	private void listAll(){
-		
+
 		if(!patients.isEmpty()) {
 			StringBuilder sb = new StringBuilder("");
 			sb.append("POSITION\tPID\t\tNAME\n");
@@ -140,20 +139,35 @@ public class HospitalManagementSystem{
 				sb.append(p.getLastName());
 				sb.append("\n");
 			}
-			
+
 			View.display(sb.toString());
 		} else {
 			View.emptyListMessage();	
 		}
 
-		
-
 	}
 
 	private void updatePatient() {
 		// TODO Auto-generated method stub
-	
-		patients.updatePatient(input.scan.nextInt());
+		view.display("Do you want to Update Patient? - 1 Yes -- 2 No\n-----------------\n");
+		int answer = this.input.validate.checkForInt(this.input.scan, 1, 2);
+		if(answer == 1){
+			view.display("Type Patient ID: \n--------------\n");
+			view.display("ID: \n---------\n");
+			int oldID = input.getPid();
+			int newID = input.getPid();
+
+			patients.updatePatient(oldID, newID);
+
+			View.askForPid();
+			if(patients.updatePatient(oldID, newID) == 1) {
+				View.display("Patient updated successfully!");
+			} else {
+				View.displayError("Could not upddate patient");
+			}
+		}
+
+
 
 	}
 
@@ -168,7 +182,7 @@ public class HospitalManagementSystem{
 		if(position > 0) {
 			View.display("Patient PID "+pid+" is in position "+position+".");
 		}
-		
+
 	}
 
 	private String typePpsNumber(){

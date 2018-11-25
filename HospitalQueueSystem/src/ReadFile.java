@@ -10,36 +10,13 @@ import java.util.Random;
 
 public class ReadFile {
 
-	QueueSystem queue;
 	DoublyLinkedList<Patient> array;
 	Patient patient;
 	public ReadFile(){
-		queue = new QueueSystem();
+		// queue = new QueueSystem();
 		array = new DoublyLinkedList<>();
 		patient = new Patient();
 	}
-	//static Patient patient = new Patient();
-	//	public DoublyLinkedList<Patient> generateAllPatients(int numPatients){
-	//
-	//		DoublyLinkedList<Patient> queueList = new DoublyLinkedList<>();
-	//		try {
-	//			for(int i = 0; i<numPatients; i++){
-	//				queueList.addLast(this.createPatients(patient));
-	//			}
-	//		} catch (IOException e) {
-	//			// TODO Auto-generated catch block
-	//			e.printStackTrace();
-	//		}
-	//		return queueList;
-	//
-	//	}
-	/**
-	 * Method responsable to get patients information from text file, and print into the patient list.
-	 * @return
-	 * @throws IOException
-	 */
-
-
 	
 	public DoublyLinkedList<Patient> getSamplePatients() throws IOException{
 		DoublyLinkedList<Patient> samplePatients = new DoublyLinkedList<Patient>();
@@ -75,8 +52,8 @@ public class ReadFile {
 			String city = (row[5]);
 			
 			samplePatients.addLast(new Patient(pps, firstName, lastName, mobile, email, city));
+			
 			System.out.println(samplePatients.size());
-			st = null;
 			
 		}
 		System.out.println("Tamanho: "+samplePatients.size());

@@ -49,8 +49,8 @@ public class QueueSystem {
 	 * This method gets a patient ID and add it to a new Position in the list.
 	 * @param index
 	 */
-	public int updatePatient(int index){
-		int newPosition = 0;
+	public int updatePatient(int index, int newPosition){
+		
 		for(int i = 1; i < list.size(); i++){
 			if(list.set(index, newPosition).getPid() == index){
 				newPosition = i;
