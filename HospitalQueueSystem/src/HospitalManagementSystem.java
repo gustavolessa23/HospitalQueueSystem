@@ -72,11 +72,18 @@ public class HospitalManagementSystem{
 		start();
 	}
 
+	/**
+	 * Method responsable to exit the system
+	 */
 	private void exitSystem() {
 		View.display("Thank you for using Hospital Management System!");
 		System.exit(0);
 	}
 
+	/**
+	 * Method responsable to take String as parameters and add the information to add a new Patient into the list
+	 * after a user input.
+	 */
 	private void addPatient() {
 		View.display("\nADD NEW PATIENT\n-----------------------\n");
 		String ppsNumber = typePpsNumber();
@@ -100,6 +107,10 @@ public class HospitalManagementSystem{
 			View.displayPatient(newPatient);// display all patients added into the List, once the user select option 2.
 		}
 	}
+	
+	/**
+	 * Thie method remove a patient from the list after a user input.
+	 */
 	private void removePatient() {
 
 		// TODO Auto-generated method stub
@@ -114,7 +125,11 @@ public class HospitalManagementSystem{
 			View.displayError("Could not remove patient");
 		}	
 	}
+	
 
+	/**
+	 * Thie method removes a number of N element typed by the user from the end of the List.
+	 */
 	private void removeLastPatients() {
 		View.display("How many patients should be removed from the end of the list?");
 		int removed  = patients.deletePatients(input.getNextInt(patients.getListSize()));
@@ -122,8 +137,11 @@ public class HospitalManagementSystem{
 
 	}
 
+	/**
+	 * This method return a List of all patients into the List.
+	 * @throws IOException
+	 */
 	private void listAll() throws IOException{
-		
 		if(!patients.isEmpty()) {
 			StringBuilder sb = new StringBuilder("");
 			sb.append("POSITION\tPID\t\tNAME\n");
@@ -147,6 +165,9 @@ public class HospitalManagementSystem{
 
 	}
 
+	/**
+	 * This method a new Patient ID Position by typing the old position, then the new position after the urgency set. 
+	 */
 	private void updatePatient() {
 		// TODO Auto-generated method stub
 		View.display("Do you want to update patient? - 1 Yes -- 2 No\n-----------------\n");
@@ -175,6 +196,9 @@ public class HospitalManagementSystem{
 
 	}
 
+	/**
+	 * This method return a patient position, by typing ID Number.
+	 */
 	private void checkPosition() {
 		// TODO Auto-generated method stub
 
@@ -189,26 +213,55 @@ public class HospitalManagementSystem{
 
 	}
 
+	/**
+	 * This method returns a choice of PPS Number from user input.
+	 * @return
+	 */
 	private String typePpsNumber(){
 		View.display("Please type PPS Number: "); 
 		return input.getNextString();
 	}
+	
+	/**
+	 * This method returns a choice of Name from user input.
+	 * @return
+	 */
 	private String typeName(){
 		View.display("Please type name: ");  
 		return input.getNextString();
 	}
+	
+	/**
+	 * This method returns a choice of Surname from user input.
+	 * @return
+	 */
 	private String typeSurname(){
 		View.display("Please type surname: "); 
 		return input.getNextString();
 	}
+	
+	/**
+	 * This method returns a choice of Phone Number from user input.
+	 * @return
+	 */
 	private String typeMobileNumber(){
 		View.display("Please type phone: ");
 		return input.getNextString();
 	}
+	
+	/**
+	 * This method returns a choice of Email from user input.
+	 * @return
+	 */
 	private String typeEmail(){
 		View.display("Please type email: "); 
 		return input.getNextString();
 	}
+	
+	/**
+	 * This method returns a choice of city from user input.
+	 * @return
+	 */
 	private String typeCity(){
 		View.display("Please type city: "); 
 		return input.getNextString();

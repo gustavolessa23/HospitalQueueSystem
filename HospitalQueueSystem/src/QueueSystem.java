@@ -1,15 +1,13 @@
-import java.util.List;
+
 
 public class QueueSystem {
 
 	private DoublyLinkedList<Patient> list;
-	private Input input;
-	private Patient patient;
-
 	public QueueSystem(){
+		
 		list = new DoublyLinkedList<>();
-		input = new Input();
-		patient = new Patient();
+		new Input();
+		new Patient();
 	}
 
 	public Patient deletePatient(int pid){
@@ -72,7 +70,6 @@ public class QueueSystem {
 	public Patient getPatient(int position) {
 		if(position>list.size())
 			return null;
-
 		return list.get(position);	
 	}
 
