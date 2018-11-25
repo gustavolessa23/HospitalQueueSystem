@@ -152,14 +152,13 @@ public class HospitalManagementSystem{
 		view.display("Do you want to Update Patient? - 1 Yes -- 2 No\n-----------------\n");
 		int answer = this.input.validate.checkForInt(this.input.scan, 1, 2);
 		if(answer == 1){
-			view.display("Type Patient ID: \n--------------\n");
-			view.display("ID: \n---------\n");
+			view.display("Type Patient actual ID: \n--------------\n");
+			
 			int oldID = input.getPid();
 			int newID = input.getPid();
 
 			patients.updatePatient(oldID, newID);
 
-			View.askForPid();
 			if(patients.updatePatient(oldID, newID) == 1) {
 				View.display("Patient updated successfully!");
 			} else {
