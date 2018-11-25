@@ -28,8 +28,6 @@ public class Input {
 		return validate.checkForInt(scan, 1, limit);
 	}
 
-	
-	
 	public int getPid() {
 		return validate.checkForInt(scan, 1, Patient.getLastPid());
 	}

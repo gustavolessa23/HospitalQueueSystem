@@ -4,7 +4,7 @@ public class HospitalManagementSystem{
 
 
 	private ReadFile listOfPatients;
-
+	
 	private QueueSystem patients;
 	private View view;
 	private Input input;
@@ -29,8 +29,7 @@ public class HospitalManagementSystem{
 
 	}
 
-	private void loadSampleData() {
-
+	private void loadSampleData() throws IOException {
 		View.display("Would you like to load sample patient data? (Y/N)");
 		if(input.validate.checkForYes(input.scan));
 		patients.addPatients(input.getSamplePatients());
@@ -119,11 +118,14 @@ public class HospitalManagementSystem{
 	}
 
 	private void removeLastPatients() {
-		// TODO Auto-generated method stu	
+		View.display("How many patients should be removed from the end of the list?");
+		int removed  = patients.deletePatients(input.getNextInt(patients.getListSize()));
+		View.display("\nSuccessfully removed "+ removed + " patients.");
+
 	}
 
-	private void listAll(){
-
+	private void listAll() throws IOException{
+		
 		if(!patients.isEmpty()) {
 			StringBuilder sb = new StringBuilder("");
 			sb.append("POSITION\tPID\t\tNAME\n");
@@ -149,21 +151,26 @@ public class HospitalManagementSystem{
 
 	private void updatePatient() {
 		// TODO Auto-generated method stub
-		view.display("Do you want to Update Patient? - 1 Yes -- 2 No\n-----------------\n");
+		View.display("Do you want to update patient? - 1 Yes -- 2 No\n-----------------\n");
 		int answer = this.input.validate.checkForInt(this.input.scan, 1, 2);
 		if(answer == 1){
-			view.display("Type Patient actual ID: \n--------------\n");
+			View.display("Select priority A or priority B: \n-----------------\n");
+			input.validate.checkForPriority(this.input.scan);
 			
+			View.display("Type Patient actual ID: \n--------------\n");
 			int oldID = input.getPid();
+			
+			View.display("Type new patient disired position: \n-----------\n");
 			int newID = input.getPid();
-
-			patients.updatePatient(oldID, newID);
-
-			if(patients.updatePatient(oldID, newID) == 1) {
+			
+			if(patients.updatePatient(oldID, newID) == 0){;
 				View.display("Patient updated successfully!");
-			} else {
+			}else{
 				View.displayError("Could not upddate patient");
 			}
+			
+		}
+		else if(answer == 2){
 		}
 
 
