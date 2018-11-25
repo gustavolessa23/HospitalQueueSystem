@@ -3,8 +3,6 @@ import java.io.IOException;
 public class HospitalManagementSystem{
 
 
-	private ReadFile listOfPatients;
-	
 	private QueueSystem patients;
 	private View view;
 	private Input input;
@@ -12,7 +10,7 @@ public class HospitalManagementSystem{
 
 	public HospitalManagementSystem(){
 		this.patients = new QueueSystem();
-		this.listOfPatients = new ReadFile();
+		new ReadFile();
 
 		this.view = new View();
 		this.input = new Input();
@@ -157,13 +155,13 @@ public class HospitalManagementSystem{
 			View.display("Select priority A or priority B: \n-----------------\n");
 			input.validate.checkForPriority(this.input.scan);
 			
-			View.display("Type Patient actual ID: \n--------------\n");
+			View.display("Type Patient current ID: \n--------------\n");
 			int oldID = input.getPid();
 			
 			View.display("Type new patient disired position: \n-----------\n");
 			int newID = input.getPid();
 			
-			if(patients.updatePatient(oldID, newID) == 0){;
+			if(patients.updatePatient(oldID, newID) != null ){
 				View.display("Patient updated successfully!");
 			}else{
 				View.displayError("Could not upddate patient");

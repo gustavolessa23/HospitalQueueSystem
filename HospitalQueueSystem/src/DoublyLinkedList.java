@@ -113,7 +113,7 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 	}
 	public E set(int index, int newPosition) {
 		if (index < 0 || index >= size || newPosition < 0 || newPosition >= size) {
-			throw new IndexOutOfBoundsException(Integer.toString(index, newPosition));
+			throw new IndexOutOfBoundsException(Integer.toString(newPosition));
 		}
 		Node<E> node = getNode(index);
 		E result = node.getElement();
