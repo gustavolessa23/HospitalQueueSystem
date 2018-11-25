@@ -32,7 +32,7 @@ public class Validation {
 	/**
 	 * This method checks for a Priority answer
 	 * @param input
-	 * @return true ip option choosen is A || false is option choosen is B.
+	 * @return true if option chosen is A || false is option chosen is B.
 	 */
 	public boolean checkForPriority(Scanner input){
 		String answer = "";

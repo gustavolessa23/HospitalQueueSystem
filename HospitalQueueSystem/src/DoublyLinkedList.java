@@ -10,21 +10,21 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 		trailer = new Node<>(null, header, null);
 		header.setNext(trailer);
 	}
-	
-	public void addDNode(Node<E> node) {
-	    if (header == null) {  // means list is empty, so add first element
-	        if (trailer != null)  
-	            throw new AssertionError(); // if head points to null then tail should too
 
-	        header = node;
-	        trailer = header;  // first element so (head == tail)
-	    } else {
-	        trailer.setNext(node);
-	        node.setPrev(trailer);
-	        node.setNext(null);
-	        trailer = node;
-	        this.size++;
-	    }
+	public void addDNode(Node<E> node) {
+		if (header == null) {  // means list is empty, so add first element
+			if (trailer != null)  
+				throw new AssertionError(); // if head points to null then tail should too
+
+			header = node;
+			trailer = header;  // first element so (head == tail)
+		} else {
+			trailer.setNext(node);
+			node.setPrev(trailer);
+			node.setNext(null);
+			trailer = node;
+			this.size++;
+		}
 	}
 
 	public void addInPosition(E e, int position) {
@@ -38,6 +38,11 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 		return getNode(position).getElement();
 	}
 
+	/**
+	 * Method responsible to get a Node element position the a given index number
+	 * @param position
+	 * @returns element position.
+	 */
 	public Node<E> getNode(int position) {		
 
 		if (position > size) return null;
@@ -64,28 +69,37 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 		return currentNode;
 	}
 
+	/**
+	 * Method responsible to ad an element in front of the list.
+	 * @param e
+	 */
 	public void addFirst(E e) {
 		addFirst(new Node<>(e, null, header)); 
 		size++;
 	}
 
-	
+
+	/**
+	 * Method responsible to add an element in end of the list.
+	 * @param e
+	 */
 	public void addLast(E e) { 
 		Node<E> newNode = new Node<E>(e, header, trailer);
-	        if(isEmpty()) {
-	            this.header = newNode;
-	            this.trailer = this.header;
-	        } else {
-	            Node<E> temp = this.trailer;
-	            newNode.setPrev(temp);
-	            temp.setNext(newNode);
-	            this.trailer = temp.getNext();
-	        }
-	        this.size++;
-		  // addLast(new Node<>(e, null, null)); 
-		 
+		if(isEmpty()) {
+			this.header = newNode;
+			this.trailer = this.header;
+		} else {
+			Node<E> temp = this.trailer;
+			newNode.setPrev(temp);
+			temp.setNext(newNode);
+			this.trailer = temp.getNext();
+		}
+		this.size++;
+		// addLast(new Node<>(e, null, null)); 
+
 	}
 
+	
 	public Node<E> getNextNode(Node<E> e) {
 		return e.getNext();
 	}
@@ -97,7 +111,13 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 	//		size = size - numberOfNodes;
 	//
 	//	}
+	
 
+	/**
+	 * Method responsible to remove the last N number of Node
+	 * @param numberOfNodes
+	 * @returns the N number of Node removed.
+	 */
 	public int removeLastNodes(int numberOfNodes) {
 		if(numberOfNodes > size) {
 			return -1;
@@ -110,6 +130,13 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 		}
 
 	}
+	
+	/**
+	 * Method to set a new Node position 
+	 * @param index
+	 * @param newPosition
+	 * @return new Node position.
+	 */
 	public E set(int index, int newPosition) {
 		if (index < 0 || index >= size || newPosition < 0 || newPosition >= size) {
 			throw new IndexOutOfBoundsException(Integer.toString(index, newPosition));
@@ -181,9 +208,6 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 		return node.getElement();
 	}
 
-
-
-
 	@Override
 	public E removeFirst() {
 		if (isEmpty()) return null;
@@ -200,27 +224,15 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 		return remove(getNode(position));
 	}
 
-
-	//	public void addFirst(E e) {
-	//		addFirst(new Node<>(e, null, header)); 
-	//	}
-
 	@Override
 	public void addFirst(Node<E> node) { 
 		addBefore(node, header.getNext()); 
 	}
 
-	//	public void addLast(E e) { 
-	//		addLast(new Node<>(e, null, null)); 
-	//	}
-
 	@Override
 	public void addLast(Node<E> node) { 
 		addBefore(node, trailer); 
 	}
-
-
-
 
 	public void concatList(DoublyLinkedList<E> list) {
 		//	list.

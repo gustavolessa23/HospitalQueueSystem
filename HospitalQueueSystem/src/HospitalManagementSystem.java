@@ -73,7 +73,7 @@ public class HospitalManagementSystem{
 	}
 
 	/**
-	 * Method responsable to exit the system
+	 * Method responsible to exit the system
 	 */
 	private void exitSystem() {
 		View.display("Thank you for using Hospital Management System!");
@@ -81,7 +81,7 @@ public class HospitalManagementSystem{
 	}
 
 	/**
-	 * Method responsable to take String as parameters and add the information to add a new Patient into the list
+	 * Method responsible to take String as parameters and add the information to add a new Patient into the list
 	 * after a user input.
 	 */
 	private void addPatient() {
@@ -109,7 +109,7 @@ public class HospitalManagementSystem{
 	}
 	
 	/**
-	 * Thie method remove a patient from the list after a user input.
+	 * This method remove a patient from the list after a user input.
 	 */
 	private void removePatient() {
 
@@ -128,7 +128,7 @@ public class HospitalManagementSystem{
 	
 
 	/**
-	 * Thie method removes a number of N element typed by the user from the end of the List.
+	 * This method removes a number of N element typed by the user from the end of the List.
 	 */
 	private void removeLastPatients() {
 		View.display("How many patients should be removed from the end of the list?");
@@ -176,7 +176,7 @@ public class HospitalManagementSystem{
 			View.display("Select priority A or priority B: \n-----------------\n");
 			input.validate.checkForPriority(this.input.scan);
 			
-			View.display("Type Patient current ID: \n--------------\n");
+			View.askForPid();;
 			int oldID = input.getPid();
 			
 			View.display("Type new patient disired position: \n-----------\n");

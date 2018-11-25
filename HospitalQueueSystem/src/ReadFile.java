@@ -14,7 +14,7 @@ public class ReadFile {
 		patient = new Patient();
 	}
 	/**
-	 * Method responsable to get patients information from text file, and print into the patient list.
+	 * Method responsible to get patients information from text file, and print into the patient list.
 	 * @return
 	 * @throws IOException
 	 */

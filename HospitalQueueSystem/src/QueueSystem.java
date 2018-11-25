@@ -10,6 +10,11 @@ public class QueueSystem {
 		new Patient();
 	}
 
+	/**
+	 * Method responsible to delete a patient by the given id number.
+	 * @param pid
+	 * @returns the deleted patient.
+	 */
 	public Patient deletePatient(int pid){
 		int patientPosition = searchPatient(pid);
 
@@ -21,10 +26,20 @@ public class QueueSystem {
 
 	}
 
+	/**
+	 * Method responsible to remove a N number of patients from the end of the list.
+	 * @param number
+	 * @return number of patients removed.
+	 */
 	public int deletePatients(int number) {
 		return list.removeLastNodes(number);
 	}
 
+	/**
+	 * Method responsible to search a patient in the list
+	 * @param pid
+	 * @return return the patient position.
+	 */
 	public int searchPatient(int pid){
 		int foundPosition = -1;
 		for(int x = 1; x < list.size(); x++) 
@@ -34,17 +49,28 @@ public class QueueSystem {
 		return foundPosition;
 	}
 
+	/**
+	 * Method responsible to add patient in the end of the list.
+	 * @param toAdd
+	 */
 	public void addPatient(Patient toAdd) {
 		// list.addDNode(toAdd);
 		// list.addFirstEnhanced(toAdd);
 		list.addLast(toAdd);
 	}
 
-
+	/**
+	 * Method responsible to get the last element.
+	 * @returns Last patient in the list
+	 */
 	public Patient getLast() {
 		return list.last();
 	}
 
+	/**
+	 * Method to get the last ID in the list
+	 * @returns last patient id from the list. 
+	 */
 	public int getLastPid() {
 		return Patient.getLastPid();
 	}
@@ -63,16 +89,30 @@ public class QueueSystem {
 		return list.get(newPosition);
 
 	}
+	
+	/**
+	 * Method to check the size of the list
+	 * @return list size.
+	 */
 	public int getListSize() {
 		return list.size();
 	}
 
+	/**
+	 * Method to check a patient position.
+	 * @param position
+	 * @return patient position.
+	 */
 	public Patient getPatient(int position) {
 		if(position>list.size())
 			return null;
 		return list.get(position);	
 	}
 
+	/**
+	 * Method to return a True if the list empty, false if it is not
+	 * @return
+	 */
 	public boolean isEmpty() {
 		return (list.size() == 0);
 	}
@@ -91,9 +131,6 @@ public class QueueSystem {
 		//			}
 		//				
 		//		}
-
-
-
 		while((temp = samplePatients.removeFirst()) != null) {
 			int pidToBeAdded = temp.getPid();
 			int lastPid = 0;
@@ -104,15 +141,7 @@ public class QueueSystem {
 				System.out.println(list.last().getPid());
 				System.out.println(list.last());
 			}
-
 		}
-		//		System.out.println(list.toString());
-		//		int counter = 0;
-		//		for(int x = 0; x < samplePatients.size()-1; x++) {
-		//			System.out.println("Added: "+ samplePatients.get(x+1).getPid());
-		//			list.addLast(samplePatients.get(x+1));
-		//		}
-
 	}
 
 

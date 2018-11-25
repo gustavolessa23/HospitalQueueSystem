@@ -5,6 +5,10 @@ public class View {
 		
 	}
 
+	/**
+	 * Method to display the main menu
+	 * @return number of choice. 
+	 */
 	public int displayMainMenu() {
         display(
       "\n+----------------------------------+\n" +
@@ -22,28 +26,56 @@ public class View {
 		return 7;
 	}
 	
+	/**
+	 * Method to display an String message.
+	 * @param str
+	 */
 	public static void display(String str) {
 		System.out.println(str);
 	}
+	
+	/**
+	 * Method to display an element into the DoublyLinkedList.
+	 * @param array
+	 */
 	public static <E> void displayPatient(DoublyLinkedList<E> array) {
 		display(array.toString());
 	}
+	
+	/**
+	 * Method to display Patients.
+	 * @param patient
+	 */
 	public static void displayPatient(Patient patient) {
 		display(patient.toString());
 	}
 	
+	/**
+	 * 
+	 * @param str
+	 */
 	public static void displaySameLine(String str) {
 		System.out.print(str);
 	}
 	
+	/**
+	 * Method to display a error message.
+	 * @param str
+	 */
 	public static void displayError(String str) {
 		System.err.println(str);
 	}
 
+	/**
+	 * Method to print a message for the ID input.
+	 */
 	public static void askForPid() {
 		display("Type Patient Number:");
 	}
 
+	/**
+	 * Method to print a empty list message .
+	 */
 	public static void emptyListMessage() {
 		display("The list is empty.");
 		
