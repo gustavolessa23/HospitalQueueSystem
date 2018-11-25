@@ -79,12 +79,32 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 	}
 	
 	@Override
-	public void addBefore(Node<E> toBeAdded, Node<E> after) {
-		toBeAdded.setNext(after);
-		toBeAdded.setPrev(after.getPrev());
-		after.getPrev().setNext(toBeAdded);
-		after.setPrev(toBeAdded);
+	public void addBefore(Node<E> toBeAdded, Node<E> before) {
+		toBeAdded.setNext(before);
+		toBeAdded.setPrev(before.getPrev());
+		before.getPrev().setNext(toBeAdded);
+		before.setPrev(toBeAdded);
 		size++;	
+	}
+	
+	public void addFirstEnhanced(E e) {
+		Node<E> currentFirst = header.getNext();
+		Node<E> newNode = new Node<>(e, currentFirst, header);
+		
+		currentFirst.setPrev(newNode);
+		header.setNext(newNode);
+		size++;
+		
+	}
+	
+	public void addLastEnhanced(E e) {
+		Node<E> currentLast = trailer.getPrev();
+		Node<E> newNode = new Node<>(e, trailer, currentLast);
+		
+		currentLast.setNext(newNode);
+		trailer.setPrev(newNode);
+		size++;
+		
 	}
 	
 	@Override

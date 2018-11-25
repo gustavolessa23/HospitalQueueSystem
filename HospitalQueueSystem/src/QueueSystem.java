@@ -61,33 +61,33 @@ public class QueueSystem {
 
 	public void addPatients(DoublyLinkedList<Patient> samplePatients) {
 		Patient temp = null;
-		while((temp = samplePatients.removeLast()) != null) {
-			int pidToBeAdded = temp.getPid();
-			int lastPid = 0;
-			System.out.println("Added: "+ temp.getPid());
-			while(pidToBeAdded != lastPid) {
-				list.addFirst(temp);
-				lastPid = list.first().getPid();
-				System.out.println(list.last().getPid());
-				System.out.println(list.last());
-			}
-				
-		}
-		
-		
-		
-//		while((temp = samplePatients.removeFirst()) != null) {
+//		while((temp = samplePatients.removeLast()) != null) {
 //			int pidToBeAdded = temp.getPid();
 //			int lastPid = 0;
 //			System.out.println("Added: "+ temp.getPid());
 //			while(pidToBeAdded != lastPid) {
-//				list.addLast(temp);
-//				lastPid = list.last().getPid();
+//				list.addFirstEnhanced(temp);
+//				lastPid = list.first().getPid();
 //				System.out.println(list.last().getPid());
 //				System.out.println(list.last());
 //			}
 //				
 //		}
+		
+		
+		
+		while((temp = samplePatients.removeFirst()) != null) {
+			int pidToBeAdded = temp.getPid();
+			int lastPid = 0;
+			System.out.println("Added: "+ temp.getPid());
+			while(pidToBeAdded != lastPid) {
+				list.addLastEnhanced(temp);
+				lastPid = list.last().getPid();
+				System.out.println(list.last().getPid());
+				System.out.println(list.last());
+			}
+				
+		}
 //		System.out.println(list.toString());
 //		int counter = 0;
 //		for(int x = 0; x < samplePatients.size()-1; x++) {
