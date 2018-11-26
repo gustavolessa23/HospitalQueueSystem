@@ -6,12 +6,10 @@ import java.io.IOException;
 
 public class ReadFile {
 
-	DoublyLinkedList<Patient> array;
-	Patient patient;
+
 	public ReadFile(){
 		
-		array = new DoublyLinkedList<>();
-		patient = new Patient();
+
 	}
 	/**
 	 * Method responsible to get patients information from text file, and print into the patient list.
@@ -19,9 +17,9 @@ public class ReadFile {
 	 * @throws IOException
 	 */
 	public DoublyLinkedList<Patient> getSamplePatients() throws IOException{
-		DoublyLinkedList<Patient> samplePatients = new DoublyLinkedList<Patient>();
+		DoublyLinkedList<Patient> samplePatients = new DoublyLinkedList<>();
 
-
+		System.out.println(Patient.getLastPid());
 		File file = new File("src/Patients","names.txt"); 
 		BufferedReader br = new BufferedReader(new FileReader(file)); 
 		String st = null;	
@@ -60,9 +58,11 @@ public class ReadFile {
 			String mobile = (row[3]);
 			String email = (row[4]);
 			String city = (row[5]);
+			Patient temp = new Patient(pps, firstName, lastName, mobile, email, city);
 			
-			samplePatients.addLast(new Patient(pps, firstName, lastName, mobile, email, city));
-			System.out.println(samplePatients.size());
+			samplePatients.addLast(temp);
+			
+			System.out.println(temp);
 			st = null;
 
 		}

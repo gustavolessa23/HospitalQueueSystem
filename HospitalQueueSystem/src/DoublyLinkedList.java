@@ -35,6 +35,9 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 	}
 
 	public E get(int position) {
+		if(position <= 0 || position > size)
+			return null;
+		
 		return getNode(position).getElement();
 	}
 
@@ -45,26 +48,25 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 	 */
 	public Node<E> getNode(int position) {		
 
+		System.out.println("Position chosen: "+ position);
+		System.out.println("Size: "+this.size);
+		
 		if (position > size) return null;
+
+		if (position == 0) return null;
+
 		Node<E> currentNode = null;
 
 
-		if(position < (size/2)) {
+		if(position < (this.size/2)) {
+			currentNode = header;
+			for(int x = 0; x<position; x++) 
+				currentNode = currentNode.getNext();
 
-
-			if (position > this.size) return null;
-
-
-			if(position < (this.size/2)) {
-				currentNode = header;
-				for(int x = 0; x<position; x++) 
-					currentNode = currentNode.getNext();
-
-			} else {
-				currentNode = trailer;
-				for(int x = this.size; x>position; x--) 
-					currentNode = currentNode.getPrev();
-			}
+		} else {
+			currentNode = trailer;
+			for(int x = this.size; x>=position; x--) 
+				currentNode = currentNode.getPrev();
 		}
 		return currentNode;
 	}
@@ -84,18 +86,19 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 	 * @param e
 	 */
 	public void addLast(E e) { 
-		Node<E> newNode = new Node<E>(e, header, trailer);
-		if(isEmpty()) {
-			this.header = newNode;
-			this.trailer = this.header;
-		} else {
-			Node<E> temp = this.trailer;
-			newNode.setPrev(temp);
-			temp.setNext(newNode);
-			this.trailer = temp.getNext();
-		}
-		this.size++;
-		// addLast(new Node<>(e, null, null)); 
+//		Node<E> newNode = new Node<E>(e, header, trailer);
+//		if(isEmpty()) {
+//			this.header = newNode;
+//			this.trailer = this.header;
+//		} else {
+//			Node<E> temp = this.trailer;
+//			newNode.setPrev(temp.getPrev());
+//			temp.setNext(temp);
+//			temp.getPrev().setNext(newNode);
+//			this.trailer = temp.getNext();
+//		}
+//		this.size++;
+		 addLast(new Node<>(e, null, null)); 
 
 	}
 

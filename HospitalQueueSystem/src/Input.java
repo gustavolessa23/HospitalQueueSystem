@@ -1,16 +1,13 @@
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Input {
 
-	Scanner scan = new Scanner(System.in);
+	Scanner scan;
 	Validation validate;
-	ReadFile sample;
 	
 	public Input() {
 		 scan = new Scanner(System.in);
 		 validate = new Validation();
-		 sample = new ReadFile();
 	}
 	
 	/**
@@ -46,13 +43,17 @@ public class Input {
 	 * This method returns Sample of Patient List in the system
 	 * @return Sample of Patient List
 	 */
-	public DoublyLinkedList<Patient> getSamplePatients(){
-		try {
-			return sample.getSamplePatients();
-		} catch (IOException e) {
-			View.displayError("Could not load sample patients from file.");
-			return null;
-		}
+//	public DoublyLinkedList<Patient> getSamplePatients(){
+//		try {
+//			return sample.getSamplePatients();
+//		} catch (IOException e) {
+//			View.displayError("Could not load sample patients from file.");
+//			return null;
+//		}
+//	}
+	
+	public boolean isYes() {
+		return validate.checkForYes(scan);
 	}
 
 	

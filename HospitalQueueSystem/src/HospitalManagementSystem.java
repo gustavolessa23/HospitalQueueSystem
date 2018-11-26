@@ -10,8 +10,6 @@ public class HospitalManagementSystem{
 
 	public HospitalManagementSystem(){
 		this.patients = new QueueSystem();
-		new ReadFile();
-
 		this.view = new View();
 		this.input = new Input();
 	}
@@ -29,8 +27,9 @@ public class HospitalManagementSystem{
 
 	private void loadSampleData() throws IOException {
 		View.display("Would you like to load sample patient data? (Y/N)");
-		if(input.validate.checkForYes(input.scan));
-		patients.addPatients(input.getSamplePatients());
+		if(input.isYes()) {
+			patients.getSamplePatients2();
+		}
 	}
 
 	private void mainMenuOption(int chosenOption) throws IOException {
@@ -87,25 +86,26 @@ public class HospitalManagementSystem{
 	private void addPatient() {
 		View.display("\nADD NEW PATIENT\n-----------------------\n");
 		String ppsNumber = typePpsNumber();
-		String name = typeName();
-		String surname = typeSurname();
+		String name = typeFirstName();
+		String surname = typeLastName();
 		String phone = typeMobileNumber();
 		String email = typeEmail();
 		String city = typeCity();
 		Patient newPatient = new Patient(ppsNumber, name, surname, phone, email, city);
 
-		View.display("Do you want to add more Patiend?\n----------------------\n"+ "1 - Yes\n" + "2 - No");
-
-		int answer = this.input.validate.checkForInt(this.input.scan, 1, 2);
-		if(answer == 1){
-			addPatient();	
 			patients.addPatient(newPatient); // uses the QueueSystem method to add to the list
 			View.displayPatient(patients.getLast()); // prints the last patient to confirm that it is the same 
-			View.display("Do you want to add another patient? (Y/N)\n------------------------------\n");
-		}
-		else if(answer == 2){
-			View.displayPatient(newPatient);// display all patients added into the List, once the user select option 2.
-		}
+			
+		
+//		int answer = this.input.validate.checkForInt(this.input.scan, 1, 2);
+//		if(answer == 1){
+//			patients.addPatient(newPatient); // uses the QueueSystem method to add to the list
+//			View.displayPatient(patients.getLast()); // prints the last patient to confirm that it is the same 
+//			View.display("Do you want to add another patient? (Y/N)\n------------------------------\n");
+//		}
+//		else if(answer == 2){
+//			View.displayPatient(newPatient);// display all patients added into the List, once the user select option 2.
+//		}
 	}
 	
 	/**
@@ -145,7 +145,7 @@ public class HospitalManagementSystem{
 		if(!patients.isEmpty()) {
 			StringBuilder sb = new StringBuilder("");
 			sb.append("POSITION\tPID\t\tNAME\n");
-			for(int x = 0; x<patients.getListSize()-1; x++) {
+			for(int x = 0; x<patients.getListSize(); x++) {
 				Patient p = patients.getPatient(x+1);
 				int position = x+1;
 				sb.append(position);
@@ -165,53 +165,110 @@ public class HospitalManagementSystem{
 
 	}
 
-	/**
-	 * This method a new Patient ID Position by typing the old position, then the new position after the urgency set. 
-	 */
-	private void updatePatient() {
-		// TODO Auto-generated method stub
-		View.display("Do you want to update patient? - 1 Yes -- 2 No\n-----------------\n");
-		int answer = this.input.validate.checkForInt(this.input.scan, 1, 2);
-		if(answer == 1){
-			View.display("Select priority A or priority B: \n-----------------\n");
-			input.validate.checkForPriority(this.input.scan);
-			
-			View.askForPid();;
-			int oldID = input.getPid();
-			
-			View.display("Type new patient disired position: \n-----------\n");
-			int newID = input.getPid();
-			
-			if(patients.updatePatient(oldID, newID) != null ){
-				View.display("Patient updated successfully!");
-			}else{
-				View.displayError("Could not upddate patient");
-			}
-			
-		}
-		else if(answer == 2){
-		}
-
-
-
-	}
+//	/**
+//	 * This method a new Patient ID Position by typing the old position, then the new position after the urgency set. 
+//	 */
+//	private void updatePatient() {
+//		// TODO Auto-generated method stub
+//		View.display("Do you want to update patient? - 1 Yes -- 2 No\n-----------------\n");
+//		int answer = this.input.validate.checkForInt(this.input.scan, 1, 2);
+//		if(answer == 1){
+//			View.display("Select priority A or priority B: \n-----------------\n");
+//			input.validate.checkForPriority(this.input.scan);
+//			
+//			View.askForPid();;
+//			int oldID = input.getPid();
+//			
+//			View.display("Type new patient disired position: \n-----------\n");
+//			int newID = input.getPid();
+//			
+//			if(patients.updatePatient(oldID, newID) != null ){
+//				View.display("Patient updated successfully!");
+//			}else{
+//				View.displayError("Could not upddate patient");
+//			}
+//			
+//		}
+//		else if(answer == 2){
+//		}
+//	}
 
 	/**
 	 * This method return a patient position, by typing ID Number.
 	 */
 	private void checkPosition() {
-		// TODO Auto-generated method stub
-
-		patients.searchPatient(input.scan.nextInt());
-
 		View.askForPid();
 		int pid = input.getPid();
 		int position = patients.searchPatient(pid);
 		if(position > 0) {
-			View.display("Patient PID "+pid+" is in position "+position+".");
+			View.displayPatient(patients.getPatient(position));
+			View.display("The patient is in position "+position+".");
 		}
 
 	}
+	
+	/**
+	 * This method is responsible to update patient information by a given ID. 
+	 */
+	private void updatePatient() {
+
+		View.display("Do you want to update a patient's information? (Y/N) ");
+
+		if(input.isYes()){
+
+			View.askForPid();
+			int idUptd = input.getPid();
+			int positionID = patients.searchPatient(idUptd);
+
+			if(positionID <= 0){
+				View.display("Patient not found! ");
+
+			}else{
+
+				boolean n_done = false;
+				Patient updtPatient = patients.getPatient(positionID);
+				View.displayPatient(updtPatient);
+				int options = view.displayUpdateMenu();
+
+				while(!n_done){
+					view.displayChooseOption();
+					int chosen = input.getNextInt(options);
+
+					switch (chosen) {
+					case 1:
+						updtPatient.setPps(typePpsNumber());
+						break;
+						
+					case 2:
+						updtPatient.setFirstName(typeFirstName());					
+						break;
+						
+					case 3:
+						updtPatient.setLastName(typeLastName());
+						break;
+						
+					case 4:
+						updtPatient.setMobile(typeMobileNumber());
+						break;
+						
+					case 5:
+						updtPatient.setEmail(typeEmail());
+						break;
+						
+					case 6:
+						updtPatient.setCity(typeCity());
+						break;
+						
+					case 7:
+						n_done = true;
+						View.display("Information Updated Successfully!");
+						break;
+					}
+				}
+			}	
+		}
+	}
+
 
 	/**
 	 * This method returns a choice of PPS Number from user input.
@@ -226,8 +283,8 @@ public class HospitalManagementSystem{
 	 * This method returns a choice of Name from user input.
 	 * @return
 	 */
-	private String typeName(){
-		View.display("Please type name: ");  
+	private String typeFirstName(){
+		View.display("Please type first name: ");  
 		return input.getNextString();
 	}
 	
@@ -235,8 +292,8 @@ public class HospitalManagementSystem{
 	 * This method returns a choice of Surname from user input.
 	 * @return
 	 */
-	private String typeSurname(){
-		View.display("Please type surname: "); 
+	private String typeLastName(){
+		View.display("Please type last name: "); 
 		return input.getNextString();
 	}
 	

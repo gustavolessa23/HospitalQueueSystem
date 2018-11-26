@@ -10,20 +10,40 @@ public class View {
 	 * @return number of choice. 
 	 */
 	public int displayMainMenu() {
+		int numberOfOptions = 7;
         display(
       "\n+----------------------------------+\n" +
         "|     Hospital Management System   |\n" +
         "|----------------------------------|\n" +  
         "| 1 - Add new patient              |\n" +
-        "| 2 - Check patient's position     |\n" +
+        "| 2 - Check patient's status       |\n" +
         "| 3 - Update patient's info        |\n" + 
         "| 4 - List all patients            |\n" + 
         "| 5 - Remove patient               |\n" + 
         "| 6 - Remove patients from the end |\n" + 
         "| 7 - Exit Program                 |\n" +        
-        "+----------------------------------+\n" +
-        "Please select an option: ");
-		return 7;
+        "+----------------------------------+\n");
+        displayChooseOption();
+		return numberOfOptions;
+	}
+	
+	public int displayUpdateMenu() {
+		int numberOfOptions = 7;
+		
+        display(
+      "\n+----------------------------------+\n" +
+        "|  Updating Patient's Information  |\n" +
+        "|----------------------------------|\n" +  
+        "| 1 - PPS number                   |\n" +
+        "| 2 - First name                   |\n" +
+        "| 3 - Last name                    |\n" + 
+        "| 4 - Mobile number                |\n" + 
+        "| 5 - E-mail address               |\n" + 
+        "| 6 - City                         |\n" + 
+        "| 7 - Go back to Main Menu         |\n" +        
+        "+----------------------------------+\n");
+
+		return numberOfOptions;
 	}
 	
 	/**
@@ -79,6 +99,10 @@ public class View {
 	public static void emptyListMessage() {
 		display("The list is empty.");
 		
+	}
+
+	public void displayChooseOption() {
+		display("Please choose an option: ");
 	}
 	
 }
