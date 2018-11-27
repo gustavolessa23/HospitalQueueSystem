@@ -48,8 +48,8 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 	 */
 	public Node<E> getNode(int position) {		
 
-		System.out.println("Position chosen: "+ position);
-		System.out.println("Size: "+this.size);
+		//View.display("Position chosen: "+ position);
+		// System.out.println("Size: "+this.size);
 		
 		if (position > size) return null;
 
@@ -67,6 +67,7 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 			currentNode = trailer;
 			for(int x = this.size; x>=position; x--) 
 				currentNode = currentNode.getPrev();
+	
 		}
 		return currentNode;
 	}

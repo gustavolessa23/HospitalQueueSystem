@@ -5,10 +5,10 @@ import java.io.IOException;
 
 
 public class ReadFile {
-
+	DoublyLinkedList<Patient> list;
 
 	public ReadFile(){
-		
+		list = new DoublyLinkedList<Patient>();
 
 	}
 	/**
@@ -16,13 +16,10 @@ public class ReadFile {
 	 * @return
 	 * @throws IOException
 	 */
-	public DoublyLinkedList<Patient> getSamplePatients() throws IOException{
+	public DoublyLinkedList<Patient> getSamplePatients(){
 		DoublyLinkedList<Patient> samplePatients = new DoublyLinkedList<>();
 
-		System.out.println(Patient.getLastPid());
-		File file = new File("src/Patients","names.txt"); 
-		BufferedReader br = new BufferedReader(new FileReader(file)); 
-		String st = null;	
+	
 		
 		String[] test = {"1224327FB	Oliver		Barney		014370969		Oliver.32@gmail.com		Dublin", 
 		"1224327FB	Jake		Hadley		+35314370969 	Jake@cct.com			Dublin",
@@ -59,16 +56,11 @@ public class ReadFile {
 			String email = (row[4]);
 			String city = (row[5]);
 			Patient temp = new Patient(pps, firstName, lastName, mobile, email, city);
-			
-			samplePatients.addLast(temp);
-			
-			// System.out.println(temp);
-			st = null;
-
-		}
+			list.addLast(temp);
 		// System.out.println("Tamanho: "+samplePatients.size());
-		br.close();
-		return samplePatients;
+		
+		}
+		return list;
 
 	}
 }

@@ -2,7 +2,6 @@ import java.io.IOException;
 
 public class HospitalManagementSystem{
 
-
 	private QueueSystem patients;
 	private View view;
 	private Input input;
@@ -93,8 +92,8 @@ public class HospitalManagementSystem{
 		String city = typeCity();
 		Patient newPatient = new Patient(ppsNumber, name, surname, phone, email, city);
 
-			patients.addPatient(newPatient); // uses the QueueSystem method to add to the list
-			View.displayPatient(patients.getLast()); // prints the last patient to confirm that it is the same 
+		patients.addPatient(newPatient); // uses the QueueSystem method to add to the list
+		View.displayPatient(patients.getLast()); // prints the last patient to confirm that it is the same 
 			
 		
 //		int answer = this.input.validate.checkForInt(this.input.scan, 1, 2);
@@ -112,13 +111,12 @@ public class HospitalManagementSystem{
 	 * This method remove a patient from the list after a user input.
 	 */
 	private void removePatient() {
-
 		// TODO Auto-generated method stub
 		int delete = 0;
 		View.display("Type Patient Number:\n---------------------\n");
 		patients.deletePatient(delete);
-
 		View.askForPid();
+		
 		if(patients.deletePatient(input.getPid()) != null) {
 			View.display("Patient removed successfully!");
 		} else {
@@ -203,14 +201,12 @@ public class HospitalManagementSystem{
 			View.displayPatient(patients.getPatient(position));
 			View.display("The patient is in position "+position+".");
 		}
-
 	}
 	
 	/**
 	 * This method is responsible to update patient information by a given ID. 
 	 */
 	private void updatePatient() {
-
 		View.display("Do you want to update a patient's information? (Y/N) ");
 
 		if(input.isYes()){

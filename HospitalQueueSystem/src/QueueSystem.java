@@ -21,10 +21,8 @@ public class QueueSystem {
 
 		if(patientPosition <= 0)
 			return null;
-
 		else
 			return list.remove(patientPosition);
-
 	}
 
 	/**
@@ -44,7 +42,7 @@ public class QueueSystem {
 	public int searchPatient(int pid){
 		int foundPosition = -1;
 		for(int x = 1; x < list.size(); x++) {
-			System.out.println(list.get(x));
+//			System.out.println(list.get(x));
 			if(list.get(x).getPid() == pid) {
 				foundPosition = x;
 				return foundPosition;
@@ -135,16 +133,15 @@ public class QueueSystem {
 		while((temp = samplePatients.removeFirst()) != null) {
 			int pidToBeAdded = temp.getPid();
 			int lastPid = 0;
-			System.out.println("Added: "+ temp.getPid());
+			//System.out.println("Added: "+ temp.getPid());
 			while(pidToBeAdded != lastPid) {
 				list.addLastEnhanced(temp);
 				lastPid = list.last().getPid();
-				System.out.println(list.last().getPid());
-				System.out.println(list.last());
+//				System.out.println(list.last().getPid());
+//				System.out.println(list.last());
 			}
 		}
 	}
-	
 	public void getSamplePatients2() throws IOException{
 		
 		String[] test = {"1224327FB	Oliver		Barney		014370969		Oliver.32@gmail.com		Dublin", 
