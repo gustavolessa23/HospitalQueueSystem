@@ -62,11 +62,11 @@ public class ReadFile {
 			
 			samplePatients.addLast(temp);
 			
-			System.out.println(temp);
+			// System.out.println(temp);
 			st = null;
 
 		}
-		System.out.println("Tamanho: "+samplePatients.size());
+		// System.out.println("Tamanho: "+samplePatients.size());
 		br.close();
 		return samplePatients;
 

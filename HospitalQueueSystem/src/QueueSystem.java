@@ -81,7 +81,7 @@ public class QueueSystem {
 	 * This method gets a patient ID and add it to a new Position in the list.
 	 * @param index
 	 */
-	public Patient updatePatient(int index, int newPosition){
+	public Patient updatePatientPosition(int index, int newPosition){
 
 		for(int i = 1; i < list.size(); i++){
 			if(list.set(index, newPosition).getPid() == newPosition){;	
@@ -89,7 +89,6 @@ public class QueueSystem {
 			}
 		}
 		return list.get(newPosition);
-
 	}
 	
 	/**

@@ -77,6 +77,4 @@ public class Node<E> implements NodeInterface<E> {
 			this.next = next;
 		}
 
-		
-
 }

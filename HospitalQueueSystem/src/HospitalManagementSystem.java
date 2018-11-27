@@ -80,7 +80,7 @@ public class HospitalManagementSystem{
 	}
 
 	/**
-	 * Method responsible to take String as parameters and add the information to add a new Patient into the list
+	 * Method responsible to take String as parameters and add the information to create a new Patient into the list
 	 * after a user input.
 	 */
 	private void addPatient() {
@@ -126,7 +126,6 @@ public class HospitalManagementSystem{
 		}	
 	}
 	
-
 	/**
 	 * This method removes a number of N element typed by the user from the end of the List.
 	 */
