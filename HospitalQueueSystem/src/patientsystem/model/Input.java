@@ -1,5 +1,8 @@
+package patientsystem.model;
 
 import java.util.Scanner;
+
+import patientsystem.lib.Validation;
 
 public class Input {
 
@@ -19,7 +22,7 @@ public class Input {
 
 		String line = "";
 		while(line.isEmpty())
-			line = scan.next();
+			line = scan.nextLine();
 		return line;
 	}
 
@@ -39,14 +42,6 @@ public class Input {
 	public int getPid() {
 		return validate.checkForInt(scan, 1, Patient.getLastPid());
 	}
-
-	/**
-	 * This method returns Sample of Patient List in the system
-	 * @return Sample of Patient List
-	 */
-	//	public DoublyLinkedList<Patient> getPatientSample(){
-	//		return sample.getSamplePatients();
-	//	}
 
 	public boolean isYes() {
 		return validate.checkForYes(scan);

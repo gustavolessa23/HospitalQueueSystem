@@ -1,3 +1,6 @@
+package patientsystem.lib;
+
+import patientsystem.lib.interfaces.DoublyLinkedListInterface;
 
 public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 

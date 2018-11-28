@@ -1,3 +1,4 @@
+package patientsystem.model;
 
 public class Patient implements Comparable<Patient> {
 	private static int lastPid = 0;

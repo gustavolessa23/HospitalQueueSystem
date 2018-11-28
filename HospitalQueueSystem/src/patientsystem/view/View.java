@@ -1,3 +1,6 @@
+package patientsystem.view;
+import patientsystem.lib.DoublyLinkedList;
+import patientsystem.model.Patient;
 
 public class View {
 

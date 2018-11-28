@@ -1,19 +1,25 @@
+package patientsystem.controller;
 import java.io.IOException;
 
-public class HospitalManagementSystem{
+import patientsystem.model.Input;
+import patientsystem.model.Patient;
+import patientsystem.model.QueueSystem;
+import patientsystem.view.View;
+
+public class PatientSystemController{
 
 	private QueueSystem patients;
 	private View view;
 	private Input input;
 
 
-	public HospitalManagementSystem(){
+	public PatientSystemController(){
 		this.patients = new QueueSystem();
 		this.view = new View();
 		this.input = new Input();
 	}
 
-	public void start() throws IOException {
+	public void start(){
 		if(patients.isEmpty())
 			loadSampleData();
 
@@ -24,14 +30,14 @@ public class HospitalManagementSystem{
 
 	}
 
-	private void loadSampleData() throws IOException {
+	private void loadSampleData(){
 		View.display("Would you like to load sample patient data? (Y/N)");
-		if(input.isYes()) {
-			patients.getSamplePatients2();
-		}
+		
+		if(input.isYes()) 
+			patients.generateSamplePatients();
 	}
 
-	private void mainMenuOption(int chosenOption) throws IOException {
+	private void mainMenuOption(int chosenOption){
 		switch(chosenOption) {
 
 		case 1:
@@ -95,50 +101,39 @@ public class HospitalManagementSystem{
 		patients.addPatient(newPatient); // uses the QueueSystem method to add to the list
 		View.displayPatient(patients.getLast()); // prints the last patient to confirm that it is the same 
 			
-		
-//		int answer = this.input.validate.checkForInt(this.input.scan, 1, 2);
-//		if(answer == 1){
-//			patients.addPatient(newPatient); // uses the QueueSystem method to add to the list
-//			View.displayPatient(patients.getLast()); // prints the last patient to confirm that it is the same 
-//			View.display("Do you want to add another patient? (Y/N)\n------------------------------\n");
-//		}
-//		else if(answer == 2){
-//			View.displayPatient(newPatient);// display all patients added into the List, once the user select option 2.
-//		}
 	}
 	
 	/**
 	 * This method remove a patient from the list after a user input.
 	 */
 	private void removePatient() {
-		// TODO Auto-generated method stub
-		int delete = 0;
-		View.display("Type Patient Number:\n---------------------\n");
-		patients.deletePatient(delete);
+
 		View.askForPid();
 		
-		if(patients.deletePatient(input.getPid()) != null) {
+		if(patients.deletePatient(input.getPid()) != null) 
 			View.display("Patient removed successfully!");
-		} else {
+		
+		else
 			View.displayError("Could not remove patient");
-		}	
 	}
 	
 	/**
 	 * This method removes a number of N element typed by the user from the end of the List.
 	 */
 	private void removeLastPatients() {
+		
 		View.display("How many patients should be removed from the end of the list?");
-		int removed  = patients.deletePatients(input.getNextInt(patients.getListSize()));
+		
+		int removed = patients.deletePatients(input.getNextInt(patients.getListSize()));
+		
 		View.display("\nSuccessfully removed "+ removed + " patients.");
-
 	}
 
 	/**
 	 * This method return a List of all patients into the List.
 	 * @throws IOException
 	 */
-	private void listAll() throws IOException{
+	private void listAll(){
 		if(!patients.isEmpty()) {
 			StringBuilder sb = new StringBuilder("");
 			sb.append("POSITION\tPID\t\tNAME\n");
@@ -156,10 +151,8 @@ public class HospitalManagementSystem{
 			}
 
 			View.display(sb.toString());
-		} else {
-			View.emptyListMessage();	
-		}
-
+		} else 
+			View.emptyListMessage();
 	}
 
 //	/**
@@ -207,7 +200,7 @@ public class HospitalManagementSystem{
 	 * This method is responsible to update patient information by a given ID. 
 	 */
 	private void updatePatient() {
-		View.display("Do you want to update a patient's information? (Y/N) ");
+		View.display("Do you want to update a patient's information? (Y/N)");
 
 		if(input.isYes()){
 
@@ -215,10 +208,10 @@ public class HospitalManagementSystem{
 			int idUptd = input.getPid();
 			int positionID = patients.searchPatient(idUptd);
 
-			if(positionID <= 0){
+			if(positionID <= 0)
 				View.display("Patient not found! ");
 
-			}else{
+			else {
 
 				boolean n_done = false;
 				Patient updtPatient = patients.getPatient(positionID);
@@ -256,6 +249,7 @@ public class HospitalManagementSystem{
 						
 					case 7:
 						n_done = true;
+						View.displayPatient(updtPatient);
 						View.display("Information Updated Successfully!");
 						break;
 					}
@@ -318,8 +312,5 @@ public class HospitalManagementSystem{
 		View.display("Please type city: "); 
 		return input.getNextString();
 	}
-
-
-
 
 }

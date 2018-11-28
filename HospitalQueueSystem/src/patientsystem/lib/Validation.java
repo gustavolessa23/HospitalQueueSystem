@@ -1,18 +1,17 @@
+package patientsystem.lib;
 
 
-import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import patientsystem.view.View;
 
 /**
  * This class contains methods used to validate user input such as  
  * int, int with defined range and yes/no.
  * @author Gustavo Lessa
- * @author Rafael Barros
  */
 public class Validation {
-
-
 
 	/**
 	 * This method checks if the input is a integer.

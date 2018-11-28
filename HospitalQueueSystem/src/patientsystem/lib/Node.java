@@ -1,3 +1,6 @@
+package patientsystem.lib;
+
+import patientsystem.lib.interfaces.NodeInterface;
 
 public class Node<E> implements NodeInterface<E> {
 

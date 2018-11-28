@@ -1,14 +1,12 @@
-
-import java.io.IOException;
+package patientsystem.model;
+import patientsystem.lib.DoublyLinkedList;
 
 public class QueueSystem {
 
 	private DoublyLinkedList<Patient> list;
 	
 	public QueueSystem(){
-		
 		list = new DoublyLinkedList<>();
-
 	}
 
 	/**
@@ -41,13 +39,12 @@ public class QueueSystem {
 	 */
 	public int searchPatient(int pid){
 		int foundPosition = -1;
-		for(int x = 1; x < list.size(); x++) {
-//			System.out.println(list.get(x));
+		for(int x = 1; x < list.size(); x++) 
 			if(list.get(x).getPid() == pid) {
 				foundPosition = x;
 				return foundPosition;
 			}	
-		}
+		
 		return foundPosition;
 	}
 
@@ -80,12 +77,11 @@ public class QueueSystem {
 	 * @param index
 	 */
 	public Patient updatePatientPosition(int index, int newPosition){
-
-		for(int i = 1; i < list.size(); i++){
-			if(list.set(index, newPosition).getPid() == newPosition){;	
+		
+		for(int i = 1; i < list.size(); i++)
+			if(list.set(index, newPosition).getPid() == newPosition)	
 				newPosition = i;
-			}
-		}
+			
 		return list.get(newPosition);
 	}
 	
@@ -116,33 +112,8 @@ public class QueueSystem {
 		return (list.size() == 0);
 	}
 
-	public void addPatients(DoublyLinkedList<Patient> samplePatients) {
-		Patient temp = null;
-		//		while((temp = samplePatients.removeLast()) != null) {
-		//			int pidToBeAdded = temp.getPid();
-		//			int lastPid = 0;
-		//			System.out.println("Added: "+ temp.getPid());
-		//			while(pidToBeAdded != lastPid) {
-		//				list.addFirstEnhanced(temp);
-		//				lastPid = list.first().getPid();
-		//				System.out.println(list.last().getPid());
-		//				System.out.println(list.last());
-		//			}
-		//				
-		//		}
-		while((temp = samplePatients.removeFirst()) != null) {
-			int pidToBeAdded = temp.getPid();
-			int lastPid = 0;
-			//System.out.println("Added: "+ temp.getPid());
-			while(pidToBeAdded != lastPid) {
-				list.addLastEnhanced(temp);
-				lastPid = list.last().getPid();
-//				System.out.println(list.last().getPid());
-//				System.out.println(list.last());
-			}
-		}
-	}
-	public void getSamplePatients2() throws IOException{
+
+	public void generateSamplePatients(){
 		
 		String[] test = {"1224327FB	Oliver		Barney		014370969		Oliver.32@gmail.com		Dublin", 
 		"1224327FB	Jake		Hadley		+35314370969 	Jake@cct.com			Dublin",
