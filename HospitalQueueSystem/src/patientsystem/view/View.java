@@ -93,7 +93,8 @@ public class View {
 	 * Method to print a message for the ID input.
 	 */
 	public static void askForPid() {
-		display("Type Patient Number:");
+		displaySameLine("Type Patient Number:");
+		
 	}
 
 	/**

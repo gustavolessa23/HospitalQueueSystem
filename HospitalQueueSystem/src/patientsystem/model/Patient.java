@@ -21,6 +21,27 @@ public class Patient implements Comparable<Patient> {
 	 * @param email
 	 * @param city
 	 */
+	public Patient(String pps, String firstName, String lastName, String mobile, String email, String city, char priority) {
+		super();
+		this.pid = ++lastPid;
+		this.pps = pps;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.mobile = mobile;
+		this.email = email;
+		this.city = city;
+		this.priority = priority;
+	}	
+	
+	/**
+	 * Patient constructor.
+	 * @param pps
+	 * @param firstName
+	 * @param lastName
+	 * @param mobile
+	 * @param email
+	 * @param city
+	 */
 	public Patient(String pps, String firstName, String lastName, String mobile, String email, String city) {
 		super();
 		this.pid = ++lastPid;
@@ -96,7 +117,7 @@ public class Patient implements Comparable<Patient> {
 	}
 
 	/**
-	 * This method gets a patients lasst name.
+	 * This method gets a patients last name.
 	 * @return
 	 */
 	public String getLastName() {
@@ -206,20 +227,15 @@ public class Patient implements Comparable<Patient> {
 	               "Last Name: "+ this.getLastName() + "\n"+
 	               "Mobile Number: " + this.getMobile() + "\n" +
 	               "E-mail: " + this.getEmail() + "\n" +
-	               "City: " + this.getCity() +"\n"
+	               "City: " + this.getCity() +"\n" +
+	               "Priority: " + this.getPriority()
 				);	                       	
 	}
 
 
 	@Override
 	public int compareTo(Patient o) {
-		if(this.priority < o.getPriority()) {
-			return -1;
-		} else if (this.priority > o.getPriority()) {
-			return 1;
-		} else {
-			return 0;
-		}
+		return(this.priority - o.getPriority());
 	}
 
 }

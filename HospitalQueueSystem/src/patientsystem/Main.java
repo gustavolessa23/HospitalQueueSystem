@@ -1,11 +1,12 @@
 package patientsystem;
 
-import patientsystem.controller.PatientSystemController;
+import patientsystem.model.PatientManagementSystem;
 
 public class Main {
 
 	public static void main(String[] args){
-		PatientSystemController system = new PatientSystemController();
+
+		PatientManagementSystem system = new PatientManagementSystem();
 		system.start();
 	}
 }

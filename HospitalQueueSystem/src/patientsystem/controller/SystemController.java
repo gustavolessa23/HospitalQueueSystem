@@ -1,11 +1,13 @@
-package patientsystem.model;
+package patientsystem.controller;
 import patientsystem.lib.DoublyLinkedList;
+import patientsystem.model.Patient;
+import patientsystem.view.View;
 
-public class QueueSystem {
+public class SystemController {
 
 	private DoublyLinkedList<Patient> list;
 	
-	public QueueSystem(){
+	public SystemController(){
 		list = new DoublyLinkedList<>();
 	}
 
@@ -39,6 +41,7 @@ public class QueueSystem {
 	 */
 	public int searchPatient(int pid){
 		int foundPosition = -1;
+		
 		for(int x = 1; x < list.size(); x++) 
 			if(list.get(x).getPid() == pid) {
 				foundPosition = x;
@@ -52,8 +55,59 @@ public class QueueSystem {
 	 * Method responsible to add patient in the end of the list.
 	 * @param toAdd
 	 */
-	public void addPatient(Patient toAdd) {
+	public Patient addPatient(Patient toAdd) {
 		list.addLast(toAdd);
+		return list.last();
+	}
+	
+	/**
+	 * Method responsible to add patient in the end of the list.
+	 * @param toAdd
+	 */
+	public Patient addPatientByPosition(Patient toAdd, int position) {
+		list.addInPosition(toAdd, position);
+		return list.get(position);
+	}
+	
+	/**
+	 * Method responsible to add patient in the end of the list.
+	 * @param toAdd
+	 */
+	public Patient addPatientByPriority(Patient toAdd) {
+		char priority = toAdd.getPriority();
+		if(priority == 'c') {
+			list.addLast(toAdd);
+			return list.last();
+		}else {
+			int foundPosition = getLastPriorityPosition(1, toAdd);
+			list.addInPosition(toAdd, foundPosition);
+			return list.get(foundPosition);
+		}
+	}
+	
+	public int getLastPriorityPosition(int position, Patient toAdd) {
+		
+		if (position <= list.size()) { //check if the position is valid
+			
+			if (comparePatients(list.get(position), toAdd) <= 0) { //if priority of patient from list is higher than or equals to
+																   //the new patient's priority
+				
+				return getLastPriorityPosition(position+1, toAdd); //recursively call this method with the next position
+			
+			}else // in case the patient to be added has higher priority
+				return position; // return the position
+			
+		}else {
+			View.displayError("Position > List size.");
+			return -1;
+		}
+
+	}
+
+	
+	
+	public int comparePatients(Patient fromList, Patient toAdd) {
+		return fromList.compareTo(toAdd);
 	}
 
 	/**
