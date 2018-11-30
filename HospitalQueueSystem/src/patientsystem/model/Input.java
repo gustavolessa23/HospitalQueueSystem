@@ -6,8 +6,8 @@ import patientsystem.lib.Validation;
 
 public class Input {
 
-	Scanner scan;
-	Validation validate;
+	private Scanner scan;
+	private Validation validate;
 
 	public Input() {
 		scan = new Scanner(System.in);
@@ -19,11 +19,7 @@ public class Input {
 	 * @return String input
 	 */
 	public String getNextString() {
-
-		String line = "";
-		while(line.isEmpty())
-			line = scan.nextLine();
-		return line;
+		return validate.checkForString(scan);
 	}
 
 	/**
@@ -35,6 +31,18 @@ public class Input {
 		return validate.checkForInt(scan, 1, limit);
 	}
 
+	public String getPhoneNumber() {
+		return validate.checkPhoneNumber(scan);
+	}
+	
+	public String getPpsNumber() {
+		return validate.checkPpsNumber(scan);
+	}
+	
+	public String getEmail() {
+		return validate.checkEmail(scan);
+	}
+	
 	/**
 	 * Method responsible to return a ID after an user input.
 	 * @return Patient id.
