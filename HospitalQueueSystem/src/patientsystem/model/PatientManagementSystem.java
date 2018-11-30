@@ -2,6 +2,7 @@ package patientsystem.model;
 import java.io.IOException;
 
 import patientsystem.controller.SystemController;
+import patientsystem.view.TableList;
 import patientsystem.view.View;
 
 public class PatientManagementSystem{
@@ -51,7 +52,8 @@ public class PatientManagementSystem{
 			break;
 
 		case 4:
-			listAll();
+			//listAll();
+			listAllTable();
 			break;		
 
 		case 5:
@@ -163,63 +165,60 @@ public class PatientManagementSystem{
 	 * This method is responsible to update patient information by a given ID. 
 	 */
 	private void updatePatient() {
-		View.display("Do you want to update a patient's information? (Y/N)");
 
-		if(input.isYes()){
+		View.askForPid();
+		int idUptd = input.getPid();
+		int positionID = patients.searchPatient(idUptd);
 
-			View.askForPid();
-			int idUptd = input.getPid();
-			int positionID = patients.searchPatient(idUptd);
+		if(positionID <= 0)
+			View.display("Patient not found! ");
 
-			if(positionID <= 0)
-				View.display("Patient not found! ");
+		else {
 
-			else {
+			boolean n_done = false;
+			Patient updtPatient = patients.getPatient(positionID);
+			View.displayPatient(updtPatient);
+			int options = view.displayUpdateMenu();
 
-				boolean n_done = false;
-				Patient updtPatient = patients.getPatient(positionID);
-				View.displayPatient(updtPatient);
-				int options = view.displayUpdateMenu();
+			while(!n_done){
+				view.displayChooseOption();
+				int chosen = input.getNextInt(options);
 
-				while(!n_done){
-					view.displayChooseOption();
-					int chosen = input.getNextInt(options);
+				switch (chosen) {
+				case 1:
+					updtPatient.setPps(typePpsNumber());
+					break;
 
-					switch (chosen) {
-					case 1:
-						updtPatient.setPps(typePpsNumber());
-						break;
+				case 2:
+					updtPatient.setFirstName(typeFirstName());					
+					break;
 
-					case 2:
-						updtPatient.setFirstName(typeFirstName());					
-						break;
+				case 3:
+					updtPatient.setLastName(typeLastName());
+					break;
 
-					case 3:
-						updtPatient.setLastName(typeLastName());
-						break;
+				case 4:
+					updtPatient.setMobile(typeMobileNumber());
+					break;
 
-					case 4:
-						updtPatient.setMobile(typeMobileNumber());
-						break;
+				case 5:
+					updtPatient.setEmail(typeEmail());
+					break;
 
-					case 5:
-						updtPatient.setEmail(typeEmail());
-						break;
+				case 6:
+					updtPatient.setCity(typeCity());
+					break;
 
-					case 6:
-						updtPatient.setCity(typeCity());
-						break;
-
-					case 7:
-						n_done = true;
-						View.displayPatient(updtPatient);
-						View.display("Information Updated Successfully!");
-						break;
-					}
+				case 7:
+					n_done = true;
+					View.displayPatient(updtPatient);
+					View.display("Information Updated Successfully!");
+					break;
 				}
-			}	
-		}
+			}
+		}	
 	}
+
 
 	/**
 	 * This method return a List of all patients into the List.
@@ -245,6 +244,26 @@ public class PatientManagementSystem{
 			}
 
 			View.display(sb.toString());
+		} else 
+			View.emptyListMessage();
+	}
+	
+	private void listAllTable() {
+		if(!patients.isEmpty()) {
+			TableList tl = new TableList(4, "POSITION", "PID", "PRIORITY", "NAME").withUnicode(true)
+																				.align(0, TableList.EnumAlignment.CENTER)
+																				.align(1, TableList.EnumAlignment.CENTER)
+																				.align(2, TableList.EnumAlignment.CENTER);
+			for(int x = 0; x<patients.getListSize(); x++) {
+				Patient p = patients.getPatient(x+1);
+				int position = x+1;
+				tl.addRow(String.valueOf(position),
+						String.valueOf(p.getPid()),
+						String.valueOf(p.getPriority()),
+						p.getFirstName().concat(" ").concat(p.getLastName()));
+			}
+
+			tl.print();
 		} else 
 			View.emptyListMessage();
 	}
@@ -321,7 +340,7 @@ public class PatientManagementSystem{
 	 */
 	private String typePpsNumber(){
 		View.display("Please type PPS Number: "); 
-		return input.getNextString();
+		return input.getPpsNumber();
 	}
 
 	/**
@@ -348,7 +367,7 @@ public class PatientManagementSystem{
 	 */
 	private String typeMobileNumber(){
 		View.display("Please type phone: ");
-		return input.getNextString();
+		return input.getPhoneNumber();
 	}
 
 	/**
@@ -357,7 +376,7 @@ public class PatientManagementSystem{
 	 */
 	private String typeEmail(){
 		View.display("Please type email: "); 
-		return input.getNextString();
+		return input.getEmail();
 	}
 
 	/**

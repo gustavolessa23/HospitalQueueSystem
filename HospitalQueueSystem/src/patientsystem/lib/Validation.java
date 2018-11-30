@@ -3,6 +3,7 @@ package patientsystem.lib;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 import patientsystem.view.View;
 
@@ -28,6 +29,54 @@ public class Validation {
 		}
 	}
 	
+	public String checkPhoneNumber(Scanner input) {
+
+		String phone = checkForString(input);
+
+		Pattern pattern = Pattern.compile("^(?:(?:\\(?(?:00|\\+)([1-4]\\d\\d|[1-9]\\"
+				+ "d?)\\)?)?[\\-\\.\\ \\\\\\/]?)?((?:\\(?\\d{1,}\\)?[\\-\\.\\ \\\\\\/]?){0,})"
+				+ "(?:[\\-\\.\\ \\\\\\/]?(?:#|ext\\.?|extension|x)[\\-\\.\\ \\\\\\/]?(\\d+))?$");
+
+		if(pattern.matcher(phone).matches()) {
+			return phone;
+		} else {
+			View.displayError("\n*** Incorrect phone number format. Please try again. ***\n");
+			return checkPhoneNumber(input);
+		}
+	}
+	
+	
+	public String checkEmail(Scanner input) {
+
+		String email = checkForString(input);
+
+		Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+
+		if(pattern.matcher(email).matches()) {
+			return email;
+		} else {
+			View.displayError("\n*** Incorrect e-mail address format. Please try again. ***\n");
+			return checkEmail(input);
+		}
+	}
+	
+	
+	
+	public String checkPpsNumber(Scanner input) {
+
+		String pps = checkForString(input);
+
+		Pattern pattern = Pattern.compile("^(\\d{7})([A-Za-z]{1,2})$");
+
+		if(pattern.matcher(pps).matches()) {
+			return pps;
+		} else {
+			View.displayError("\n*** Incorrect PPS number format. Please type 7 digits followed by 1 or 2 letters. ***\n");
+			return checkPpsNumber(input);
+		}
+	}
+	
 	/**
 	 * This method checks for a Priority answer
 	 * @param input
@@ -36,9 +85,9 @@ public class Validation {
 	public boolean checkForPriority(Scanner input){
 		String answer = "";
 		try{
-			while(answer.isEmpty()){
+			while(answer.isEmpty())
 				answer = input.nextLine();
-			}
+			
 			if(answer.startsWith("A") || answer.startsWith("a")){
 				View.display("Patient risk of death!! \n--------------\n");
 				return true;
@@ -48,10 +97,10 @@ public class Validation {
 			}else {
 				return checkForPriority(input);
 			}
-		}catch(Exception e){
+		}catch(Exception e) {
 			View.display("Update could not be completed!! ");
-
 		}
+		
 		return checkForPriority(input);
 
 	}
@@ -64,9 +113,9 @@ public class Validation {
 	public boolean checkForYes(Scanner input){
 		String answer = "";
 		try{
-			while(answer.isEmpty()){
+			while(answer.isEmpty())
 				answer = input.nextLine();
-			}
+			
 			if(answer.startsWith("y") || answer.startsWith("Y")){
 				return true;
 			} else if(answer.startsWith("n") || answer.startsWith("N")) {
@@ -106,6 +155,14 @@ public class Validation {
 			input.nextLine();
 			return checkForInt(input, lowerBoundary,upperBoundary);
 		}
+	}
+
+	public String checkForString(Scanner scan) {
+		String line = "";
+		while(line.isEmpty())
+			line = scan.nextLine();
+		
+		return line;
 	}
 
 
