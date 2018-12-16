@@ -106,12 +106,19 @@ public class PatientManagementSystem{
 
 
 
-
+	/**
+	 * This method is responsible to choose the position that the patient is going to be added
+	 * @return return the last position added in the sytem.
+	 */
 	private int choosePosition() {
 		View.display("\nPlease choose the position:");
 		return input.getNextInt(patients.getListSize());
 	}
 
+	/**
+	 * This method checks which type of priority the patient is being added as
+	 * @return the input number chosen by the user 
+	 */
 	private boolean addByPriority() {
 		View.display("Where in the list the new patient should be added?\n"+
 					"1 - According to the specified priority;\n"+
@@ -251,6 +258,9 @@ public class PatientManagementSystem{
 			View.emptyListMessage();
 	}
 	
+	/**
+	 * Method responsible to list the table into the system, by getting patient information.
+	 */
 	private void listAllTable() {
 		if(!patients.isEmpty()) {
 			TableList tl = new TableList(4, "POSITION", "PID", "PRIORITY", "NAME").withUnicode(true)
@@ -391,6 +401,10 @@ public class PatientManagementSystem{
 		return input.getNextString();
 	}
 	
+	/**
+	 * Method responsible to check the priority type
+	 * @return 
+	 */
 	private char choosePriority() {
 		View.display("Please choose a priority: \n"+
 				"1 - Risk of death / Emergency;\n"+

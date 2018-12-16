@@ -85,6 +85,12 @@ public class SystemController {
 		}
 	}
 	
+	/**
+	 * Method responsible to get patients last position 
+	 * @param position
+	 * @param toAdd
+	 * @return 
+	 */
 	public int getLastPriorityPosition(int position, Patient toAdd) {
 		
 		if (position <= list.size()) { //check if the position is valid
@@ -104,7 +110,6 @@ public class SystemController {
 
 	}
 
-	
 	
 	public int comparePatients(Patient fromList, Patient toAdd) {
 		return fromList.compareTo(toAdd);
@@ -159,7 +164,7 @@ public class SystemController {
 	}
 
 	/**
-	 * Method to return a True if the list empty, false if it is not
+	 * Method to return a True if the list empty, false if it is not.
 	 * @return
 	 */
 	public boolean isEmpty() {
@@ -167,6 +172,9 @@ public class SystemController {
 	}
 
 
+	/**
+	 * Method responsible to generate a sample of patient list on system.
+	 */
 	public void generateSamplePatients(){
 		
 		String[] test = {"1224327FB	Oliver		Barney		014370969		Oliver.32@gmail.com		Dublin", 

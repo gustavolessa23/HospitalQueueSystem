@@ -30,6 +30,10 @@ public class View {
 		return numberOfOptions;
 	}
 	
+	/**
+	 * Method to display the update menu
+	 * @return number of choices for the updates
+	 */
 	public int displayUpdateMenu() {
 		int numberOfOptions = 7;
 		
@@ -105,6 +109,9 @@ public class View {
 		
 	}
 
+	/**
+	 * Method to print the choose option.
+	 */
 	public void displayChooseOption() {
 		display("Please choose an option: ");
 	}

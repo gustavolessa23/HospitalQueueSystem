@@ -29,6 +29,11 @@ public class Validation {
 		}
 	}
 	
+	/**
+	 * This method checks the right input for a phone number.
+	 * @param input
+	 * @return the phone number if the input is correct
+	 */
 	public String checkPhoneNumber(Scanner input) {
 
 		String phone = checkForString(input);
@@ -45,7 +50,11 @@ public class Validation {
 		}
 	}
 	
-	
+	/**
+	 * This method checks the right input for a email
+	 * @param input
+	 * @return the email if the input is correct.
+	 */
 	public String checkEmail(Scanner input) {
 
 		String email = checkForString(input);
@@ -62,7 +71,11 @@ public class Validation {
 	}
 	
 	
-	
+	/**
+	 * This method checks the right input for the PPS Number
+	 * @param input
+	 * @return the PPS Number if the input is correct.
+	 */
 	public String checkPpsNumber(Scanner input) {
 
 		String pps = checkForString(input);
@@ -157,6 +170,11 @@ public class Validation {
 		}
 	}
 
+	/**
+	 * This method check for a String input
+	 * @param scan
+	 * @return a validated String.
+	 */
 	public String checkForString(Scanner scan) {
 		String line = "";
 		while(line.isEmpty())
