@@ -54,6 +54,16 @@ public class View {
 	}
 	
 	/**
+	 * Method used to display log message
+	 */
+	public static void displayLogo(){
+		display("\\    /\\    / |‾ ‾  |     /‾ ‾   /‾ ‾\\   /\\    /\\   |‾ ‾   \n" + 
+				" \\  /  \\  /  |- -  |    |      |     | /  \\  /  \\  |- -    \n" + 
+				"  \\/    \\/   |_ _  |_ _  \\_ _   \\_ _/ /    \\/    \\ |_ _   \n" + 
+				"");
+	}
+	
+	/**
 	 * Method to display an String message.
 	 * @param str
 	 */

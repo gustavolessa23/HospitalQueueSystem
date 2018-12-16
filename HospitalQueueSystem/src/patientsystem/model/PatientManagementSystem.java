@@ -30,6 +30,7 @@ public class PatientManagementSystem{
 	}
 
 	private void loadSampleData(){
+		View.displayLogo();
 		View.display("Would you like to load sample patient data? (Y/N)");
 
 		if(input.isYes()) 
