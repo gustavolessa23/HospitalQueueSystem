@@ -56,6 +56,10 @@ public class Input {
 		}
 	}
 
+	/**
+	 * Method responsible to get patient validated phone number
+	 * @return validated phone number input
+	 */
 	public String getPhoneNumber() {
 
 		String phone = validate.checkPhoneNumber(getNextString());
@@ -68,6 +72,10 @@ public class Input {
 		}
 	}
 	
+	/**
+	 * Method responsible to get patient validated PPS Number
+	 * @return validated PPS Number input
+	 */
 	public String getPpsNumber() {
 		String pps = "";
 		pps = validate.checkPpsNumber(getNextString());
@@ -79,6 +87,10 @@ public class Input {
 			return pps;
 	}
 	
+		/**
+	 * Method responsible to get patient validated email
+	 * @return validated email input
+	 */
 	public String getEmail() {
 		String email = validate.checkEmail(getNextString());
 		
@@ -97,6 +109,10 @@ public class Input {
 		return getNextInt(Patient.getLastPid());
 	}
 
+	/**
+	 * Method responsible to check if a input is Yes
+	 * @return validated yes input
+	 */
 	public boolean isYes() {
 		String answer = "";
 		try{
