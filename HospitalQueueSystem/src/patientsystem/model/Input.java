@@ -1,8 +1,10 @@
 package patientsystem.model;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import patientsystem.lib.Validation;
+import patientsystem.view.View;
 
 public class Input {
 
@@ -19,7 +21,11 @@ public class Input {
 	 * @return String input
 	 */
 	public String getNextString() {
-		return validate.checkForString(scan);
+		String line = "";
+		while(line.isEmpty())
+			line = scan.nextLine();
+		
+		return line;
 	}
 
 	/**
@@ -28,19 +34,59 @@ public class Input {
 	 * @return int input.
 	 */
 	public int getNextInt(int limit) {
-		return validate.checkForInt(scan, 1, limit);
+		int typedInt = 0;
+		try{
+			while(typedInt == 0){
+				typedInt = scan.nextInt();
+			}
+			typedInt = validate.checkForInt(typedInt, 1, limit);
+			if(typedInt == -1) {
+				View.displayError("\n*** The option should be and integer between 1"
+						+ " and "+limit+". ***\n");
+				View.displayError("Please try again:");
+				return getNextInt(limit);
+			} else {
+				return typedInt;
+			}
+			
+		} catch(InputMismatchException e){
+			View.displayError("\n*** Input is not an integer. ***\nPlease try again.\n");
+			scan.nextLine();
+			return getNextInt(limit);
+		}
 	}
 
 	public String getPhoneNumber() {
-		return validate.checkPhoneNumber(scan);
+
+		String phone = validate.checkPhoneNumber(getNextString());
+
+		if(phone.isEmpty() || phone == null) {
+			View.displayError("\n*** Incorrect phone number format. Please try again. ***\n");
+			return getPhoneNumber();
+		} else {
+			return phone;
+		}
 	}
 	
 	public String getPpsNumber() {
-		return validate.checkPpsNumber(scan);
+		String pps = "";
+		pps = validate.checkPpsNumber(getNextString());
+		
+		if(pps.isEmpty() || pps == null) {
+			View.displayError("\n*** Incorrect PPS number format. Please type 7 digits followed by 1 or 2 letters. ***\n");
+			return getPpsNumber();
+		} else 
+			return pps;
 	}
 	
 	public String getEmail() {
-		return validate.checkEmail(scan);
+		String email = validate.checkEmail(getNextString());
+		
+		if(email.isEmpty() || email == null) {
+			View.displayError("\n*** Incorrect e-mail address format. Please try again. ***\n");
+			return getEmail();
+		} else 
+			return email;
 	}
 	
 	/**
@@ -48,11 +94,21 @@ public class Input {
 	 * @return Patient id.
 	 */
 	public int getPid() {
-		return validate.checkForInt(scan, 1, Patient.getLastPid());
+		return getNextInt(Patient.getLastPid());
 	}
 
 	public boolean isYes() {
-		return validate.checkForYes(scan);
+		String answer = "";
+		try{
+			while(answer.isEmpty())
+				answer = scan.nextLine();
+
+			return validate.checkForYes(answer);
+
+		} catch(Exception e){
+			View.displayError("Error retrieving String from input.");
+			return isYes();
+		}
 	}
 
 
