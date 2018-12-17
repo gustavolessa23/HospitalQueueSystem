@@ -13,6 +13,7 @@ public enum Priority {
     private static final Priority[] priorities = values();
 
     private final String description;
+    private final static String[] descriptions = generateArrayDescriptions();
 
     /**
      * This constructor creates a new Location.
@@ -42,11 +43,15 @@ public enum Priority {
      * This method returns an array of city names.
      * @return (String[]) - An array of String objects.
      */
-    public static String[] getAllDescriptions(){
+    public static String[] generateArrayDescriptions(){
         String[] names = new String[priorities.length];
         for(int x = 0; x < names.length; x++){
             names[x] = priorities[x].getDescription();
         }
         return names;
+    }
+    
+    public static String[] getAllDescriptions() {
+    	return descriptions;
     }
 }

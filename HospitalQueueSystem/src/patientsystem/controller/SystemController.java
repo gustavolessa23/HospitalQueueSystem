@@ -1,6 +1,7 @@
 package patientsystem.controller;
 import patientsystem.lib.DoublyLinkedList;
 import patientsystem.model.Patient;
+import patientsystem.model.Priority;
 import patientsystem.view.View;
 
 public class SystemController {
@@ -74,8 +75,8 @@ public class SystemController {
 	 * @param toAdd
 	 */
 	public Patient addPatientByPriority(Patient toAdd) {
-		char priority = toAdd.getPriority();
-		if(priority == 'c') {
+		Priority priority = toAdd.getPriority();
+		if(priority == Priority.C) {
 			list.addLast(toAdd);
 			return list.last();
 		}else {

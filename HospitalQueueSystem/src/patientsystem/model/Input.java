@@ -94,7 +94,7 @@ public class Input {
 	public String getEmail() {
 		String email = validate.checkEmail(getNextString());
 		
-		if(email.isEmpty() || email == null) {
+		if(email == null || email.isEmpty()) {
 			View.displayError("\n*** Incorrect e-mail address format. Please try again. ***\n");
 			return getEmail();
 		} else 

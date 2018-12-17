@@ -94,7 +94,7 @@ public class PatientManagementSystem{
 		String phone = typeMobileNumber();
 		String email = typeEmail();
 		String city = typeCity();
-		char priority = choosePriority();
+		Priority priority = choosePriority();
 		Patient newPatient = new Patient(ppsNumber, name, lastname, phone, email, city, priority);
 
 		Patient returnedAfterInsertion = null;
@@ -246,17 +246,13 @@ public class PatientManagementSystem{
 				int position = x+1;
 				tl.addRow(String.valueOf(position),
 						String.valueOf(p.getPid()),
-						String.valueOf(p.getPriority()),
+						String.valueOf(p.getPriority().getDescription()),
 						p.getFirstName().concat(" ").concat(p.getLastName()));
 			}
 
 			tl.print();
 		} else 
 			View.emptyListMessage();
-	}
-	
-	private String convertPriorityCharToString(char c) {
-		
 	}
 
 	/**
@@ -351,14 +347,22 @@ public class PatientManagementSystem{
 	 * Method responsible to check the priority type
 	 * @return 
 	 */
-	private char choosePriority() {
-		View.display("Please choose a priority: \n"+
-				"1 - Risk of death / Emergency;\n"+
-				"2 - Elderly / Pregnant / Disabled;\n"+
-				"3 - Regular priority;");
+	private Priority choosePriority() {
+		
+		View.display("Please choose a priority:");
+		StringBuilder sb = new StringBuilder();
+		
+		for(int x = 0; x < Priority.getAllDescriptions().length; x++) {
+			sb.append(x+1);
+			sb.append(" - ");
+			sb.append(Priority.getAllDescriptions()[x]);
+			sb.append("\n");
+		}
+		View.display(sb.toString());
+
 		view.displayChooseOption();
-		int reponse = input.getNextInt(3);
-		return (char)(96+reponse);
+		int response = input.getNextInt(Priority.getAllDescriptions().length);
+		return Priority.getAllOptions()[response-1];
 	}
 
 

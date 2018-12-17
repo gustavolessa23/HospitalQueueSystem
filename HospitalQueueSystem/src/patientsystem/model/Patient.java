@@ -10,7 +10,7 @@ public class Patient implements Comparable<Patient> {
 	private String mobile;
 	private String email;
 	private String city;
-	private char priority;
+	private Priority priority;
 
 	/**
 	 * Patient constructor.
@@ -21,7 +21,7 @@ public class Patient implements Comparable<Patient> {
 	 * @param email
 	 * @param city
 	 */
-	public Patient(String pps, String firstName, String lastName, String mobile, String email, String city, char priority) {
+	public Patient(String pps, String firstName, String lastName, String mobile, String email, String city, Priority priority) {
 		super();
 		this.pid = ++lastPid;
 		this.pps = pps;
@@ -43,15 +43,15 @@ public class Patient implements Comparable<Patient> {
 	 * @param city
 	 */
 	public Patient(String pps, String firstName, String lastName, String mobile, String email, String city) {
-		super();
-		this.pid = ++lastPid;
-		this.pps = pps;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.mobile = mobile;
-		this.email = email;
-		this.city = city;
-		this.priority = 'c';
+		this(pps, firstName, lastName, mobile, email, city, Priority.C);
+//		this.pid = ++lastPid;
+//		this.pps = pps;
+//		this.firstName = firstName;
+//		this.lastName = lastName;
+//		this.mobile = mobile;
+//		this.email = email;
+//		this.city = city;
+//		this.priority = Priority.C;
 	}
 	
 	/**
@@ -59,36 +59,22 @@ public class Patient implements Comparable<Patient> {
 	 * @param name
 	 * @param lastname
 	 */
-	public Patient(String name, String lastname){
-		super();
-		this.pid = ++lastPid;
-		this.pps = null;
-		this.firstName = name;
-		this.lastName = lastname;
-		this.priority = 'c';
+	public Patient(String firstName, String lastName){
+		this(null, firstName, lastName, null, null, null, Priority.C);
 	}
 
 	/**
 	 * Patient constructor.
 	 */
 	public Patient() {
-		super();
-		this.pid = ++lastPid;
-		this.pps = null;
-		this.firstName = null;
-		this.lastName = null;
-		this.mobile = null;
-		this.email = null;
-		this.city = null;
-		this.priority = 'c';
-
+		this(null, null);
 	}
 	
 	/**
 	 * This method gets a Priority id
 	 * @return
 	 */
-	public char getPriority() { 
+	public Priority getPriority() { 
 		return this.priority;
 	}
 
@@ -96,8 +82,8 @@ public class Patient implements Comparable<Patient> {
 	 * This method set a priority id
 	 * @param c
 	 */
-	public void setPriority(char c) {
-		this.priority = c;
+	public void setPriority(Priority p) {
+		this.priority = p;
 	}
 
 	/**
@@ -235,7 +221,16 @@ public class Patient implements Comparable<Patient> {
 
 	@Override
 	public int compareTo(Patient o) {
-		return(this.priority - o.getPriority());
+		
+		if (this.priority.compareTo(o.getPriority()) > 0) {
+			return 1;
+		} else if (this.priority.compareTo(o.getPriority()) == 0) {
+			return 0;
+		} else if (this.priority.compareTo(o.getPriority()) < 0) {
+			return -1;
+		} else {
+			return -2;
+		}
 	}
 
 }
