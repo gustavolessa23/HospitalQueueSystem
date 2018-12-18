@@ -1,18 +1,16 @@
 package patientsystem.controller;
 import patientsystem.data.DataStorage;
 import patientsystem.data.SampleData;
-import patientsystem.lib.DoublyLinkedList;
 import patientsystem.model.Patient;
 import patientsystem.model.Priority;
 import patientsystem.view.View;
 
-public class SystemController {
+public class ListController {
 
-	private DoublyLinkedList<Patient> list;
+	private DataStorage ds;
 	
-	public SystemController(){
-		DataStorage ds = new DataStorage();
-		this.list = ds.list;
+	public ListController(){
+		ds = new DataStorage();
 	}
 
 	/**
@@ -26,7 +24,7 @@ public class SystemController {
 		if(patientPosition <= 0)
 			return null;
 		else
-			return list.remove(patientPosition);
+			return ds.list.remove(patientPosition);
 	}
 
 	/**
@@ -35,7 +33,7 @@ public class SystemController {
 	 * @return number of patients removed.
 	 */
 	public int deletePatients(int number) {
-		return list.removeLastNodes(number);
+		return ds.list.removeLastNodes(number);
 	}
 
 	/**
@@ -46,8 +44,8 @@ public class SystemController {
 	public int searchPatient(int pid){
 		int foundPosition = -1;
 		
-		for(int x = 1; x < list.size(); x++) 
-			if(list.get(x).getPid() == pid) {
+		for(int x = 1; x < ds.list.size(); x++) 
+			if(ds.list.get(x).getPid() == pid) {
 				foundPosition = x;
 				return foundPosition;
 			}	
@@ -60,8 +58,8 @@ public class SystemController {
 	 * @param toAdd
 	 */
 	public Patient addPatient(Patient toAdd) {
-		list.addLast(toAdd);
-		return list.last();
+		ds.list.addLast(toAdd);
+		return ds.list.last();
 	}
 	
 	/**
@@ -69,8 +67,8 @@ public class SystemController {
 	 * @param toAdd
 	 */
 	public Patient addPatientByPosition(Patient toAdd, int position) {
-		list.addInPosition(toAdd, position);
-		return list.get(position);
+		ds.list.addInPosition(toAdd, position);
+		return ds.list.get(position);
 	}
 	
 	/**
@@ -80,12 +78,12 @@ public class SystemController {
 	public Patient addPatientByPriority(Patient toAdd) {
 		Priority priority = toAdd.getPriority();
 		if(priority == Priority.C) {
-			list.addLast(toAdd);
-			return list.last();
+			ds.list.addLast(toAdd);
+			return ds.list.last();
 		}else {
 			int foundPosition = getLastPriorityPosition(1, toAdd);
-			list.addInPosition(toAdd, foundPosition);
-			return list.get(foundPosition);
+			ds.list.addInPosition(toAdd, foundPosition);
+			return ds.list.get(foundPosition);
 		}
 	}
 	
@@ -97,9 +95,9 @@ public class SystemController {
 	 */
 	public int getLastPriorityPosition(int position, Patient toAdd) {
 		
-		if (position <= list.size()) { //check if the position is valid
+		if (position <= ds.list.size()) { //check if the position is valid
 			
-			if (comparePatients(list.get(position), toAdd) <= 0) { //if priority of patient from list is higher than or equals to
+			if (comparePatients(ds.list.get(position), toAdd) <= 0) { //if priority of patient from list is higher than or equals to
 																   //the new patient's priority
 				
 				return getLastPriorityPosition(position+1, toAdd); //recursively call this method with the next position
@@ -124,7 +122,7 @@ public class SystemController {
 	 * @returns Last patient in the list
 	 */
 	public Patient getLast() {
-		return list.last();
+		return ds.list.last();
 	}
 
 	/**
@@ -141,11 +139,11 @@ public class SystemController {
 	 */
 	public Patient updatePatientPosition(int index, int newPosition){
 		
-		for(int i = 1; i < list.size(); i++)
-			if(list.set(index, newPosition).getPid() == newPosition)	
+		for(int i = 1; i < ds.list.size(); i++)
+			if(ds.list.set(index, newPosition).getPid() == newPosition)	
 				newPosition = i;
 			
-		return list.get(newPosition);
+		return ds.list.get(newPosition);
 	}
 	
 	/**
@@ -153,7 +151,7 @@ public class SystemController {
 	 * @return list size.
 	 */
 	public int getListSize() {
-		return list.size();
+		return ds.list.size();
 	}
 
 	/**
@@ -162,9 +160,9 @@ public class SystemController {
 	 * @return patient position.
 	 */
 	public Patient getPatient(int position) {
-		if(position>list.size())
+		if(position>ds.list.size())
 			return null;
-		return list.get(position);	
+		return ds.list.get(position);	
 	}
 
 	/**
@@ -172,7 +170,7 @@ public class SystemController {
 	 * @return
 	 */
 	public boolean isEmpty() {
-		return (list.size() == 0);
+		return (ds.list.size() == 0);
 	}
 
 
@@ -181,9 +179,9 @@ public class SystemController {
 	 */
 	public void addSamplePatients(){
 		Patient[] sample = SampleData.getSamplePatients();
-		for(int x = 0; x < sample.length; x++) {
-			list.addLast(sample[x]);
-		}
+		for(int x = 0; x < sample.length; x++)
+			ds.list.addLast(sample[x]);
+	
 	}
 
 }

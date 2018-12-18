@@ -1,7 +1,7 @@
 package patientsystem.model;
 import java.io.IOException;
 
-import patientsystem.controller.SystemController;
+import patientsystem.controller.ListController;
 import patientsystem.view.TableList;
 import patientsystem.view.View;
 
@@ -13,7 +13,7 @@ import patientsystem.view.View;
  */
 public class PatientManagementSystem{
 
-	private SystemController patients; //controller with access to the data
+	private ListController patients; //controller with access to the data
 	private View view; //view class to print to the console.
 	private Input input; //input class to retrieve validated input from user.
 
@@ -22,7 +22,7 @@ public class PatientManagementSystem{
 	 * Constructor that initialized variables;
 	 */
 	public PatientManagementSystem(){
-		this.patients = new SystemController();
+		this.patients = new ListController();
 		this.view = new View();
 		this.input = new Input();
 		View.displayLogo(); // display logo
@@ -113,10 +113,10 @@ public class PatientManagementSystem{
 		Patient returnedAfterInsertion = null; // variable to check if patient was inserted correctly;
 
 		if(addByPriority()) // if patient should be added according to their priority
-			returnedAfterInsertion = patients.addPatientByPriority(newPatient); // uses the SystemController method to add to the list
+			returnedAfterInsertion = patients.addPatientByPriority(newPatient); // uses the ListController method to add to the list
 
 		else // if the patient should be inserted in a specific position
-			returnedAfterInsertion = patients.addPatientByPosition(newPatient, choosePosition());// uses the SystemController method to add to that position.		
+			returnedAfterInsertion = patients.addPatientByPosition(newPatient, choosePosition());// uses the ListController method to add to that position.		
 
 		printPatientAndPosition(returnedAfterInsertion.getPid()); // prints the last patient's information and position to confirm that it is the same 
 
