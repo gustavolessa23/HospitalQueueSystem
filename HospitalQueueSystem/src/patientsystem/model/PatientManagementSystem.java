@@ -49,7 +49,7 @@ public class PatientManagementSystem{
 		View.display("Would you like to load sample patient data? (Y/N)"); // display message
 
 		if(input.isYes()) // if user answered 'yes'
-			patients.generateSamplePatients(); // generate sample data
+			patients.addSamplePatients(); // generate sample data
 	}
 
 	/**
