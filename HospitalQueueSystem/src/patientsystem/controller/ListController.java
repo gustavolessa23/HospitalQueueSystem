@@ -5,93 +5,107 @@ import patientsystem.model.Patient;
 import patientsystem.model.Priority;
 import patientsystem.view.View;
 
+/**
+ * Class responsible for performing operations to the list that is stored according to the DataStorage class.
+ * @author Gustavo Lessa
+ * @author Fernando Tenorio
+ */
 public class ListController {
 
-	private DataStorage ds;
+	private DataStorage ds; // instance to access the data
 	
+	/**
+	 * Constructor initializing the DataStorage variable
+	 */
 	public ListController(){
 		ds = new DataStorage();
 	}
 
 	/**
-	 * Method responsible to delete a patient by the given id number.
+	 * Method responsible for deleting a patient by the PID number.
 	 * @param pid
-	 * @returns the deleted patient.
+	 * @return the deleted patient.
 	 */
 	public Patient deletePatient(int pid){
-		int patientPosition = searchPatient(pid);
+		int patientPosition = searchPatient(pid); // retrieve patient's position
 
-		if(patientPosition <= 0)
-			return null;
-		else
-			return ds.list.remove(patientPosition);
+		if(patientPosition <= 0) // if position is invalid
+			return null; 
+		else // if position is valid
+			return ds.list.remove(patientPosition); // remove and return the patient object;
 	}
 
 	/**
-	 * Method responsible to remove a N number of patients from the end of the list.
+	 * Method responsible for removing N patients from the end of the list.
 	 * @param number
 	 * @return number of patients removed.
 	 */
 	public int deletePatients(int number) {
-		return ds.list.removeLastNodes(number);
+		return ds.list.removeLastNodes(number); // calls method from DoublyLinkedList class.
 	}
 
 	/**
-	 * Method responsible to search a patient in the list
+	 * Method responsible for searching for a patient in the list, according to a PID number.
 	 * @param pid
 	 * @return return the patient position.
 	 */
 	public int searchPatient(int pid){
-		int foundPosition = -1;
+		int foundPosition = -1; // variable to store found position
 		
-		for(int x = 1; x < ds.list.size(); x++) 
-			if(ds.list.get(x).getPid() == pid) {
-				foundPosition = x;
-				return foundPosition;
+		for(int x = 1; x < ds.list.size(); x++) // iterate through list
+			if(ds.list.get(x).getPid() == pid) { // if pid is found
+				foundPosition = x; // save position
+				return foundPosition; // return variable
 			}	
 		
-		return foundPosition;
+		return foundPosition; // return variable if not found (-1)
 	}
 
 	/**
-	 * Method responsible to add patient in the end of the list.
-	 * @param toAdd
+	 * Method responsible for adding a patient in the end of the list.
+	 * @param toAdd Patient to be added.
+	 * @return Last patient of the list.
 	 */
 	public Patient addPatient(Patient toAdd) {
-		ds.list.addLast(toAdd);
-		return ds.list.last();
+		ds.list.addLast(toAdd); // add patient to the end of the list
+		return ds.list.last(); // return last patient (should be the same).
 	}
 	
 	/**
-	 * Method responsible to add patient in the end of the list.
-	 * @param toAdd
+	 * Method responsible for adding a patient at a specific position in the list.
+	 * @param toAdd Patient to be added.
+	 * @param position Desired position.
+	 * @return Patient from specific position, after insertion.
 	 */
 	public Patient addPatientByPosition(Patient toAdd, int position) {
-		ds.list.addInPosition(toAdd, position);
-		return ds.list.get(position);
+		ds.list.addInPosition(toAdd, position); // calls method to add to the specific position
+		return ds.list.get(position); // return patient from that position (should be the same).
 	}
 	
 	/**
-	 * Method responsible to add patient in the end of the list.
-	 * @param toAdd
+	 * Method responsible for adding a patient according to the specified priority level.
+	 * @param toAdd Patient to be added.
+	 * @return
 	 */
 	public Patient addPatientByPriority(Patient toAdd) {
-		Priority priority = toAdd.getPriority();
-		if(priority == Priority.C) {
-			ds.list.addLast(toAdd);
-			return ds.list.last();
-		}else {
-			int foundPosition = getLastPriorityPosition(1, toAdd);
-			ds.list.addInPosition(toAdd, foundPosition);
-			return ds.list.get(foundPosition);
+		Priority priority = toAdd.getPriority(); // get patient's priority
+		
+		if(priority == Priority.values()[(Priority.values().length)-1]) { // if priority is the last one
+			ds.list.addLast(toAdd); // add to the end of the list
+			return ds.list.last(); // return last patient (should be the same).
+			
+		}else { // if the priority is NOT the last one
+			int foundPosition = getLastPriorityPosition(1, toAdd); // get the right position to add the patient 
+			ds.list.addInPosition(toAdd, foundPosition); // add patient in that position
+			return ds.list.get(foundPosition); // return patient from the same position.
 		}
 	}
 	
 	/**
-	 * Method responsible to get patients last position 
-	 * @param position
-	 * @param toAdd
-	 * @return 
+	 * Method responsible for retrieving the right position to add a patient according to priority level 
+	 * @param position to start the search
+	 * @param toAdd patient to be added
+	 * @return position to add the patient
 	 */
 	public int getLastPriorityPosition(int position, Patient toAdd) {
 		
@@ -105,46 +119,51 @@ public class ListController {
 			}else // in case the patient to be added has higher priority
 				return position; // return the position
 			
-		}else {
+		}else { // in case the position is greater than the list size.
 			View.displayError("Position > List size.");
 			return -1;
 		}
 
 	}
 
-	
+	/**
+	 * Method responsible for comparing patients' priority levels.
+	 * @param fromList Patient from the list
+	 * @param toAdd Patient to be added
+	 * @return 1 if toAdd's priority is lower, 0 if it's the same and -1 if it's higher.
+	 */
 	public int comparePatients(Patient fromList, Patient toAdd) {
-		return fromList.compareTo(toAdd);
-	}
+		return fromList.compareTo(toAdd); // calls method overridden in Patient class from Comparable interface.
+	} 
 
 	/**
-	 * Method responsible to get the last element.
-	 * @returns Last patient in the list
+	 * Method responsible for retrieving the last patient of the list
+	 * @return the last patient from the list.
 	 */
 	public Patient getLast() {
 		return ds.list.last();
 	}
 
 	/**
-	 * Method to get the last ID in the list
-	 * @returns last patient id from the list. 
+	 * Method responsible for retrieving the last PID number generated by Patient class.
+	 * @return last PID generated. 
 	 */
 	public int getLastPid() {
 		return Patient.getLastPid();
 	}
 
-	/**
-	 * This method gets a patient ID and add it to a new Position in the list.
-	 * @param index
-	 */
-	public Patient updatePatientPosition(int index, int newPosition){
-		
-		for(int i = 1; i < ds.list.size(); i++)
-			if(ds.list.set(index, newPosition).getPid() == newPosition)	
-				newPosition = i;
-			
-		return ds.list.get(newPosition);
-	}
+//	/**
+//	 * This method gets a patient ID and add it to a new Position in the list.
+//	 * @param index
+//	 */
+//	public Patient updatePatientPosition(int index, int newPosition){
+//		
+//		for(int i = 1; i < ds.list.size(); i++)
+//			if(ds.list.set(index, newPosition).getPid() == newPosition)	
+//				newPosition = i;
+//			
+//		return ds.list.get(newPosition);
+//	}
 	
 	/**
 	 * Method to check the size of the list
@@ -155,33 +174,33 @@ public class ListController {
 	}
 
 	/**
-	 * Method to check a patient position.
+	 * Method to get a patient from specified position.
 	 * @param position
-	 * @return patient position.
+	 * @return patient from position.
 	 */
 	public Patient getPatient(int position) {
-		if(position>ds.list.size())
+		if(position>getListSize()) // if position is bigger than list size
 			return null;
+		
 		return ds.list.get(position);	
 	}
 
 	/**
-	 * Method to return a True if the list empty, false if it is not.
-	 * @return
+	 * Method to check if the list is empty.
+	 * @return true for empty, false otherwise.
 	 */
 	public boolean isEmpty() {
-		return (ds.list.size() == 0);
+		return (getListSize() == 0);
 	}
 
 
 	/**
-	 * Method responsible to generate a sample of patient list on system.
+	 * Method responsible for adding sample patients to the system.
 	 */
 	public void addSamplePatients(){
-		Patient[] sample = SampleData.getSamplePatients();
-		for(int x = 0; x < sample.length; x++)
-			ds.list.addLast(sample[x]);
-	
+		Patient[] sample = SampleData.getSamplePatients(); // retrieve sample data
+		for(int x = 0; x < sample.length; x++) // iterate through array
+			ds.list.addLast(sample[x]); // add every patient
 	}
 
 }
