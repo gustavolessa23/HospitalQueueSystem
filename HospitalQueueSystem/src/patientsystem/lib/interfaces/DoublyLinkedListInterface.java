@@ -15,8 +15,4 @@ public interface DoublyLinkedListInterface<E> {
 	public E remove(Node<E> node);
 	public void addBefore(Node<E> toBeAdded, Node<E> after);
 
-	// public 
-	// test
-	
-	
 }

@@ -1,6 +1,4 @@
 package patientsystem.model;
-import java.io.IOException;
-
 import patientsystem.controller.ListController;
 import patientsystem.view.TableList;
 import patientsystem.view.View;
@@ -225,7 +223,7 @@ public class PatientManagementSystem{
 
 	/**
 	 * This method return a List of all patients into the List.
-	 * @throws IOException
+	 * 
 	 */
 	private void listAll(){
 		if(!patients.isEmpty()) {

@@ -14,25 +14,25 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 		header.setNext(trailer);
 	}
 
-	/**
-	 * Method responsible to add Node into the list
-	 * @param node
-	 */
-	public void addDNode(Node<E> node) {
-		if (header == null) {  // means list is empty, so add first element
-			if (trailer != null)  
-				throw new AssertionError(); // if head points to null then tail should too
-
-			header = node;
-			trailer = header;  // first element so (head == tail)
-		} else {
-			trailer.setNext(node);
-			node.setPrev(trailer);
-			node.setNext(null);
-			trailer = node;
-			this.size++;
-		}
-	}
+//	/**
+//	 * Method responsible to add Node into the list
+//	 * @param node
+//	 */
+//	public void addDNode(Node<E> node) {
+//		if (header == null) {  // means list is empty, so add first element
+//			if (trailer != null)  
+//				throw new AssertionError(); // if head points to null then tail should too
+//
+//			header = node;
+//			trailer = header;  // first element so (head == tail)
+//		} else {
+//			trailer.setNext(node);
+//			node.setPrev(trailer);
+//			node.setNext(null);
+//			trailer = node;
+//			this.size++;
+//		}
+//	}
 
 	/**
 	 * Method responsible to add node into the selected position

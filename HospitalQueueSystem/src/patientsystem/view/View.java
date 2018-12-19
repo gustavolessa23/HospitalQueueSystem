@@ -1,5 +1,5 @@
 package patientsystem.view;
-import patientsystem.lib.DoublyLinkedList;
+import patientsystem.lib.interfaces.DoublyLinkedListInterface;
 import patientsystem.model.Patient;
 
 public class View {
@@ -75,7 +75,7 @@ public class View {
 	 * Method to display an element into the DoublyLinkedList.
 	 * @param array
 	 */
-	public static <E> void displayPatient(DoublyLinkedList<E> array) {
+	public static <E> void displayPatient(DoublyLinkedListInterface<E> array) {
 		display(array.toString());
 	}
 	

@@ -6,18 +6,26 @@ import java.util.Scanner;
 import patientsystem.lib.Validation;
 import patientsystem.view.View;
 
+/**
+ * Class representing the input, using Scanner and Validation classes.
+ * @author Gustavo LEssa
+ *
+ */
 public class Input {
 
-	private Scanner scan;
-	private Validation validate;
+	private Scanner scan; // Scanner to retrieve input.
+	private Validation validate; // Validation instance, to validate input.
 
+	/**
+	 * Constructor that initializes variables.
+	 */
 	public Input() {
 		scan = new Scanner(System.in);
 		validate = new Validation();
 	}
 
 	/**
-	 * Method responsible to check if the input is an String
+	 * Method responsible for checking if the input is a String
 	 * @return String input
 	 */
 	public String getNextString() {
@@ -29,89 +37,93 @@ public class Input {
 	}
 
 	/**
-	 * Method responsible to check an Integer input
+	 * Method responsible for checking if the input is an Integer, considering a limit.
 	 * @param limit
-	 * @return int input.
+	 * @return validated input.
 	 */
 	public int getNextInt(int limit) {
-		int typedInt = 0;
+		int typedInt = -100;
 		try{
-			while(typedInt == 0){
-				typedInt = scan.nextInt();
-			}
-			typedInt = validate.checkForInt(typedInt, 1, limit);
-			if(typedInt == -1) {
-				View.displayError("\n*** The option should be and integer between 1"
+			while(typedInt == -100) // while variable doesn't change
+				typedInt = scan.nextInt(); // retrieve next int and save to that variable.
+
+			if(!validate.checkForInt(typedInt, 1, limit)) { // if the validation returns false
+				View.displayError("\n*** The option should be and integer between 1" // display error messagge
 						+ " and "+limit+". ***\n");
 				View.displayError("Please try again:");
-				return getNextInt(limit);
-			} else {
-				return typedInt;
+				return getNextInt(limit); // call method again
+				
+			} else { // if validation is successful
+				return typedInt; // return validated int
 			}
 			
-		} catch(InputMismatchException e){
-			View.displayError("\n*** Input is not an integer. ***\nPlease try again.\n");
-			scan.nextLine();
-			return getNextInt(limit);
+		} catch(InputMismatchException e){ // if input is not an integer
+			View.displayError("\n*** Input is not an integer. ***\nPlease try again.\n"); // display message
+			scan.nextLine(); // flush scanner
+			return getNextInt(limit); // recursively call this method again.
 		}
 	}
 
 	/**
-	 * Method responsible to get patient validated phone number
+	 * Method responsible for retrieving a validated phone number from user input.
 	 * @return validated phone number input
 	 */
 	public String getPhoneNumber() {
 
-		String phone = validate.checkPhoneNumber(getNextString());
+		String phone = validate.checkPhoneNumber(getNextString()); // try to retrieve a validated phone number
 
-		if(phone.isEmpty() || phone == null) {
-			View.displayError("\n*** Incorrect phone number format. Please try again. ***\n");
-			return getPhoneNumber();
-		} else {
-			return phone;
+		if(phone.isEmpty() || phone == null) { // if validated String is empty or null
+			View.displayError("\n*** Incorrect phone number format. Please try again. ***\n"); // display message
+			return getPhoneNumber(); // recursively call this method again
+		
+		} else { // if string isn't empty or null
+			return phone; // return it
 		}
 	}
 	
 	/**
-	 * Method responsible to get patient validated PPS Number
+	 * Method responsible for retrieving a validated PPS number from user input.
 	 * @return validated PPS Number input
 	 */
 	public String getPpsNumber() {
-		String pps = "";
-		pps = validate.checkPpsNumber(getNextString());
+		String pps = validate.checkPpsNumber(getNextString()); // try to retrieve a validated PPS number
 		
-		if(pps.isEmpty() || pps == null) {
-			View.displayError("\n*** Incorrect PPS number format. Please type 7 digits followed by 1 or 2 letters. ***\n");
-			return getPpsNumber();
-		} else 
-			return pps;
+		if(pps.isEmpty() || pps == null) { // if validated String is empty or null
+			View.displayError("\n*** Incorrect PPS number format. Please type 7 digits followed by 1 or 2 letters. ***\n"); // display message
+			return getPpsNumber(); // recursively call this method again.
+			
+		} else { // if string isn't empty or null
+			return pps; // return it.
+		}
 	}
 	
-		/**
-	 * Method responsible to get patient validated email
+	/**
+	 * Method responsible for retrieving a validated e-mail address from user input.
 	 * @return validated email input
 	 */
 	public String getEmail() {
-		String email = validate.checkEmail(getNextString());
+		String email = validate.checkEmail(getNextString()); // try to retrieve a validated e-mail address
 		
-		if(email == null || email.isEmpty()) {
-			View.displayError("\n*** Incorrect e-mail address format. Please try again. ***\n");
-			return getEmail();
-		} else 
-			return email;
+		if(email == null || email.isEmpty()) { // if validated String is empty or null
+			View.displayError("\n*** Incorrect e-mail address format. Please try again. ***\n"); // display message
+			return getEmail(); // recursively call this method.
+		
+		} else { // if validates string isn't empty or null
+			return email; // return it
+		}
 	}
 	
 	/**
-	 * Method responsible to return a ID after an user input.
-	 * @return Patient id.
+	 * Method responsible for retrieving a validated PID number from user input.
+	 * @return validated PID number.
 	 */
 	public int getPid() {
-		return getNextInt(Patient.getLastPid());
+		return getNextInt(Patient.getLastPid()); // return validated int considering the last PID generated by the system.
 	}
 
 	/**
-	 * Method responsible to check if a input is Yes
-	 * @return validated yes input
+	 * Method responsible for retrieving a validated Y/N answer from user.
+	 * @return true if user answered yes, false otherwise.
 	 */
 	public boolean isYes() {
 		String answer = "";
@@ -121,8 +133,8 @@ public class Input {
 
 			return validate.checkForYes(answer);
 
-		} catch(Exception e){
-			View.displayError("Error retrieving String from input.");
+		} catch(IllegalArgumentException e){
+			View.displayError("\\n*** Please type Yes(Y) or No(N) only. ***\\n");
 			return isYes();
 		}
 	}

@@ -32,7 +32,7 @@ public class ListController {
 		if(patientPosition <= 0) // if position is invalid
 			return null; 
 		else // if position is valid
-			return ds.list.remove(patientPosition); // remove and return the patient object;
+			return ds.getList().remove(patientPosition); // remove and return the patient object;
 	}
 
 	/**
@@ -41,7 +41,7 @@ public class ListController {
 	 * @return number of patients removed.
 	 */
 	public int deletePatients(int number) {
-		return ds.list.removeLastNodes(number); // calls method from DoublyLinkedList class.
+		return ds.getList().removeLastNodes(number); // calls method from DoublyLinkedList class.
 	}
 
 	/**
@@ -52,8 +52,8 @@ public class ListController {
 	public int searchPatient(int pid){
 		int foundPosition = -1; // variable to store found position
 		
-		for(int x = 1; x < ds.list.size(); x++) // iterate through list
-			if(ds.list.get(x).getPid() == pid) { // if pid is found
+		for(int x = 1; x < ds.getList().size(); x++) // iterate through list
+			if(ds.getList().get(x).getPid() == pid) { // if pid is found
 				foundPosition = x; // save position
 				return foundPosition; // return variable
 			}	
@@ -67,8 +67,8 @@ public class ListController {
 	 * @return Last patient of the list.
 	 */
 	public Patient addPatient(Patient toAdd) {
-		ds.list.addLast(toAdd); // add patient to the end of the list
-		return ds.list.last(); // return last patient (should be the same).
+		ds.getList().addLast(toAdd); // add patient to the end of the list
+		return ds.getList().last(); // return last patient (should be the same).
 	}
 	
 	/**
@@ -78,8 +78,8 @@ public class ListController {
 	 * @return Patient from specific position, after insertion.
 	 */
 	public Patient addPatientByPosition(Patient toAdd, int position) {
-		ds.list.addInPosition(toAdd, position); // calls method to add to the specific position
-		return ds.list.get(position); // return patient from that position (should be the same).
+		ds.getList().addInPosition(toAdd, position); // calls method to add to the specific position
+		return ds.getList().get(position); // return patient from that position (should be the same).
 	}
 	
 	/**
@@ -91,13 +91,13 @@ public class ListController {
 		Priority priority = toAdd.getPriority(); // get patient's priority
 		
 		if(priority == Priority.values()[(Priority.values().length)-1]) { // if priority is the last one
-			ds.list.addLast(toAdd); // add to the end of the list
-			return ds.list.last(); // return last patient (should be the same).
+			ds.getList().addLast(toAdd); // add to the end of the list
+			return ds.getList().last(); // return last patient (should be the same).
 			
 		}else { // if the priority is NOT the last one
 			int foundPosition = getLastPriorityPosition(1, toAdd); // get the right position to add the patient 
-			ds.list.addInPosition(toAdd, foundPosition); // add patient in that position
-			return ds.list.get(foundPosition); // return patient from the same position.
+			ds.getList().addInPosition(toAdd, foundPosition); // add patient in that position
+			return ds.getList().get(foundPosition); // return patient from the same position.
 		}
 	}
 	
@@ -109,9 +109,9 @@ public class ListController {
 	 */
 	public int getLastPriorityPosition(int position, Patient toAdd) {
 		
-		if (position <= ds.list.size()) { //check if the position is valid
+		if (position <= ds.getList().size()) { //check if the position is valid
 			
-			if (comparePatients(ds.list.get(position), toAdd) <= 0) { //if priority of patient from list is higher than or equals to
+			if (comparePatients(ds.getList().get(position), toAdd) <= 0) { //if priority of patient from list is higher than or equals to
 																   //the new patient's priority
 				
 				return getLastPriorityPosition(position+1, toAdd); //recursively call this method with the next position
@@ -141,7 +141,7 @@ public class ListController {
 	 * @return the last patient from the list.
 	 */
 	public Patient getLast() {
-		return ds.list.last();
+		return ds.getList().last();
 	}
 
 	/**
@@ -158,11 +158,11 @@ public class ListController {
 //	 */
 //	public Patient updatePatientPosition(int index, int newPosition){
 //		
-//		for(int i = 1; i < ds.list.size(); i++)
-//			if(ds.list.set(index, newPosition).getPid() == newPosition)	
+//		for(int i = 1; i < ds.getList().size(); i++)
+//			if(ds.getList().set(index, newPosition).getPid() == newPosition)	
 //				newPosition = i;
 //			
-//		return ds.list.get(newPosition);
+//		return ds.getList().get(newPosition);
 //	}
 	
 	/**
@@ -170,7 +170,7 @@ public class ListController {
 	 * @return list size.
 	 */
 	public int getListSize() {
-		return ds.list.size();
+		return ds.getList().size();
 	}
 
 	/**
@@ -182,7 +182,7 @@ public class ListController {
 		if(position>getListSize()) // if position is bigger than list size
 			return null;
 		
-		return ds.list.get(position);	
+		return ds.getList().get(position);	
 	}
 
 	/**
@@ -200,7 +200,7 @@ public class ListController {
 	public void addSamplePatients(){
 		Patient[] sample = SampleData.getSamplePatients(); // retrieve sample data
 		for(int x = 0; x < sample.length; x++) // iterate through array
-			ds.list.addLast(sample[x]); // add every patient
+			ds.getList().addLast(sample[x]); // add every patient
 	}
 
 }
