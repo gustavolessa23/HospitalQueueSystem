@@ -98,7 +98,10 @@ public class PatientManagementSystem{
 	 * Method responsible to add a new user to the system.
 	 */
 	private void addPatient() {
-		View.display("\nADD NEW PATIENT\n-----------------------\n"); // display message
+		View.display("\n"
+				+ "+-------------------+\n" + 
+				  "|  Add New Patient  |\n" + 
+				  "+-------------------+\n" ); // display message
 		String ppsNumber = typePpsNumber(); // calls method to retrieve validated pps number;
 		String name = typeFirstName(); // calls method to retrieve first name;
 		String lastname = typeLastName(); // calls method to retrieve last name;
@@ -178,7 +181,7 @@ public class PatientManagementSystem{
 
 			boolean n_done = false; // determine if user wants finish updating information
 			Patient updtPatient = patients.getPatient(positionID); // patient to be updated.
-			View.displayPatient(updtPatient); // display patient's current information
+			printPatientAndPosition(positionID); // call method to print information and position;
 			int options = view.displayUpdateMenu(); // display update menu and retrieve number of options
 
 			while(!n_done){ // while user wants to update info
@@ -212,8 +215,10 @@ public class PatientManagementSystem{
 
 				case 7:
 					n_done = true; // stop updating info
-					View.displayPatient(updtPatient); // display up-to-date patient
-					View.display("Information Updated Successfully!"); // display message
+					printPatientAndPosition(positionID); // call method to print information and position;
+					View.display("\n+-----------------------------------+\n"
+							+      "| Information Updated Successfully! |\n"
+							+      "+-----------------------------------+"); // display message
 					break;
 				}
 			}

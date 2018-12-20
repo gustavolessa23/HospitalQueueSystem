@@ -14,7 +14,7 @@ public class Validation {
 	 * @param phone
 	 * @return
 	 */
-	public String checkPhoneNumber(String phone) {
+	public String checkPhoneNumber(String phone) throws IllegalArgumentException {
 
 		Pattern pattern = Pattern.compile("^(?:(?:\\(?(?:00|\\+)([1-4]\\d\\d|[1-9]\\"
 				+ "d?)\\)?)?[\\-\\.\\ \\\\\\/]?)?((?:\\(?\\d{1,}\\)?[\\-\\.\\ \\\\\\/]?){0,})"
@@ -23,7 +23,7 @@ public class Validation {
 		if(pattern.matcher(phone).matches()) // if given String matches the pattern
 			return phone; // return it
 		else // if it doesn't match
-			return null; // return null
+			throw new IllegalArgumentException(); // throw exception
 	}
 	
 	/**
@@ -31,7 +31,7 @@ public class Validation {
 	 * @param email (String)
 	 * @return validated e-mail address or null.
 	 */
-	public String checkEmail(String email) {
+	public String checkEmail(String email) throws IllegalArgumentException {
 
 		Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"); // pattern for e-mail address format
@@ -40,7 +40,7 @@ public class Validation {
 			return email; // return it
 		
 		else // if it doesn't match
-			return null; // return null
+			throw new IllegalArgumentException(); // throw exception
 
 	}
 	
@@ -49,7 +49,7 @@ public class Validation {
 	 * @param pps (String)
 	 * @return validated String or empty
 	 */
-	public String checkPpsNumber(String pps) {
+	public String checkPpsNumber(String pps) throws IllegalArgumentException {
 
 		Pattern pattern = Pattern.compile("^(\\d{7})([A-Za-z]{1,2})$"); // pattern for PPS number.
 
@@ -57,7 +57,7 @@ public class Validation {
 			return pps; // return it
 		
 		else // if it doesn't match
-			return ""; // return empty
+			throw new IllegalArgumentException(); // throw exception
 	}
 	
 
@@ -66,7 +66,7 @@ public class Validation {
 	 * @param answer (String)
 	 * @return true if the input is 'Y' or 'yes', case insensitive, false otherwise.
 	 */
-	public boolean checkForYes(String answer){
+	public boolean checkForYes(String answer) throws IllegalArgumentException {
 
 		if(answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("yes")) // if String is y or yes
 			return true; // return true

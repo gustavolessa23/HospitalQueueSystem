@@ -1,5 +1,4 @@
 package patientsystem.view;
-import patientsystem.lib.interfaces.DoublyLinkedListInterface;
 import patientsystem.model.Patient;
 
 /**

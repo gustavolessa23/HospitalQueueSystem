@@ -8,7 +8,7 @@ import patientsystem.view.View;
 
 /**
  * Class representing the input, using Scanner and Validation classes.
- * @author Gustavo LEssa
+ * @author Gustavo Lessa
  *
  */
 public class Input {
@@ -70,14 +70,12 @@ public class Input {
 	 */
 	public String getPhoneNumber() {
 
-		String phone = validate.checkPhoneNumber(getNextString()); // try to retrieve a validated phone number
-
-		if(phone.isEmpty() || phone == null) { // if validated String is empty or null
-			View.displayError("\n*** Incorrect phone number format. Please try again. ***\n"); // display message
-			return getPhoneNumber(); // recursively call this method again
-		
-		} else { // if string isn't empty or null
+		try {
+			String phone = validate.checkPhoneNumber(getNextString()); // try to retrieve a validated phone number
 			return phone; // return it
+		}catch (IllegalArgumentException e){
+			View.displayError("\n*** Incorrect phone number format. Please try again. ***\n"); // display message
+			return getPhoneNumber(); // recursively call this method again		
 		}
 	}
 	
@@ -86,33 +84,34 @@ public class Input {
 	 * @return validated PPS Number input
 	 */
 	public String getPpsNumber() {
-		String pps = validate.checkPpsNumber(getNextString()); // try to retrieve a validated PPS number
 		
-		if(pps.isEmpty() || pps == null) { // if validated String is empty or null
+		try {
+			String pps = validate.checkPpsNumber(getNextString()); // try to retrieve a validated PPS number
+			return pps;
+			
+		}catch (IllegalArgumentException e){
 			View.displayError("\n*** Incorrect PPS number format. Please type 7 digits followed by 1 or 2 letters. ***\n"); // display message
 			return getPpsNumber(); // recursively call this method again.
-			
-		} else { // if string isn't empty or null
-			return pps; // return it.
 		}
 	}
-	
+
 	/**
 	 * Method responsible for retrieving a validated e-mail address from user input.
 	 * @return validated email input
 	 */
 	public String getEmail() {
-		String email = validate.checkEmail(getNextString()); // try to retrieve a validated e-mail address
-		
-		if(email == null || email.isEmpty()) { // if validated String is empty or null
+
+		try {
+			String email = validate.checkEmail(getNextString()); // try to retrieve a validated e-mail address
+			return email;
+			
+		}catch (IllegalArgumentException e){
 			View.displayError("\n*** Incorrect e-mail address format. Please try again. ***\n"); // display message
 			return getEmail(); // recursively call this method.
-		
-		} else { // if validates string isn't empty or null
-			return email; // return it
+
 		}
 	}
-	
+
 	/**
 	 * Method responsible for retrieving a validated PID number from user input.
 	 * @return validated PID number.

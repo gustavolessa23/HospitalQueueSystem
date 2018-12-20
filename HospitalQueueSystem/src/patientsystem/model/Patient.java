@@ -197,7 +197,10 @@ public class Patient implements Comparable<Patient> {
 	public String toString(){
 
 
-		return ("\n\nPatient\n------\n" +
+		return ("\n\n"
+				+ "+-----------+\n" + 
+				  "|  Patient  |\n" + 
+				  "+-----------+\n" +
 
 	               "ID: " + this.getPid() + "\n" +
 	               "PPS: " + this.getPps() + "\n" +
