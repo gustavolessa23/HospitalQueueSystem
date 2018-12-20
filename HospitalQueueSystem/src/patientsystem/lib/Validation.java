@@ -84,10 +84,10 @@ public class Validation {
 	 * @return true if integer is between the specified boundary.
 	 */
 	public boolean checkForInt(int number, int lowerBoundary, int upperBoundary){
-		if(number>=lowerBoundary && number<=upperBoundary)
-			return true;
-		else
-			return false;
+		if(number>=lowerBoundary && number<=upperBoundary) // if number is inside boundaries
+			return true; // return true
+		else // if it isn't
+			return false; // return false
 	}
 
 }

@@ -17,13 +17,13 @@ public class PatientManagementSystem{
 
 
 	/**
-	 * Constructor that initialized variables;
+	 * Constructor that initializes variables;
 	 */
 	public PatientManagementSystem(){
-		this.patients = new ListController();
-		this.view = new View();
-		this.input = new Input();
-		View.displayLogo(); // display logo
+		this.patients = new ListController(); // for list operations
+		this.view = new View(); // for displaying 
+		this.input = new Input(); // to capture input
+		View.displayLogo(); // to display the welcome logo
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class PatientManagementSystem{
 	 */
 	private int choosePosition() {
 		View.display("\nPlease choose the position:");
-		return input.getNextInt(patients.getListSize());
+		return input.getNextInt(patients.getListSize()); // return validated int, maximum being the list size.
 	}
 
 	/**
@@ -379,16 +379,16 @@ public class PatientManagementSystem{
 		StringBuilder sb = new StringBuilder();
 
 		for(int x = 0; x < Priority.getAllDescriptions().length; x++) {
-			sb.append(x+1);
+			sb.append(x+1); // from 1 to the number of priority levels.
 			sb.append(" - ");
 			sb.append(Priority.getAllDescriptions()[x]);
 			sb.append(";\n");
 		}
-		View.display(sb.toString());
+		View.display(sb.toString()); // display created String, a list of all priority levels and descriptions.
 
-		view.displayChooseOption();
-		int response = input.getNextInt(Priority.getAllDescriptions().length);
-		return Priority.getAllOptions()[response-1];
+		view.displayChooseOption(); // display choose option message.
+		int response = input.getNextInt(Priority.getAllDescriptions().length); // get validated input, maximum being the number of priority levels.
+		return Priority.getAllOptions()[response-1]; // return the correct priority level.
 	}
 
 

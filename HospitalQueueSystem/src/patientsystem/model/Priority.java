@@ -4,43 +4,43 @@ public enum Priority {
 
 
 /**
- * This enum represents the priority options along with methods to retrieve
- * lists of options and values.
+ * This ENUM represents the priority options along with methods to retrieve
+ * lists of options and of values.
  * @author Gustavo Lessa
  */
     A("Risk of death / Emergency"), B("Elderly / Pregnant / Disabled"), C("Regular");
 
-    private static final Priority[] priorities = values();
+    private static final Priority[] priorities = values(); // array of all priorities
 
-    private final String description;
-    private final static String[] descriptions = generateArrayDescriptions();
+    private final String description; // description, inside the parenthesis
+    private final static String[] descriptions = generateArrayDescriptions(); // array of Strings, the descriptions.
 
     /**
-     * This constructor creates a new Location.
-     * @param city (String) - name of the city.
+     * This constructor creates a new Priority.
+     * @param city (String) - description of the priority.
      */
     Priority(String description){
         this.description = description;
     }
 
     /**
-     * This method is the accessor for the String city variable.
-     * @return A String of the city's name.
+     * This method is the accessor for the String description.
+     * @return A String of the description.
      */
     public String getDescription(){
         return this.description;
     }
     
     /**
-     * This static method is the accessor of the array of Location options. 
-     * @return (Location[]) - An array of Location objects.
+     * This static method is the accessor of the array of Priority options. 
+     * @return (Priority[]) - An array of Priority objects.
      */
     public static Priority[] getAllOptions(){
         return priorities;
     }
     
     /**
-     * This method returns an array of city names.
+     * This method returns an array of descriptions.
      * @return (String[]) - An array of String objects.
      */
     public static String[] generateArrayDescriptions(){
@@ -51,6 +51,10 @@ public enum Priority {
         return names;
     }
     
+    /**
+     * This static method is the accessor of the array of descriptions.
+     * @return (String[]) - An array of String representing the descriptions of all priority levels.
+     */
     public static String[] getAllDescriptions() {
     	return descriptions;
     }

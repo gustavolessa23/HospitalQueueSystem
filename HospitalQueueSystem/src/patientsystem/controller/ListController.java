@@ -190,7 +190,7 @@ public class ListController {
 	 * @return true for empty, false otherwise.
 	 */
 	public boolean isEmpty() {
-		return (getListSize() == 0);
+		return (getListSize() == 0); // true if list is empty
 	}
 
 

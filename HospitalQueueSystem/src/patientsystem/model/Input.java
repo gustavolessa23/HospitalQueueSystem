@@ -129,13 +129,13 @@ public class Input {
 		String answer = "";
 		try{
 			while(answer.isEmpty())
-				answer = scan.nextLine();
+				answer = scan.nextLine(); // get next line of input
 
-			return validate.checkForYes(answer);
+			return validate.checkForYes(answer); // return validated answer, true if user input is yes or y.
 
-		} catch(IllegalArgumentException e){
-			View.displayError("\\n*** Please type Yes(Y) or No(N) only. ***\\n");
-			return isYes();
+		} catch(IllegalArgumentException e){ // if something different was typed.
+			View.displayError("\\n*** Please type Yes(Y) or No(N) only. ***\\n"); // display message
+			return isYes(); // call itself 
 		}
 	}
 
