@@ -29,6 +29,9 @@ public class PatientManagementSystem{
 
 	}
 
+	/**
+	 * Method responsible to load the Patient sample data. 
+	 */
 	private void loadSampleData(){
 		View.displayLogo();
 		View.display("Would you like to load sample patient data? (Y/N)");
