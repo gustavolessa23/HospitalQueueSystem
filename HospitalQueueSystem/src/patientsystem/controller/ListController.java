@@ -30,7 +30,7 @@ public class ListController {
 		int patientPosition = searchPatient(pid); // retrieve patient's position
 
 		if(patientPosition <= 0) // if position is invalid
-			return null; 
+			return ds.getList().last(); 
 		else // if position is valid
 			return ds.getList().remove(patientPosition); // remove and return the patient object;
 	}

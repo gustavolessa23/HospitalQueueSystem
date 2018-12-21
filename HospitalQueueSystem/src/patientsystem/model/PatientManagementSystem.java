@@ -114,7 +114,9 @@ public class PatientManagementSystem{
 
 		Patient returnedAfterInsertion = null; // variable to check if patient was inserted correctly;
 
-		if(addByPriority()) // if patient should be added according to their priority
+		if(patients.isEmpty()) {
+			returnedAfterInsertion = patients.addPatient(newPatient);
+		}else if(addByPriority()) // if patient should be added according to their priority
 			returnedAfterInsertion = patients.addPatientByPriority(newPatient); // uses the ListController method to add to the list
 
 		else // if the patient should be inserted in a specific position

@@ -2,12 +2,21 @@ package patientsystem.lib;
 
 import patientsystem.lib.interfaces.DoublyLinkedListInterface;
 
+/**
+ * Class responsible for the DoublyLinkedList data type.
+ * @author Gustavo Lessa
+ *
+ * @param <E>
+ */
 public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 
-	private Node<E> header;
-	private Node<E> trailer;
-	private int size = 0;
+	private Node<E> header; // header node
+	private Node<E> trailer; // trailer node
+	private int size = 0; // list size
 
+	/**
+	 * Constructor for a new list.
+	 */
 	public DoublyLinkedList() {
 		header = new Node<>(null, null, null);
 		trailer = new Node<>(null, header, null);
@@ -15,83 +24,57 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 	}
 
 	/**
-	 * Method responsible to add Node into the list
-	 * @param node
-	 */
-	public void addDNode(Node<E> node) {
-		if (header == null) {  // means list is empty, so add first element
-			if (trailer != null)  
-				throw new AssertionError(); // if head points to null then tail should too
-
-			header = node;
-			trailer = header;  // first element so (head == tail)
-		} else {
-			trailer.setNext(node);
-			node.setPrev(trailer);
-			node.setNext(null);
-			trailer = node;
-			this.size++;
-		}
-	}
-
-	/**
-	 * Method responsible to add node into the selected position
-	 * @param e
-	 * @param position
+	 * Method responsible for adding an element into a specific position.
+	 * @param e element to be added
+	 * @param position int
 	 */
 	public void addInPosition(E e, int position) {
-		Node<E> currentPosition = getNode(position);
-		Node<E> toInsert = new Node<>(e);
+		Node<E> currentPosition = getNode(position); // get the node currently at chosen position
+		Node<E> toInsert = new Node<>(e); // create a new node with the given element
 
-		addBefore(toInsert, currentPosition);	
+		addBefore(toInsert, currentPosition); // add new node before the node currently at chosen position
 	}
 
 	/**
-	 * Method responsible to get node position
+	 * Method responsible for getting the element from specified position
 	 * @param position
 	 * @return return element found
 	 */
 	public E get(int position) {
-		if(position <= 0 || position > size)
-			return null;
+		if(position <= 0 || position > size) // if position is invalid
+			return null; // return null
 		
-		return getNode(position).getElement();
+		return getNode(position).getElement(); // otherwise, return the element at chosen position
 	}
 
 	/**
-	 * Method responsible to get a Node element position the a given index number
+	 * Method responsible for getting a Node object from specified position
 	 * @param position
-	 * @returns element position.
+	 * @return Node object from position.
 	 */
 	public Node<E> getNode(int position) {		
-
-		//View.display("Position chosen: "+ position);
-		// System.out.println("Size: "+this.size);
 		
-		if (position > size) return null;
+		if (position > size || position == 0) return null; // if position is invalid
 
-		if (position == 0) return null;
+		Node<E> currentNode = null; // new variable
 
-		Node<E> currentNode = null;
+		if(position < (this.size/2)) { // if position is in the first half of the list
+			currentNode = header; // start from the header
+			for(int x = 0; x<position; x++) // iterate until one before last position
+				currentNode = currentNode.getNext(); // get next element
 
-
-		if(position < (this.size/2)) {
-			currentNode = header;
-			for(int x = 0; x<position; x++) 
-				currentNode = currentNode.getNext();
-
-		} else {
-			currentNode = trailer;
-			for(int x = this.size; x>=position; x--) 
-				currentNode = currentNode.getPrev();
-	
+		} else { // if position is in the second half of the list
+			currentNode = trailer; // start from the trailer
+			for(int x = this.size; x>=position; x--) // iterate from list size until the position
+				currentNode = currentNode.getPrev(); // get previous node.
 		}
-		return currentNode;
+		
+		return currentNode; // return efficiently found node.
 	}
 
 	/**
-	 * Method responsible to ad an element in front of the list.
-	 * @param e
+	 * Method responsible for adding an element to the front of the list.
+	 * @param e Element to be added
 	 */
 	public void addFirst(E e) {
 		addFirst(new Node<>(e, null, header)); 
@@ -100,83 +83,69 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 
 
 	/**
-	 * Method responsible to add an element in end of the list.
-	 * @param e
+	 * Method responsible for adding an element to the end of the list.
+	 * @param e Element to be added
 	 */
 	public void addLast(E e) { 
 		 addLast(new Node<>(e, null, null)); 
 
 	}
 
-	
+	/**
+	 * Method responsible for getting the next node of a given node.
+	 * @param e Node to be read.
+	 * @return next node from given node.
+	 */
 	public Node<E> getNextNode(Node<E> e) {
 		return e.getNext();
 	}
-
-	//	public void removeLastNodes(int numberOfNodes) {
-	//		Node<E> lastNode = getNode(size-numberOfNodes);
-	//		lastNode.setNext(trailer);
-	//		trailer.setPrev(lastNode);
-	//		size = size - numberOfNodes;
-	//
-	//	}
 	
 
 	/**
-	 * Method responsible to remove the last N number of Node
-	 * @param numberOfNodes
-	 * @returns the N number of Node removed.
+	 * Method responsible for removing the last N number of Nodes from the list
+	 * @param numberOfNodes to be removed
+	 * @return the N number of Nodes that were actually removed.
 	 */
 	public int removeLastNodes(int numberOfNodes) {
 		if(numberOfNodes > size) {
 			return -1;
 		} else {
-			Node<E> lastNode = getNode(size-numberOfNodes);
-			lastNode.setNext(trailer);
-			trailer.setPrev(lastNode);
-			size = size - numberOfNodes;
-			return numberOfNodes;
+			Node<E> lastNode = getNode(size-numberOfNodes); // get the new last node
+			//lastNode.setNext(trailer); // set its next node as the trailer
+			trailer.setPrev(lastNode); // the the previous node from the trailer as the new last node
+			size = size - numberOfNodes; // remove the number of nodes from the size
+			return numberOfNodes; // return the number of nodes removed.
 		}
-
-	}
-	
-	/**
-	 * Method to set a new Node position 
-	 * @param index
-	 * @param newPosition
-	 * @return new Node position.
-	 */
-	public E set(int index, int newPosition) {
-		if (index < 0 || index >= size || newPosition < 0 || newPosition >= size) {
-			throw new IndexOutOfBoundsException(Integer.toString(index, newPosition));
-		}
-		Node<E> node = getNode(index);
-		E result = node.getElement();
-		Node<E> element = getNode(newPosition);
-		E result2 = element.getElement();
-		result = result2;	
-		return result;
 	}
 
 	/**
-	 * Method responsible to return the size of the list.
+	 * Method responsible for returning the list size.
+	 * @return list size.
 	 */
 	@Override
 	public int size() { return size; }
 
 	/**
-	 * Method responsible to check if the list is empty
+	 * Method responsible for checking if the list is empty.
+	 * @return true if list is empty, false otherwise.
 	 */
 	@Override
 	public boolean isEmpty() { return size == 0; }
 
-	
+	/**
+	 * Method responsible for returning the first element of the list.
+	 * @return first element of the list.
+	 */
 	@Override
 	public E first() {
 		if (isEmpty()) return null;
 		return header.getNext().getElement();
 	}
 
+	/**
+	 * Method responsible for returning the last element of the list.
+	 * @return last element of the list.
+	 */
 	@Override
 	public E last() {
 		if (isEmpty()) return null;
@@ -184,7 +153,9 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 	}
 
 	/**
-	 * 
+	 * Method responsible for adding a node before a given node.
+	 * @param toBeAdded Node to be added
+	 * @param before Node before of which the toBeAdded will be added.
 	 */
 	@Override
 	public void addBefore(Node<E> toBeAdded, Node<E> before) {
@@ -195,27 +166,11 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 		size++;	
 	}
 
-	
-	public void addFirstEnhanced(E e) {
-		Node<E> currentFirst = header.getNext();
-		Node<E> newNode = new Node<>(e, currentFirst, header);
-
-		currentFirst.setPrev(newNode);
-		header.setNext(newNode);
-		size++;
-
-	}
-
-	public void addLastEnhanced(E e) {
-		Node<E> currentLast = trailer.getPrev();
-		Node<E> newNode = new Node<>(e, trailer, currentLast);
-
-		currentLast.setNext(newNode);
-		trailer.setPrev(newNode);
-		size++;
-
-	}
-
+	/**
+	 * Method responsible for removing a specific node from the list.
+	 * @param node to be removed.
+	 * @return element removed.
+	 */
 	@Override
 	public E remove(Node<E> node) {
 		Node<E> before = node.getPrev();
@@ -223,41 +178,64 @@ public class DoublyLinkedList<E> implements DoublyLinkedListInterface<E> {
 
 		before.setNext(after);
 		after.setPrev(before);
+		before.setNext(trailer);
+		after.setPrev(header);
 		size--;
 
 		return node.getElement();
 	}
 
+	/**
+	 * Method responsible for removing the first element from the list.
+	 * @return first element of the list.
+	 */
 	@Override
 	public E removeFirst() {
 		if (isEmpty()) return null;
 		return remove(header.getNext());
 	}
 
+	/**
+	 * Method responsible for removing the last element from the list.
+	 * @return last element of the list.
+	 */
 	@Override
 	public E removeLast() {
 		if (isEmpty()) return null;
 		return remove(trailer.getPrev());
 	}
 
+	/**
+	 * Method responsible for removing a specific node from the list, according to its position.
+	 * @param position to be removed
+	 * @return element removed
+	 */
 	public E remove(int position) {
 		return remove(getNode(position));
 	}
 
+	/**
+	 * Method responsible for adding a Node to the first position.
+	 * @param node to be added.
+	 */
 	@Override
 	public void addFirst(Node<E> node) { 
 		addBefore(node, header.getNext()); 
 	}
-
+	
+	/**
+	 * Method responsible for adding a Node to the last position.
+	 * @param node to be added.
+	 */
 	@Override
 	public void addLast(Node<E> node) { 
 		addBefore(node, trailer); 
 	}
 
-	public void concatList(DoublyLinkedList<E> list) {
-		//	list.
-	}
-
+	/**
+	 * Method responsible for generating a String using the list information
+	 * @return list as a String.
+	 */
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder("");
