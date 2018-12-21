@@ -151,19 +151,6 @@ public class ListController {
 	public int getLastPid() {
 		return Patient.getLastPid();
 	}
-
-//	/**
-//	 * This method gets a patient ID and add it to a new Position in the list.
-//	 * @param index
-//	 */
-//	public Patient updatePatientPosition(int index, int newPosition){
-//		
-//		for(int i = 1; i < ds.getList().size(); i++)
-//			if(ds.getList().set(index, newPosition).getPid() == newPosition)	
-//				newPosition = i;
-//			
-//		return ds.getList().get(newPosition);
-//	}
 	
 	/**
 	 * Method to check the size of the list
