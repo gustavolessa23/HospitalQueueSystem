@@ -1,7 +1,11 @@
 package patientsystem.view;
-import patientsystem.lib.DoublyLinkedList;
 import patientsystem.model.Patient;
 
+/**
+ * Class responsible for displaying information to the CLI. Can
+ * @author gustavolessa1
+ *
+ */
 public class View {
 
 	public View(){
@@ -10,7 +14,7 @@ public class View {
 
 	/**
 	 * Method to display the main menu
-	 * @return number of choice. 
+	 * @return number of choices. 
 	 */
 	public int displayMainMenu() {
 		int numberOfOptions = 7;
@@ -31,7 +35,7 @@ public class View {
 	}
 	
 	/**
-	 * Method to display the update menu
+	 * Method to display the update menu.
 	 * @return number of choices for the updates
 	 */
 	public int displayUpdateMenu() {
@@ -54,7 +58,7 @@ public class View {
 	}
 	
 	/**
-	 * Method used to display log message
+	 * Method to display welcome logo message.
 	 */
 	public static void displayLogo(){
 		display("\\    /\\    / |‾ ‾  |     /‾ ‾   /‾ ‾\\   /\\    /\\   |‾ ‾   \n" + 
@@ -64,31 +68,24 @@ public class View {
 	}
 	
 	/**
-	 * Method to display an String message.
+	 * Method to display an String.
 	 * @param str
 	 */
 	public static void display(String str) {
 		System.out.println(str);
 	}
 	
-	/**
-	 * Method to display an element into the DoublyLinkedList.
-	 * @param array
-	 */
-	public static <E> void displayPatient(DoublyLinkedList<E> array) {
-		display(array.toString());
-	}
 	
 	/**
-	 * Method to display Patients.
-	 * @param patient
+	 * Method to display a Patient's information.
+	 * @param Patient patient
 	 */
 	public static void displayPatient(Patient patient) {
 		display(patient.toString());
 	}
 	
 	/**
-	 * 
+	 * Method to display an String and keep the same line.
 	 * @param str
 	 */
 	public static void displaySameLine(String str) {
@@ -96,7 +93,7 @@ public class View {
 	}
 	
 	/**
-	 * Method to display a error message.
+	 * Method to display an error message.
 	 * @param str
 	 */
 	public static void displayError(String str) {
@@ -104,23 +101,21 @@ public class View {
 	}
 
 	/**
-	 * Method to print a message for the ID input.
+	 * Method to display a message asking for a Patient ID.
 	 */
 	public static void askForPid() {
 		displaySameLine("Type Patient Number:");
-		
 	}
 
 	/**
-	 * Method to print a empty list message .
+	 * Method to display an empty list message.
 	 */
 	public static void emptyListMessage() {
 		display("The list is empty.");
-		
 	}
 
 	/**
-	 * Method to print the choose option.
+	 * Method to display a 'choose option' message.
 	 */
 	public void displayChooseOption() {
 		display("Please choose an option: ");

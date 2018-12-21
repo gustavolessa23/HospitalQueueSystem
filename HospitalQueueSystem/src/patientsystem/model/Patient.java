@@ -10,7 +10,7 @@ public class Patient implements Comparable<Patient> {
 	private String mobile;
 	private String email;
 	private String city;
-	private char priority;
+	private Priority priority;
 
 	/**
 	 * Patient constructor.
@@ -21,7 +21,7 @@ public class Patient implements Comparable<Patient> {
 	 * @param email
 	 * @param city
 	 */
-	public Patient(String pps, String firstName, String lastName, String mobile, String email, String city, char priority) {
+	public Patient(String pps, String firstName, String lastName, String mobile, String email, String city, Priority priority) {
 		super();
 		this.pid = ++lastPid;
 		this.pps = pps;
@@ -43,15 +43,7 @@ public class Patient implements Comparable<Patient> {
 	 * @param city
 	 */
 	public Patient(String pps, String firstName, String lastName, String mobile, String email, String city) {
-		super();
-		this.pid = ++lastPid;
-		this.pps = pps;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.mobile = mobile;
-		this.email = email;
-		this.city = city;
-		this.priority = 'c';
+		this(pps, firstName, lastName, mobile, email, city, Priority.C);
 	}
 	
 	/**
@@ -59,57 +51,43 @@ public class Patient implements Comparable<Patient> {
 	 * @param name
 	 * @param lastname
 	 */
-	public Patient(String name, String lastname){
-		super();
-		this.pid = ++lastPid;
-		this.pps = null;
-		this.firstName = name;
-		this.lastName = lastname;
-		this.priority = 'c';
+	public Patient(String firstName, String lastName){
+		this(null, firstName, lastName, null, null, null, Priority.C);
 	}
 
 	/**
 	 * Patient constructor.
 	 */
 	public Patient() {
-		super();
-		this.pid = ++lastPid;
-		this.pps = null;
-		this.firstName = null;
-		this.lastName = null;
-		this.mobile = null;
-		this.email = null;
-		this.city = null;
-		this.priority = 'c';
-
+		this(null, null);
 	}
 	
 	/**
-	 * This method gets a Priority id
-	 * @return
+	 * Getter for priority.
+	 * @return priority
 	 */
-	public char getPriority() { 
+	public Priority getPriority() { 
 		return this.priority;
 	}
 
 	/**
-	 * This method set a priority id
-	 * @param c
+	 * Setter for priority.
+	 * @param p New Priority level
 	 */
-	public void setPriority(char c) {
-		this.priority = c;
+	public void setPriority(Priority p) {
+		this.priority = p;
 	}
 
 	/**
-	 * This method gets a patient first name
-	 * @return
+	 * Getter for first name
+	 * @return first name
 	 */
 	public String getFirstName() {
 		return firstName;
 	}
 
 	/**
-	 * This method sets a patient first name.
+	 * Setter for first name.
 	 * @param firstName
 	 */
 	public void setFirstName(String firstName) {
@@ -117,15 +95,15 @@ public class Patient implements Comparable<Patient> {
 	}
 
 	/**
-	 * This method gets a patients last name.
-	 * @return
+	 * Getter for last name.
+	 * @return last name
 	 */
 	public String getLastName() {
 		return lastName;
 	}
 
 	/**
-	 * This method set a patient last name.
+	 * Setter for last name.
 	 * @param lastName
 	 */
 	public void setLastName(String lastName) {
@@ -133,15 +111,15 @@ public class Patient implements Comparable<Patient> {
 	}
 
 	/**
-	 * This method get a patient mobile number.
-	 * @return
+	 * Getter for mobile number.
+	 * @return mobile
 	 */
 	public String getMobile() {
 		return mobile;
 	}
 
 	/**
-	 * This method set a patient mobile number.
+	 * Setter for mobile number.
 	 * @param mobile
 	 */
 	public void setMobile(String mobile) {
@@ -149,7 +127,7 @@ public class Patient implements Comparable<Patient> {
 	}
 
 	/**
-	 * This method gets a patient emial address.
+	 * Getter for e-mail address.
 	 * @return
 	 */
 	public String getEmail() {
@@ -157,7 +135,7 @@ public class Patient implements Comparable<Patient> {
 	}
 
 	/**
-	 * This method set a patient email address
+	 * Setter for e-mail address
 	 * @param email
 	 */
 	public void setEmail(String email) {
@@ -165,15 +143,15 @@ public class Patient implements Comparable<Patient> {
 	}
 
 	/**
-	 * This method gets a patient city
-	 * @return
+	 * Getter for city
+	 * @return city
 	 */
 	public String getCity() {
 		return city;
 	}
 
 	/**
-	 * This method sets a patient city
+	 * Setter for city
 	 * @param city
 	 */
 	public void setCity(String city) {
@@ -181,15 +159,15 @@ public class Patient implements Comparable<Patient> {
 	}
 
 	/**
-	 * This method gets a patient pid 
-	 * @return
+	 * Getter for pid (patient id)
+	 * @return pid
 	 */
 	public int getPid() {
 		return pid;
 	}
 	
 	/**
-	 * This method sets a patient PPS number.
+	 * Setter for PPS number.
 	 * @param pps
 	 */
 	public void setPps(String pps){
@@ -197,15 +175,15 @@ public class Patient implements Comparable<Patient> {
 	}
 
 	/**
-	 * This method gets a patient PPS number.
-	 * @return
+	 * Getter for PPS number.
+	 * @return pps
 	 */
 	public String getPps() {
 		return pps;
 	}
 	
 	/**
-	 * This method gets last patient id.
+	 * This method gets last patient id created by this class.
 	 * @return
 	 */
 	public static int getLastPid() {
@@ -213,13 +191,16 @@ public class Patient implements Comparable<Patient> {
 	}
 
 	/**
-	 * This method display a single patient on CLI.
+	 * This method displays a single patient's information on CLI.
 	 */
 	@Override
 	public String toString(){
 
 
-		return ("\n\nPatient\n------\n" +
+		return ("\n\n"
+				+ "+-----------+\n" + 
+				  "|  Patient  |\n" + 
+				  "+-----------+\n" +
 
 	               "ID: " + this.getPid() + "\n" +
 	               "PPS: " + this.getPps() + "\n" +
@@ -228,14 +209,26 @@ public class Patient implements Comparable<Patient> {
 	               "Mobile Number: " + this.getMobile() + "\n" +
 	               "E-mail: " + this.getEmail() + "\n" +
 	               "City: " + this.getCity() +"\n" +
-	               "Priority: " + this.getPriority()
+	               "Priority: " + this.getPriority().getDescription()
 				);	                       	
 	}
 
-
+	/**
+	 * This method compares two Patient objects, according to their Priority level.
+	 * @return 1 , 0 or -1.
+	 */
 	@Override
 	public int compareTo(Patient o) {
-		return(this.priority - o.getPriority());
+		
+		if (this.priority.compareTo(o.getPriority()) > 0) { // this patient has higher priority than patient o.
+			return 1;
+		} else if (this.priority.compareTo(o.getPriority()) == 0) { // this patient has the same priority as patient o.
+			return 0;
+		} else if (this.priority.compareTo(o.getPriority()) < 0) { // this patient has lower priority than patient o.
+			return -1;
+		} else { // this should be unreachable
+			return -2; 
+		}
 	}
 
 }

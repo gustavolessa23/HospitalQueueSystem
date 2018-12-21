@@ -1,242 +1,235 @@
 package patientsystem.model;
-import java.io.IOException;
-
-import patientsystem.controller.SystemController;
+import patientsystem.controller.ListController;
 import patientsystem.view.TableList;
 import patientsystem.view.View;
 
+/**
+ * This class is responsible for the system, including methods to start it, add patient, load sample data, among others.
+ * @author Gustavo Lessa
+ * @author Fernando Tenorio
+ *
+ */
 public class PatientManagementSystem{
 
-	private SystemController patients;
-	private View view;
-	private Input input;
+	private ListController patients; //controller with access to the data
+	private View view; //view class to print to the console.
+	private Input input; //input class to retrieve validated input from user.
 
 
+	/**
+	 * Constructor that initializes variables;
+	 */
 	public PatientManagementSystem(){
-		this.patients = new SystemController();
-		this.view = new View();
-		this.input = new Input();
+		this.patients = new ListController(); // for list operations
+		this.view = new View(); // for displaying 
+		this.input = new Input(); // to capture input
+		View.displayLogo(); // to display the welcome logo
 	}
 
+	/**
+	 * Method to start the system.
+	 */
 	public void start(){
-		if(patients.isEmpty())
-			loadSampleData();
+		if(patients.isEmpty()) // if there is no patients in the list
+			loadSampleData(); // ask if sample data should be loaded;
 
-		int options = view.displayMainMenu();
-		int chosenOption = input.getNextInt(options);
+		int options = view.displayMainMenu(); // display menu options while saving the number of options.
+		int chosenOption = input.getNextInt(options); // retrieve input using number of options as max.
 
-		mainMenuHandler(chosenOption);
+		mainMenuHandler(chosenOption);  // call the handler with chosen option
 
 	}
 
 	/**
-	 * Method responsible to load the Patient sample data. 
+	 * 
+	 * Method to load sample data if user wants to.
 	 */
 	private void loadSampleData(){
-		View.displayLogo();
-		View.display("Would you like to load sample patient data? (Y/N)");
+		View.display("Would you like to load sample patient data? (Y/N)"); // display message
 
-		if(input.isYes()) 
-			patients.generateSamplePatients();
+		if(input.isYes()) // if user answered 'yes'
+			patients.addSamplePatients(); // generate sample data
 	}
 
+	/**
+	 * Method to execute a method depending on chosen option from main menu.
+	 * @param chosenOption int representing the option.
+	 */
 	private void mainMenuHandler(int chosenOption){
 		switch(chosenOption) {
 
 		case 1:
-			addPatient();
+			addPatient(); // calls method to start add patient wizard
 			break;
 
 		case 2:
-			checkPosition();
+			checkPosition(); // calls method to check patient status.
 			break;
 
 		case 3:
-			updatePatient();
+			updatePatient(); // calls method to update user's information
 			break;
 
 		case 4:
-			//listAll();
-			listAllTable();
+			//listAll(); // calls method to display list of patients using simple formatting.
+			listAllTable(); // calls method to display list as a formatted table;
 			break;		
 
 		case 5:
-			removePatient();
+			removePatient(); // calls method to remove patient
 			break;
 
 		case 6:
-			removeLastPatients();
+			removeLastPatients(); // calls method to remove last N patients.
 			break;	
 
 		case 7:
-			exitSystem();
+			exitSystem(); // calls method to exit system.
 			break;
 
 		default:
-			View.displayError("Option not found!");;
+			// This is supposed to be unreachable, considering there are only 7 options in the main menu and the input is validated.
+			View.displayError("Option not found!"); // error in case other option is chosen. 
 			break;
-
 		}
 		start();
 	}
 
 	/**
-	 * Method responsible to take String as parameters and add the information to create a new Patient into the list
-	 * after a user input.
+	 * Method responsible to add a new user to the system.
 	 */
 	private void addPatient() {
-		View.display("\nADD NEW PATIENT\n-----------------------\n");
-		String ppsNumber = typePpsNumber();
-		String name = typeFirstName();
-		String lastname = typeLastName();
-		String phone = typeMobileNumber();
-		String email = typeEmail();
-		String city = typeCity();
-		char priority = choosePriority();
-		Patient newPatient = new Patient(ppsNumber, name, lastname, phone, email, city, priority);
+		View.display("\n"
+				+ "+-------------------+\n" + 
+				  "|  Add New Patient  |\n" + 
+				  "+-------------------+\n" ); // display message
+		String ppsNumber = typePpsNumber(); // calls method to retrieve validated pps number;
+		String name = typeFirstName(); // calls method to retrieve first name;
+		String lastname = typeLastName(); // calls method to retrieve last name;
+		String phone = typeMobileNumber(); // calls method to retrieve validated mobile number;
+		String email = typeEmail(); // calls method to retrieve validated e-mail;
+		String city = typeCity(); // calls method to retrieve city;
+		Priority priority = choosePriority(); // calls method to retrieve priority
+		Patient newPatient = new Patient(ppsNumber, name, lastname, phone, email, city, priority); // creates a new patient;
 
-		Patient returnedAfterInsertion = null;
-		
-		if(addByPriority()) 
-			returnedAfterInsertion = patients.addPatientByPriority(newPatient); // uses the SystemController method to add to the list
-		
-		else	
-			returnedAfterInsertion = patients.addPatientByPosition(newPatient, choosePosition());			
+		Patient returnedAfterInsertion = null; // variable to check if patient was inserted correctly;
 
-		View.displayPatient(returnedAfterInsertion); // prints the last patient to confirm that it is the same 
+		if(addByPriority()) // if patient should be added according to their priority
+			returnedAfterInsertion = patients.addPatientByPriority(newPatient); // uses the ListController method to add to the list
 
-		View.display("Position in the queue: "+ patients.searchPatient(returnedAfterInsertion.getPid()));
+		else // if the patient should be inserted in a specific position
+			returnedAfterInsertion = patients.addPatientByPosition(newPatient, choosePosition());// uses the ListController method to add to that position.		
+
+		printPatientAndPosition(returnedAfterInsertion.getPid()); // prints the last patient's information and position to confirm that it is the same 
+
 	}
 
-
-
 	/**
-	 * This method is responsible to choose the position that the patient is going to be added
-	 * @return return the last position added in the sytem.
+	 * This method is responsible to retrieve the desired new patient's position from the user.
+	 * @return chosen position.
 	 */
 	private int choosePosition() {
 		View.display("\nPlease choose the position:");
-		return input.getNextInt(patients.getListSize());
+		return input.getNextInt(patients.getListSize()); // return validated int, maximum being the list size.
 	}
 
 	/**
-	 * This method checks which type of priority the patient is being added as
-	 * @return the input number chosen by the user 
+	 * This method checks if the new patient should be inserted according to their priority. 
+	 * @return true if they should be added by their priority
 	 */
 	private boolean addByPriority() {
 		View.display("Where in the list the new patient should be added?\n"+
-					"1 - According to the specified priority;\n"+
-					"2 - Choose specific position");
-		
-		return (input.getNextInt(2) == 1) ? true : false;
+				"1 - According to the specified priority;\n"+
+				"2 - Choose specific position");
+
+		return (input.getNextInt(2) == 1) ? true : false; // if user input '1', return true. False otherwise.
 	}
 
 	/**
-	 * This method return a patient position, by typing ID Number.
+	 * Method to retrieve PID from user and to call another method to display information and position in the queue.
 	 */
 	private void checkPosition() {
-		View.askForPid();
-		int pid = input.getPid();
-		int position = patients.searchPatient(pid);
-		if(position > 0) {
-			View.displayPatient(patients.getPatient(position));
-			View.display("The patient is in position "+position+".");
+		View.askForPid(); // ask for PID
+		int pid = input.getPid(); // retrieve input
+		printPatientAndPosition(pid); // call method to print information and position;
+	}
+	
+	/**
+	 * Method to print patient's information and position in the queue according to a PID number.
+	 * @param pid
+	 */
+	private void printPatientAndPosition(int pid) {
+		int position = patients.searchPatient(pid); // retrieve patient's position according to a PID.
+		if(position > 0) { // if position exists
+			View.displayPatient(patients.getPatient(position)); // display patient's information
+			View.display("The patient is at position "+position+" in the queue."); // display patient's position in the queue.
 		}
 	}
-
-	//	/**
-	//	 * This method a new Patient ID Position by typing the old position, then the new position after the urgency set. 
-	//	 */
-	//	private void updatePatient() {
-	//		// TODO Auto-generated method stub
-	//		View.display("Do you want to update patient? - 1 Yes -- 2 No\n-----------------\n");
-	//		int answer = this.input.validate.checkForInt(this.input.scan, 1, 2);
-	//		if(answer == 1){
-	//			View.display("Select priority A or priority B: \n-----------------\n");
-	//			input.validate.checkForPriority(this.input.scan);
-	//			
-	//			View.askForPid();;
-	//			int oldID = input.getPid();
-	//			
-	//			View.display("Type new patient disired position: \n-----------\n");
-	//			int newID = input.getPid();
-	//			
-	//			if(patients.updatePatient(oldID, newID) != null ){
-	//				View.display("Patient updated successfully!");
-	//			}else{
-	//				View.displayError("Could not upddate patient");
-	//			}
-	//			
-	//		}
-	//		else if(answer == 2){
-	//		}
-	//	}
 
 	/**
-	 * This method is responsible to update patient information by a given ID. 
+	 * This method is responsible for updating a patient's information. 
 	 */
 	private void updatePatient() {
-		View.display("Do you want to update a patient's information? (Y/N)");
 
-		if(input.isYes()){
+		View.askForPid(); // ask for PID;
+		int idUptd = input.getPid(); // save PID 
+		int positionID = patients.searchPatient(idUptd); // save patient's position
 
-			View.askForPid();
-			int idUptd = input.getPid();
-			int positionID = patients.searchPatient(idUptd);
+		if(positionID <= 0) // if position is not greater than 0
+			View.display("Patient not found!"); // patient wasn't found
 
-			if(positionID <= 0)
-				View.display("Patient not found! ");
+		else {
 
-			else {
+			boolean n_done = false; // determine if user wants finish updating information
+			Patient updtPatient = patients.getPatient(positionID); // patient to be updated.
+			printPatientAndPosition(positionID); // call method to print information and position;
+			int options = view.displayUpdateMenu(); // display update menu and retrieve number of options
 
-				boolean n_done = false;
-				Patient updtPatient = patients.getPatient(positionID);
-				View.displayPatient(updtPatient);
-				int options = view.displayUpdateMenu();
+			while(!n_done){ // while user wants to update info
+				view.displayChooseOption(); // display message asking to choose an option
+				int chosen = input.getNextInt(options); // save option
 
-				while(!n_done){
-					view.displayChooseOption();
-					int chosen = input.getNextInt(options);
+				switch (chosen) {
+				case 1:
+					updtPatient.setPps(typePpsNumber()); // change PPS number
+					break;
 
-					switch (chosen) {
-					case 1:
-						updtPatient.setPps(typePpsNumber());
-						break;
+				case 2:
+					updtPatient.setFirstName(typeFirstName()); // change first name			
+					break;
 
-					case 2:
-						updtPatient.setFirstName(typeFirstName());					
-						break;
+				case 3:
+					updtPatient.setLastName(typeLastName()); // change last name
+					break;
 
-					case 3:
-						updtPatient.setLastName(typeLastName());
-						break;
+				case 4:
+					updtPatient.setMobile(typeMobileNumber()); // change mobile number
+					break;
 
-					case 4:
-						updtPatient.setMobile(typeMobileNumber());
-						break;
+				case 5:
+					updtPatient.setEmail(typeEmail()); // change e-mail address
+					break;
 
-					case 5:
-						updtPatient.setEmail(typeEmail());
-						break;
+				case 6:
+					updtPatient.setCity(typeCity()); // change city
+					break;
 
-					case 6:
-						updtPatient.setCity(typeCity());
-						break;
-
-					case 7:
-						n_done = true;
-						View.displayPatient(updtPatient);
-						View.display("Information Updated Successfully!");
-						break;
-					}
+				case 7:
+					n_done = true; // stop updating info
+					printPatientAndPosition(positionID); // call method to print information and position;
+					View.display("\n+-----------------------------------+\n"
+							+      "| Information Updated Successfully! |\n"
+							+      "+-----------------------------------+"); // display message
+					break;
 				}
-			}	
-		}
+			}
+		}	
 	}
+
 
 	/**
 	 * This method return a List of all patients into the List.
-	 * @throws IOException
+	 * 
 	 */
 	private void listAll(){
 		if(!patients.isEmpty()) {
@@ -261,162 +254,147 @@ public class PatientManagementSystem{
 		} else 
 			View.emptyListMessage();
 	}
-	
+
 	/**
-	 * Method responsible to list the table into the system, by getting patient information.
+	 * Method to display a list of patients formatted as a table, ordered by position in the queue.
 	 */
 	private void listAllTable() {
-		if(!patients.isEmpty()) {
-			TableList tl = new TableList(4, "POSITION", "PID", "PRIORITY", "NAME").withUnicode(true)
-																				.align(0, TableList.EnumAlignment.CENTER)
-																				.align(1, TableList.EnumAlignment.CENTER)
-																				.align(2, TableList.EnumAlignment.CENTER);
-			for(int x = 0; x<patients.getListSize(); x++) {
-				Patient p = patients.getPatient(x+1);
-				int position = x+1;
-				tl.addRow(String.valueOf(position),
+		if(!patients.isEmpty()) { // if list is not empty
+			TableList tl = new TableList(4, "POSITION", "PID", "PRIORITY", "NAME").withUnicode(true) // create new table, defining the headers
+					.align(0, TableList.EnumAlignment.CENTER) // align first column to the center;
+					.align(1, TableList.EnumAlignment.CENTER) // align second column to the center;
+					.align(2, TableList.EnumAlignment.CENTER); // align third column to the center;
+			for(int x = 0; x<patients.getListSize(); x++) { // for each patient in the queue
+				Patient p = patients.getPatient(x+1); // retrieve patient
+				int position = x+1; // get position
+				
+				// add new row
+				tl.addRow(String.valueOf(position), 
 						String.valueOf(p.getPid()),
-						String.valueOf(p.getPriority()),
-						p.getFirstName().concat(" ").concat(p.getLastName()));
+						String.valueOf(p.getPriority().getDescription()),
+						p.getFirstName().concat(" ").concat(p.getLastName())); // retrieve name as "First Last"
 			}
 
-			tl.print();
-		} else 
-			View.emptyListMessage();
+			tl.print(); // print table
+			
+		} else  // if list is empty
+			View.emptyListMessage(); // display message
 	}
 
 	/**
-	 * This method remove a patient from the list after a user input.
+	 * Method to remove a patient, according to a PID.
 	 */
 	private void removePatient() {
 
-		View.askForPid();
+		View.askForPid(); // ask for pid
 
+		/*
+		 * Try to delete a patient using user's input.
+		 * The deletion method should return the deleted PID.
+		 * If it returns something, a patient was removed.
+		 */
 		if(patients.deletePatient(input.getPid()) != null) 
-			View.display("Patient removed successfully!");
+			View.display("Patient removed successfully!"); // display message
 
-		else
-			View.displayError("Could not remove patient");
+		else // no patient was deleted
+			View.displayError("Could not remove patient"); // display error message
 	}
 
 	/**
-	 * This method removes a number of N element typed by the user from the end of the List.
+	 * Method to remove N patients (input by user) from the end of the list.
 	 */
 	private void removeLastPatients() {
 
-		View.display("How many patients should be removed from the end of the list?");
+		View.display("How many patients should be removed from the end of the list?"); // display message
 
+		// retrieve input from user and delete patients, validated to just accept existing number of patients
 		int removed = patients.deletePatients(input.getNextInt(patients.getListSize()));
 
-		View.display("\nSuccessfully removed "+ removed + " patients.");
+		View.display("\nSuccessfully removed "+ removed + " patients."); // display amount of users removed.
 	}
 
 	/**
-	 * Method responsible to exit the system
+	 * Method responsible for exiting the system.
 	 */
 	private void exitSystem() {
-		View.display("Thank you for using Hospital Management System!");
+		View.display("Thank you for using Hospital Management System!"); // display message
 		System.exit(0);
 	}
 
-
-
-
-
-	//	/**
-	//	 * This method a new Patient ID Position by typing the old position, then the new position after the urgency set. 
-	//	 */
-	//	private void updatePatient() {
-	//		// TODO Auto-generated method stub
-	//		View.display("Do you want to update patient? - 1 Yes -- 2 No\n-----------------\n");
-	//		int answer = this.input.validate.checkForInt(this.input.scan, 1, 2);
-	//		if(answer == 1){
-	//			View.display("Select priority A or priority B: \n-----------------\n");
-	//			input.validate.checkForPriority(this.input.scan);
-	//			
-	//			View.askForPid();;
-	//			int oldID = input.getPid();
-	//			
-	//			View.display("Type new patient disired position: \n-----------\n");
-	//			int newID = input.getPid();
-	//			
-	//			if(patients.updatePatient(oldID, newID) != null ){
-	//				View.display("Patient updated successfully!");
-	//			}else{
-	//				View.displayError("Could not upddate patient");
-	//			}
-	//			
-	//		}
-	//		else if(answer == 2){
-	//		}
-	//	}
-
 	/**
-	 * This method returns a choice of PPS Number from user input.
-	 * @return
+	 * Method to return validated PPS number input from user.
+	 * @return PPS number
 	 */
 	private String typePpsNumber(){
-		View.display("Please type PPS Number: "); 
-		return input.getPpsNumber();
+		View.display("Please type PPS Number: "); // display message
+		return input.getPpsNumber(); // return validated input
 	}
 
 	/**
-	 * This method returns a choice of Name from user input.
-	 * @return
+	 * Method to return first name input from user.
+	 * @return first name
 	 */
 	private String typeFirstName(){
-		View.display("Please type first name: ");  
-		return input.getNextString();
+		View.display("Please type first name: ");   // display message
+		return input.getNextString(); // return input
 	}
 
 	/**
-	 * This method returns a choice of Surname from user input.
-	 * @return
+	 * Method to return last name input from user.
+	 * @return last name
 	 */
 	private String typeLastName(){
-		View.display("Please type last name: "); 
-		return input.getNextString();
+		View.display("Please type last name: ");  // display message
+		return input.getNextString(); // return input
 	}
 
 	/**
-	 * This method returns a choice of Phone Number from user input.
-	 * @return
+	 * Method to return validated phone number input from user.
+	 * @return validated phone number
 	 */
 	private String typeMobileNumber(){
-		View.display("Please type phone: ");
-		return input.getPhoneNumber();
+		View.display("Please type phone: "); // display message
+		return input.getPhoneNumber(); // return validated input
 	}
 
 	/**
-	 * This method returns a choice of Email from user input.
-	 * @return
+	 * Method to return validated e-mail address input from user.
+	 * @return validated e-mail address
 	 */
 	private String typeEmail(){
-		View.display("Please type email: "); 
-		return input.getEmail();
+		View.display("Please type email: ");  // display message
+		return input.getEmail(); // return validated input
 	}
 
 	/**
-	 * This method returns a choice of city from user input.
-	 * @return
+	 * Method to return city input from user.
+	 * @return city
 	 */
 	private String typeCity(){
-		View.display("Please type city: "); 
-		return input.getNextString();
+		View.display("Please type city: ");  // display message
+		return input.getNextString(); // return input
 	}
-	
+
 	/**
-	 * Method responsible to check the priority type
-	 * @return 
+	 * Method to return desired priority level from user.
+	 * @return Priority level
 	 */
-	private char choosePriority() {
-		View.display("Please choose a priority: \n"+
-				"1 - Risk of death / Emergency;\n"+
-				"2 - Elderly / Pregnant / Disabled;\n"+
-				"3 - Normal priority;");
-		view.displayChooseOption();
-		int reponse = input.getNextInt(3);
-		return (char)(96+reponse);
+	private Priority choosePriority() {
+
+		View.display("Please choose a priority:"); // display message
+		StringBuilder sb = new StringBuilder();
+
+		for(int x = 0; x < Priority.getAllDescriptions().length; x++) {
+			sb.append(x+1); // from 1 to the number of priority levels.
+			sb.append(" - ");
+			sb.append(Priority.getAllDescriptions()[x]);
+			sb.append(";\n");
+		}
+		View.display(sb.toString()); // display created String, a list of all priority levels and descriptions.
+
+		view.displayChooseOption(); // display choose option message.
+		int response = input.getNextInt(Priority.getAllDescriptions().length); // get validated input, maximum being the number of priority levels.
+		return Priority.getAllOptions()[response-1]; // return the correct priority level.
 	}
 
 

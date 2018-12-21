@@ -2,11 +2,17 @@ package patientsystem.lib;
 
 import patientsystem.lib.interfaces.NodeInterface;
 
+/**
+ * Class representing a Node from a DoublyLinkedList.
+ * @author Gustavo Lessa
+ *
+ * @param <E>
+ */
 public class Node<E> implements NodeInterface<E> {
 
-		private E element;
-		private Node<E> prev;
-		private Node<E> next;
+		private E element; // the data
+		private Node<E> prev; // previous node
+		private Node<E> next; // next node
 		
 		/**
 		 * Node constructor
@@ -33,7 +39,7 @@ public class Node<E> implements NodeInterface<E> {
 		}
 
 		/**
-		 * This method gets a Node element
+		 * This method returns the data hold by the node.
 		 */
 		@Override
 		public E getElement() {
@@ -41,7 +47,7 @@ public class Node<E> implements NodeInterface<E> {
 		}
 
 		/**
-		 * This method sets a Node element
+		 * This method sets the node's data
 		 */
 		@Override
 		public void setElement(E element) {
@@ -49,7 +55,7 @@ public class Node<E> implements NodeInterface<E> {
 		}
 
 		/**
-		 * This method gets a Node previous element
+		 * This method returns the previous node.
 		 */
 		@Override
 		public Node<E> getPrev() {
@@ -57,7 +63,7 @@ public class Node<E> implements NodeInterface<E> {
 		}
 
 		/**
-		 * This method set a Node previous element
+		 * This method sets the previous node variable.
 		 */
 		@Override
 		public void setPrev(Node<E> prev) {
@@ -65,7 +71,7 @@ public class Node<E> implements NodeInterface<E> {
 		}
 
 		/**
-		 * This method gets a Node next element.
+		 * This method returns the next node variable.
 		 */
 		@Override
 		public Node<E> getNext() {
@@ -73,7 +79,7 @@ public class Node<E> implements NodeInterface<E> {
 		}
 
 		/**
-		 * This method set a Node next element.
+		 * This method sets the next node variable.
 		 */
 		@Override
 		public void setNext(Node<E> next) {
